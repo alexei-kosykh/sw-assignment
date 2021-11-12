@@ -1,16 +1,23 @@
 {
-  "name": "server",
+  "name": "junior-test-endpoint",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "description": "",
+  "main": "src/main.ts",
   "scripts": {
-    "dev": "nodemon index.js"
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/main.js\""
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-graphql": "^0.12.0",
-    "graphql": "^16.0.1",
-    "nodemon": "^2.0.14"
+    "apollo-server": "^2.23.0",
+    "graphql": "^15.5.0",
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.2",
+    "nodemon": "^2.0.7"
   }
 }
