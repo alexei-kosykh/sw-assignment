@@ -1,26 +1,30 @@
+import React from 'react';
+import styled from 'styled-components';
+import { Route, Routes } from 'react-router-dom';
 
-// import { useQuery } from '@apollo/client';
-// import { useState, useEffect } from 'react';
-// import { GET_ALL_PRODUCTS } from './query/product';
+import { Header } from './components';
+import { Category, Cart, PDP } from './pages';
 
 class App extends React.Component {
-  // const [products, setProducts] = useState([]);
-  // const { data, loading, error } = useQuery(GET_ALL_PRODUCTS);
-
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
-
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return `Error! ${error.message}`;
-  // const test = () => {
-  //   setProducts(data.productsAll);
-  //   console.log(products);
-  // };
-  render (){
-    return <div></div>>
-    }
-
+  render() {
+    return (
+      <AppWrapper>
+        <Header />
+        <Routes>
+          <Route path="/" component={Category} exact />
+          <Route path="/cart" component={Cart} exact />
+          <Route path="/pdp" component={PDP} exact />
+        </Routes>
+      </AppWrapper>
+    );
+  }
 }
 
 export default App;
+
+const AppWrapper = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+`;
+
