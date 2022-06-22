@@ -1,32 +1,26 @@
-import { useQuery } from "@apollo/client";
-import { useState, useEffect } from "react";
-import { GET_ALL_PRODUCTS } from "./query/product";
 
-function App() {
-  const [products, setProducts] = useState([]);
-  const { data, loading, error } = useQuery(GET_ALL_PRODUCTS);
+// import { useQuery } from '@apollo/client';
+// import { useState, useEffect } from 'react';
+// import { GET_ALL_PRODUCTS } from './query/product';
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+class App extends React.Component {
+  // const [products, setProducts] = useState([]);
+  // const { data, loading, error } = useQuery(GET_ALL_PRODUCTS);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return `Error! ${error.message}`;
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
 
-  return (
-    <div>
-      <h1>Проверка</h1>
-      <button>Создать</button>
-      <button>Получить</button>
-      <div>
-        {products.map((product) => (
-          <div>
-            {product.id}, {product.name}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return `Error! ${error.message}`;
+  // const test = () => {
+  //   setProducts(data.productsAll);
+  //   console.log(products);
+  // };
+  render (){
+    return <div></div>>
+    }
+
 }
 
 export default App;
