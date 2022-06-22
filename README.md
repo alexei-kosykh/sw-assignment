@@ -2,9 +2,9 @@
 This is the project for my test assignment in Scandiweb
 ____
 ### For activation "server localhost" use:
-> cd server
+> cd server  
 > yarn dev
 ____
 ### For activation "client localhost" use:
-> cd client
+> cd client  
 > yarn start
