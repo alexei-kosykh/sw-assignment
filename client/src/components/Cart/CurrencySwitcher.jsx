@@ -42,7 +42,7 @@ const StyledCurrency = styled.div`
     }
   }
 
-  &:hover svg path {
+  /* &:hover svg path {
     fill: #5ece7b;
-  }
+  } */
 `;

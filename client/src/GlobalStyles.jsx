@@ -10,6 +10,7 @@ export default createGlobalStyle`
 
   font-family: 'Raleway', sans-serif;
   font-size: 16px;
+  font-weight: 400;
 }
 ul[class],
 ol[class] {
