@@ -11,9 +11,9 @@ class App extends React.Component {
       <AppWrapper>
         <Header />
         <Routes>
-          <Route path="/" component={Category} exact />
-          <Route path="/cart" component={Cart} exact />
-          <Route path="/pdp" component={PDP} exact />
+          <Route path="/" element={<Category />} exact />
+          <Route path="/cart" element={<Cart />} exact />
+          <Route path="/pdp" element={<PDP />} exact />
         </Routes>
       </AppWrapper>
     );
@@ -25,6 +25,8 @@ export default App;
 const AppWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
+  padding: 0 7%;
+
+  color: #1d1f22;
   background-color: #ffffff;
 `;
-
