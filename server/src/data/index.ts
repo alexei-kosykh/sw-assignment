@@ -12,7 +12,7 @@ const shoeSizes = new AttributeSet('Size')
         new Attribute('42'),
         new Attribute('43')
     ]);
-    
+
 
 const clothesSizes = new AttributeSet('Size')
     .addItemList([

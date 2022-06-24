@@ -25,6 +25,7 @@ const HeaderWrapper = styled.div`
   align-items: center;
 
   height: 80px;
+  margin-bottom: 50px;
 
   & div,
   & > img {
