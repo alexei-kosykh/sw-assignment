@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { nanoid } from 'nanoid';
 
-import goods from '../assets/Image.png';
 
 export class ProductCard extends Component {
   constructor(props) {
