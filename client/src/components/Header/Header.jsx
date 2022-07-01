@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { Navigation, Actions } from './';
+import { Navigation, Actions } from '../';
 
-import logo from '../assets/a-logo.png';
+import logo from '../../assets/a-logo.png';
 
 export class Header extends Component {
   render() {
@@ -25,7 +25,7 @@ const HeaderWrapper = styled.div`
   align-items: center;
 
   height: 80px;
-  margin-bottom: 50px;
+  margin-bottom: 45px;
 
   & div,
   & > img {

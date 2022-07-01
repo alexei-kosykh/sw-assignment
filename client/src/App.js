@@ -25,7 +25,7 @@ export default App;
 const AppWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
-  padding: 0 7%;
+  padding: 0 7% 2%;
 
   color: #1d1f22;
   background-color: #ffffff;

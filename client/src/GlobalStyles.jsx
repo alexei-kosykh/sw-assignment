@@ -11,6 +11,7 @@ export default createGlobalStyle`
   font-family: 'Raleway', sans-serif;
   font-size: 16px;
   font-weight: 400;
+
 }
 ul[class],
 ol[class] {
@@ -41,6 +42,7 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
 }
+
 
 input,
 button,

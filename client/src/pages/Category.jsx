@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import { ProductCard } from '../components';
+import { StyledTitle } from '../GeneralStyles';
 export class Category extends Component {
   render() {
     return (
       <StyledCategory>
-        <h1>Category name</h1>
+        <StyledTitle>Category name</StyledTitle>
         <div>
           <ProductCard />
         </div>
@@ -18,16 +19,10 @@ export class Category extends Component {
 export default Category;
 
 const StyledCategory = styled.div`
-  h1 {
-    font-size: 42px;
-    padding-bottom: 100px;
-  }
-
   & > div {
     display: grid;
     justify-items: center;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template: 1fr / 1fr 1fr 1fr 1fr 1fr;
 
     @media (max-width: 2150px) {
       grid-template-columns: 1fr 1fr 1fr 1fr;

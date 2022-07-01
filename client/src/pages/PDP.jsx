@@ -13,7 +13,7 @@ export class PDP extends Component {
     try {
       let result = await this.makeGraphQLQuery(`
       query {
-        product(id:"jacket-canada-goosee") {
+        product(id:"xbox-series-s") {
          name
          prices {
           amount
@@ -21,6 +21,7 @@ export class PDP extends Component {
         }
          gallery
          description
+         brand
          attributes {
           name
           items {
@@ -62,13 +63,6 @@ const StyledPDP = styled.div`
   display: flex;
   gap: 10vw;
 
-  h1,
-  h2 {
-    font-size: 30px;
-  }
-  h1 {
-    font-weight: 600;
-  }
   & {
     @media (max-width: 1060px) {
       gap: 7vw;
