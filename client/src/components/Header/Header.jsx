@@ -37,7 +37,6 @@ export class Header extends Component {
         cartOverlay: false,
         currencySwitcher: false,
       });
-      console.log(event);
     }
   }
 

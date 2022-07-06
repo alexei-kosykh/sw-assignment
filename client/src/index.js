@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+
 import App from './App';
 import Global from './GlobalStyles';
 
@@ -11,14 +14,14 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-
-
 ReactDOM.render(
-  <Router>
-    <ApolloProvider client={client}>
-      <Global />
-      <App />
-    </ApolloProvider>
-  </Router>,
+  <Provider store={store}>
+    <Router>
+      <ApolloProvider client={client}>
+        <Global />
+        <App />
+      </ApolloProvider>
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
