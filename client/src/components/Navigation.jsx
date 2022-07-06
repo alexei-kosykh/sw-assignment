@@ -17,6 +17,7 @@ export default Navigation;
 
 const StyledNavigation = styled.div`
   display: flex;
+  cursor: pointer;
 
   font-weight: 600;
 

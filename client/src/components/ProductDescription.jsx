@@ -18,10 +18,9 @@ export class ProductDescription extends Component {
       .getElementsByTagName('div')[0];
   }
   render() {
-    console.log(this.formatDescription(this.props.product.description));
     return (
       <StyledProductDescription>
-        <StyledTextItem>
+        <StyledTextItem elemSize={this.props.elemSize}>
           <h2>{this.props.product.name}</h2>
           <h3>{this.props.product.brand}</h3>
           {this.props.product.attributes?.map((attr) => (
@@ -58,14 +57,14 @@ export class ProductDescription extends Component {
 export default ProductDescription;
 
 const StyledProductDescription = styled.div`
-  & > button {
+
+  & > div > button {
     margin: 30px 0;
     text-transform: uppercase;
   }
 
   & p:last-child {
     padding-right: 20px;
-    margin-bottom: 7vh;
     max-height: 20vh;
     overflow-y: scroll;
 
@@ -76,5 +75,9 @@ const StyledProductDescription = styled.div`
     &::-webkit-scrollbar-thumb {
       background-color: #5ece7b;
     }
+  }
+
+  p:last-child {
+    margin-bottom: 30px;
   }
 `;

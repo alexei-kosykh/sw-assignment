@@ -40,6 +40,11 @@ const StyledButton = styled.button`
         return css`
           padding: 13px 90px;
         `;
+      case 'primaryMiddle':
+        return css`
+          padding: 0 11%;
+          height: 50px;
+        `;
       case 'primarySmall':
         return css`
           width: 63px;
@@ -49,11 +54,27 @@ const StyledButton = styled.button`
         return css`
           width: 32px;
           height: 32px;
+
+          &:hover {
+            height: 29px;
+            width: 29px;
+          }
+          &:active,
+          &:focus {
+            width: 34px;
+            height: 34px;
+          }
         `;
       case 'colorSmall':
         return css`
           width: 20px;
           height: 20px;
+
+          &:active,
+          &:focus {
+            width: 22px;
+            height: 22px;
+          }
         `;
       case 'counterDefault':
         return css`
@@ -85,7 +106,10 @@ const StyledButton = styled.button`
             outline-offset: 1px;
           }
         `;
-      case 'size' && 'capacity' && 'counter':
+      case 'size':
+      case 'capacity':
+      case 'counter':
+      default:
         return css`
           color: #2b2b2b;
           background-color: #ffffff;
@@ -103,22 +127,16 @@ const StyledButton = styled.button`
           align-self: center;
           outline: 0px solid #5ece7b;
           &:hover {
-            height: 29px;
-            width: 29px;
             box-shadow: 0px 0px 8px 1px rgba(34, 60, 80, 0.18) inset;
             transition: all 0.2s ease-in-out;
           }
           &:active,
           &:focus {
-            width: 34px;
-            height: 34px;
             outline: 1px solid #5ece7b;
             outline-offset: 1px;
             transition: all 0.2s ease-in-out;
           }
         `;
-      default:
-        return css``;
     }
   }}
 `;

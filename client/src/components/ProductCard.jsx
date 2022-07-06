@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { nanoid } from 'nanoid';
 
-
 export class ProductCard extends Component {
   constructor(props) {
     super(props);
@@ -76,7 +75,7 @@ const StyledProductCard = styled.div`
   overflow: hidden;
 
   width: 390px;
-  height: 440px;
+  height: 400px;
   font-size: 18px;
 
   &:hover {

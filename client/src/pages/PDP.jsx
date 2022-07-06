@@ -51,7 +51,7 @@ export class PDP extends Component {
     return (
       <StyledPDP>
         <ProductGallery images={this.state.product.gallery} />
-        <ProductDescription product={this.state.product} />
+        <ProductDescription product={this.state.product} elemSize='Default'/>
       </StyledPDP>
     );
   }

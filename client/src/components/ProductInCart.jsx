@@ -112,6 +112,7 @@ export default ProductInCart;
 
 const StyledProductInCart = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
 
   & > div:first-of-type {
@@ -133,6 +134,10 @@ const StyledProductInCart = styled.div`
           p {
             font-size: 16px;
             font-weight: 700;
+          }
+
+          & > div:first-child div h1 {
+            font-size: 10px;
           }
         `;
 
@@ -173,10 +178,9 @@ const StyledImageCart = styled.div`
   }
 
   .image-cart {
-    position: relative;
     background-image: url('https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016108/product-image/2409L_61_b.jpg');
     background-position: 50% 50%;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
   }
 
@@ -195,6 +199,10 @@ const StyledImageCart = styled.div`
     switch (props.elemSize) {
       case 'Small':
         return css`
+          margin-bottom: 40px;
+          & {
+            height: 190px;
+          }
           .image-cart {
             width: 120px;
             height: 190px;
@@ -210,6 +218,7 @@ const StyledImageCart = styled.div`
       case 'Default':
         return css`
           .image-cart {
+            position: relative;
             width: 200px;
             height: 290px;
 
