@@ -1,57 +1,35 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { ProductGallery, ProductDescription } from '../components';
 import styled from 'styled-components';
+import { store } from '../redux/store';
 
+import { GET_PRODUCT_BY_ID, makeGraphQLQuery } from '../graphQL/Queries';
 export class PDP extends Component {
   constructor(props) {
     super(props);
-    this.state = { error: null, isLoaded: false, product: [], gip: '' };
+    this.state = {
+      error: null,
+      isLoaded: false,
+      product: [],
+    };
   }
 
   async componentDidMount() {
     try {
-      let result = await this.makeGraphQLQuery(`
-      query {
-        product(id:"xbox-series-s") {
-         name
-         prices {
-          amount
-          currency
-        }
-         gallery
-         description
-         brand
-         attributes {
-          name
-          items {
-            value
-          }
-        }
-         }
-       }
-      `);
+      let result = await makeGraphQLQuery(
+        GET_PRODUCT_BY_ID(store.getState().products.currentId)
+      );
       this.setState({ product: result.data.product, isLoaded: true });
     } catch (e) {
       this.setState({ error: e, isLoaded: true });
     }
   }
 
-  makeGraphQLQuery(query) {
-    return axios({
-      method: 'POST',
-      url: 'http://localhost:4000/graphql',
-      data: {
-        query: query,
-      },
-    }).then((response) => response.data);
-  }
-
   render() {
     return (
       <StyledPDP>
         <ProductGallery images={this.state.product.gallery} />
-        <ProductDescription product={this.state.product} elemSize='Default'/>
+        <ProductDescription product={this.state.product} elemSize="Default" />
       </StyledPDP>
     );
   }

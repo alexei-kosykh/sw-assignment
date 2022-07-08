@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { store } from '../redux/store';
 
 import { CartOverlay, CurrencySwitcher } from './';
 export class Actions extends Component {
   render() {
+    const totalCount = store.getState().cart.totalCount;
     return (
       <StyledActions ref={this.props.setWrapperRef}>
         <StyledCurrency>
@@ -62,6 +64,7 @@ export class Actions extends Component {
               fill="#43464E"
             />
           </svg>
+          {!!totalCount && <div className="counter">{totalCount}</div>}
           {this.props.cartOverlay && <CartOverlay />}
         </StyledCart>
       </StyledActions>
@@ -85,6 +88,30 @@ const StyledCart = styled.div`
   &:active svg path,
   &:hover svg path {
     fill: #5ece7b;
+  }
+
+  svg {
+    z-index: 10;
+  }
+
+  .counter {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -7px;
+    right: -13px;
+    width: 20px;
+    height: 20px;
+    z-index: 9;
+
+    background-color: #1d1f22;
+    border-radius: 50%;
+
+    font-size: 14px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 200;
+    color: white;
   }
 `;
 

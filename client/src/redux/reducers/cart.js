@@ -1,15 +1,26 @@
 const initialState = {
-  items: {},
+  items: [],
   totalPrice: 0,
   totalCount: 0,
 };
 
+// const getTotalCount = (arrItems) => arrItems.length;
+
+// const getAllSumByCount = (arr) => {
+//   return Object.keys(arr).reduce((sum, key) => arr[key].items.length + sum, 0);
+// };
+
+// const getStateTotalCount = (state) => {
+//   return state.totalCount;
+// };
+
 export const cart = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_PIZZA_CART': {
+    case 'ADD_PRODUCT_CART': {
+      // const totalCount = getAllSumByCount(state.items);
       return {
         ...state,
-        items: action.type,
+        // totalCount,
       };
     }
 
@@ -20,21 +31,21 @@ export const cart = (state = initialState, action) => {
     case 'PLUS_CART_ITEM': {
       return {
         ...state,
-        items: action.payload,
+        totalCount: action.payload + 1,
       };
     }
 
     case 'MINUS_CART_ITEM': {
       return {
         ...state,
-        items: action.payload,
+        totalCount: action.payload - 1,
       };
     }
 
     case 'REMOVE_CART_ITEM': {
       return {
         ...state,
-        items: action.payload,
+        totalCount: 0,
       };
     }
 

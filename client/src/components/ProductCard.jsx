@@ -1,41 +1,29 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import { nanoid } from 'nanoid';
+import { Link } from 'react-router-dom';
+
+import { GET_ALL_PRODUCTS, makeGraphQLQuery } from '../graphQL/Queries';
+import { store } from '../redux/store';
+import { setIdProduct } from '../redux/actions/products';
 
 export class ProductCard extends Component {
   constructor(props) {
     super(props);
     this.state = { error: null, isLoaded: false, products: [] };
+    this.setId = this.setId.bind(this);
   }
   async componentDidMount() {
     try {
-      let result = await this.makeGraphQLQuery(`
-        query {
-          productsAll {
-            name
-            prices {
-              amount
-              currency
-            }
-            gallery
-          }
-        }
-      `);
+      let result = await makeGraphQLQuery(GET_ALL_PRODUCTS);
       this.setState({ products: result.data.productsAll, isLoaded: true });
     } catch (e) {
       this.setState({ error: e, isLoaded: true });
     }
   }
 
-  makeGraphQLQuery(query) {
-    return axios({
-      method: 'POST',
-      url: 'http://localhost:4000/graphql',
-      data: {
-        query: query,
-      },
-    }).then((response) => response.data);
+  setId(id) {
+    store.dispatch(setIdProduct(id));
   }
 
   render() {
@@ -49,16 +37,27 @@ export class ProductCard extends Component {
         <>
           {products.map((product) => {
             return (
-              <StyledProductCard key={nanoid()} image={product.gallery[0]}>
-                <div>
-                  <div className="image" alt="img"></div>
-                  <h3>{product.name}</h3>
-                  <p>
-                    {product.prices[0].currency}
-                    {product.prices[0].amount}
-                  </p>
-                </div>
-              </StyledProductCard>
+              <Link
+                key={nanoid()}
+                to={{
+                  pathname: '/pdp/',
+                  search: `${product.id}`,
+                }}
+              >
+                <StyledProductCard
+                  image={product.gallery[0]}
+                  onClick={(e) => this.setId(product.id)}
+                >
+                  <div>
+                    <div className="image" alt="img"></div>
+                    <h3>{product.name}</h3>
+                    <p>
+                      {product.prices[0].currency}
+                      {product.prices[0].amount}
+                    </p>
+                  </div>
+                </StyledProductCard>
+              </Link>
             );
           })}
         </>

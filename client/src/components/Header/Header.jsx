@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Navigation, Actions } from '../';
@@ -82,7 +83,9 @@ export class Header extends Component {
     return (
       <HeaderWrapper className={`${this.state.cartOverlay && 'blackout'}`}>
         <Navigation />
-        <img src={logo} alt="logo" />
+        <Link to="/">
+          <img src={logo} alt="logo" />
+        </Link>
         <Actions
           currencySwitcher={this.state.currencySwitcher}
           cartOverlay={this.state.cartOverlay}

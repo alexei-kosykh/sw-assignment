@@ -26,12 +26,8 @@ const StyledButton = styled.button`
 
   ${({ size }) => {
     switch (size) {
-      case 'sizeDefault' && 'capacityDefault':
-        return css`
-          width: 63px;
-          height: 45px;
-        `;
-      case 'sizeSmall' && 'capacitySmall':
+      case 'sizeSmall':
+      case 'capacitySmall':
         return css`
           width: 24px;
           height: 24px;
@@ -86,8 +82,13 @@ const StyledButton = styled.button`
           width: 24px;
           height: 24px;
         `;
+      case 'sizeDefault':
+      case 'capacityDefault':
       default:
-        return css``;
+        return css`
+          width: 63px;
+          height: 45px;
+        `;
     }
   }}
 
@@ -106,20 +107,6 @@ const StyledButton = styled.button`
             outline-offset: 1px;
           }
         `;
-      case 'size':
-      case 'capacity':
-      case 'counter':
-      default:
-        return css`
-          color: #2b2b2b;
-          background-color: #ffffff;
-          border: 1px solid #1d1f22;
-          &:hover,
-          &:active,
-          &:focus {
-            filter: invert(1);
-          }
-        `;
       case 'color':
         return css`
           background-color: ${(props) => props.color};
@@ -135,6 +122,20 @@ const StyledButton = styled.button`
             outline: 1px solid #5ece7b;
             outline-offset: 1px;
             transition: all 0.2s ease-in-out;
+          }
+        `;
+      case 'size':
+      case 'capacity':
+      case 'counter':
+      default:
+        return css`
+          color: #2b2b2b;
+          background-color: #ffffff;
+          border: 1px solid #1d1f22;
+          &:hover,
+          &:active,
+          &:focus {
+            filter: invert(1);
           }
         `;
     }

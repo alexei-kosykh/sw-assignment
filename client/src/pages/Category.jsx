@@ -9,6 +9,7 @@ export class Category extends Component {
       <StyledCategory>
         <StyledTitle>Category name</StyledTitle>
         <div>
+          
           <ProductCard />
         </div>
       </StyledCategory>

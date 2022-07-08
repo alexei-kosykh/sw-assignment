@@ -14,6 +14,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>

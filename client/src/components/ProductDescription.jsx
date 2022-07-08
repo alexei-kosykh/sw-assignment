@@ -5,6 +5,15 @@ import { nanoid } from 'nanoid';
 import { Button } from './';
 import { StyledTextItem } from '../GeneralStyles';
 export class ProductDescription extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { types: {} };
+  }
+
+  componentWillUnmount() {
+    this.setState = { types: {} };
+  }
+
   formatCurrency(amount) {
     return new Intl.NumberFormat(undefined, {
       style: 'currency',
@@ -17,6 +26,14 @@ export class ProductDescription extends Component {
       .parseFromString(string, 'text/html')
       .getElementsByTagName('div')[0];
   }
+
+  onSelectType(index, items) {
+    if (index === this.state.types.index) {
+      this.setState({ types: { [index]: items } });
+    }
+    console.log(index);
+  }
+
   render() {
     return (
       <StyledProductDescription>
@@ -33,6 +50,7 @@ export class ProductDescription extends Component {
                     variant={attr.name.toLowerCase()}
                     size={`${attr.name.toLowerCase()}Default`}
                     value={item.value}
+                    onClick={this.onSelectType(attr.name, attr.items)}
                   ></Button>
                 ))}
               </div>
@@ -57,7 +75,6 @@ export class ProductDescription extends Component {
 export default ProductDescription;
 
 const StyledProductDescription = styled.div`
-
   & > div > button {
     margin: 30px 0;
     text-transform: uppercase;
