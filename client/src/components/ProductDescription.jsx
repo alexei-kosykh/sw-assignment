@@ -2,18 +2,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { nanoid } from 'nanoid';
 
-import { Button } from './';
+import { Button, InputRadioGroup } from './';
 import { StyledTextItem } from '../GeneralStyles';
 export class ProductDescription extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { types: {} };
-  }
-
-  componentWillUnmount() {
-    this.setState = { types: {} };
-  }
-
   formatCurrency(amount) {
     return new Intl.NumberFormat(undefined, {
       style: 'currency',
@@ -27,36 +18,20 @@ export class ProductDescription extends Component {
       .getElementsByTagName('div')[0];
   }
 
-  onSelectType(index, items) {
-    if (index === this.state.types.index) {
-      this.setState({ types: { [index]: items } });
-    }
-    console.log(index);
-  }
-
   render() {
     return (
       <StyledProductDescription>
         <StyledTextItem elemSize={this.props.elemSize}>
           <h2>{this.props.product.name}</h2>
           <h3>{this.props.product.brand}</h3>
-          {this.props.product.attributes?.map((attr) => (
+          {this.props.product.attributes?.map((attr, key) => (
             <div key={nanoid()}>
               <h4 key={nanoid()}>{attr.name}:</h4>
               <div key={nanoid()}>
-                {attr.items?.map((item) => (
-                  <Button
-                    key={nanoid()}
-                    variant={attr.name.toLowerCase()}
-                    size={`${attr.name.toLowerCase()}Default`}
-                    value={item.value}
-                    onClick={this.onSelectType(attr.name, attr.items)}
-                  ></Button>
-                ))}
+                <InputRadioGroup attr={attr} index={key} />
               </div>
             </div>
           ))}
-
           <h4>PRICE:</h4>
           <p>{this.formatCurrency(this.props.product.prices?.[0].amount)}</p>
           <Button
@@ -64,7 +39,6 @@ export class ProductDescription extends Component {
             size="primaryDefault"
             value="Add to cart"
           ></Button>
-
           <p>{this.props.product.description}</p>
         </StyledTextItem>
       </StyledProductDescription>

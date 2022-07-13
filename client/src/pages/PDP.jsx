@@ -52,6 +52,15 @@ const StyledPDP = styled.div`
 
     @media (max-width: 840px) {
       display: block;
+
+      div img {
+        object-fit: contain;
+        object-position: 50%;
+      }
+      & > div {
+        display: flex;
+        justify-content: center;
+      }
     }
   }
 `;

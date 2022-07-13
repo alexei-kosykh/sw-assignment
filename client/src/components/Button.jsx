@@ -26,15 +26,17 @@ const StyledButton = styled.button`
 
   ${({ size }) => {
     switch (size) {
-      case 'sizeSmall':
-      case 'capacitySmall':
-        return css`
-          width: 24px;
-          height: 24px;
-        `;
       case 'primaryDefault':
         return css`
           padding: 13px 90px;
+          & {
+            @media (max-width: 1360px) {
+              padding: 13px 60px;
+            }
+            @media (max-width: 840px) {
+              padding: 13px 90px;
+            }
+          }
         `;
       case 'primaryMiddle':
         return css`
@@ -78,6 +80,12 @@ const StyledButton = styled.button`
           height: 45px;
         `;
       case 'counterSmall':
+        return css`
+          width: 24px;
+          height: 24px;
+        `;
+      case 'sizeSmall':
+      case 'capacitySmall':
         return css`
           width: 24px;
           height: 24px;
