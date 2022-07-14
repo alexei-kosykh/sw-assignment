@@ -30,42 +30,26 @@ export class InputRadio extends Component {
 export default InputRadio;
 
 const StyledInputRadio = styled.div`
+  display: flex;
   input[type='radio'] {
     display: none;
   }
 
   label {
-    display: inline-block;
-    padding: 0px 15px;
-    line-height: 34px;
-    border: 1px solid #999;
-    border-radius: 6px;
-    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  &:not(:last-of-type) {
+    margin-right: 10px;
   }
 
-  input[type='radio']:checked + label {
-    background: #ffe0a6;
-  }
-
-  label:hover {
-    color: #666;
-  }
-
-  input[type='radio']:disabled + label {
-    background: #efefef;
-    color: #666;
-  }
-
-  /* ${({ size }) => {
-    switch (size) {
+  ${(props) => {
+    switch (props.size) {
       case 'colorDefault':
         return css`
-          label:before {
-            content: '';
-            display: inline-block;
-            position: absolute;
-            left: 0;
-            bottom: 1px;
+          label {
             width: 32px;
             height: 32px;
             &:hover {
@@ -73,40 +57,46 @@ const StyledInputRadio = styled.div`
               width: 29px;
             }
             &:active,
-            &:focus,
-            input[type='radio']:checked + label:before {
+            &:focus {
               width: 34px;
               height: 34px;
             }
           }
+          input[type='radio']:checked + label {
+            width: 34px;
+            height: 34px;
+          }
         `;
       case 'colorSmall':
         return css`
-          label:before {
+          label {
             width: 20px;
             height: 20px;
 
             &:active,
-            &:focus,
-            input[type='radio']:checked + label:before {
+            &:focus {
               width: 22px;
               height: 22px;
             }
           }
+          input[type='radio']:checked + label:before {
+            width: 22px;
+            height: 22px;
+          }
         `;
       case 'sizeSmall':
       case 'capacitySmall':
+      case `${props.variant}Small`:
         return css`
-          label:before {
+          label {
             width: 24px;
             height: 24px;
           }
         `;
       case 'sizeDefault':
-      case 'capacityDefault':
       default:
         return css`
-          input[type='radio'] {
+          label {
             width: 63px;
             height: 45px;
           }
@@ -118,7 +108,7 @@ const StyledInputRadio = styled.div`
     switch (props.variant) {
       case 'color':
         return css`
-          input[type='radio'] {
+          label {
             background-color: ${(props) => props.color};
             box-shadow: 0px 0px 1px 1px rgba(40, 118, 73, 0.14) inset;
             align-self: center;
@@ -134,22 +124,30 @@ const StyledInputRadio = styled.div`
               transition: all 0.2s ease-in-out;
             }
           }
+          input[type='radio']:checked + label {
+            outline: 1px solid #5ece7b;
+            outline-offset: 1px;
+            transition: all 0.2s ease-in-out;
+          }
         `;
       case 'size':
-      case 'capacity':
       default:
         return css`
-          input[type='radio'] {
+          label {
+            border: 1px solid #1d1f22;
             color: #2b2b2b;
             background-color: #ffffff;
-            border: 1px solid #1d1f22;
             &:hover,
             &:active,
             &:focus {
               filter: invert(1);
             }
           }
+          input[type='radio']:checked + label {
+            border: 0 solid #1d1f22;
+            filter: invert(1);
+          }
         `;
     }
-  }} */
+  }}
 `;

@@ -1,40 +1,44 @@
-import axios from 'axios';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { nanoid } from 'nanoid';
 
+import { store } from '../redux/store';
+import { GET_CATEGORIES, makeGraphQLQuery } from '../graphQL/Queries';
+import { setCategory } from '../redux/actions/filters';
 export class Navigation extends Component {
   constructor(props) {
     super(props);
     this.state = { categories: [] };
   }
+
   async componentDidMount() {
-    let result = await this.makeGraphQLQuery(`
-        query {
-          productsAll {
-           category
-          }
-        }
-      `);
+    let result = await makeGraphQLQuery(GET_CATEGORIES);
     let set = new Set();
     result.data.productsAll.map((item) => set.add(item.category));
-    this.setState({ categories: set });
+    // console.log(store.getState().filters.category);
+    // console.log(set);
+    this.setState({
+      categories: set,
+      activeCategory: store.getState().filters.category.toLowerCase(),
+    });
   }
 
-  makeGraphQLQuery(query) {
-    return axios({
-      method: 'POST',
-      url: 'http://localhost:4000/graphql',
-      data: {
-        query: query,
-      },
-    }).then((response) => response.data);
+  toogleCategory(item) {
+    store.dispatch(setCategory(item));
+    this.setState({ activeCategory: item.toLowerCase() });
   }
+
   render() {
     return (
       <StyledNavigation>
         {Array.from(this.state.categories).map((item) => (
-          <div key={nanoid()}>{item}</div>
+          <div
+            active={`${item === this.state.activeCategory}`}
+            key={nanoid()}
+            onClick={() => this.toogleCategory(item)}
+          >
+            {item}
+          </div>
         ))}
       </StyledNavigation>
     );
@@ -53,7 +57,8 @@ const StyledNavigation = styled.div`
     margin-right: 3vw;
   }
 
-  div:hover {
+  div:hover,
+  div[active='true'] {
     border-bottom: 2px solid #5ece7b;
     color: #5ece7b;
   }

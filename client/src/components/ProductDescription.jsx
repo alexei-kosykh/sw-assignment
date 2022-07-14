@@ -28,7 +28,10 @@ export class ProductDescription extends Component {
             <div key={nanoid()}>
               <h4 key={nanoid()}>{attr.name}:</h4>
               <div key={nanoid()}>
-                <InputRadioGroup attr={attr} index={key} />
+                <InputRadioGroup
+                  attr={attr}
+                  index={key}
+                />
               </div>
             </div>
           ))}
@@ -56,7 +59,7 @@ const StyledProductDescription = styled.div`
 
   & p:last-child {
     padding-right: 20px;
-    max-height: 20vh;
+    max-height: 17vh;
     overflow-y: scroll;
 
     &::-webkit-scrollbar {

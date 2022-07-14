@@ -10,7 +10,12 @@ import { setIdProduct } from '../redux/actions/products';
 export class ProductCard extends Component {
   constructor(props) {
     super(props);
-    this.state = { error: null, isLoaded: false, products: [] };
+    this.state = {
+      error: null,
+      isLoaded: false,
+      products: [],
+      category: store.getState().filters.category.toLowerCase(),
+    };
     this.setId = this.setId.bind(this);
   }
   async componentDidMount() {
@@ -20,6 +25,18 @@ export class ProductCard extends Component {
     } catch (e) {
       this.setState({ error: e, isLoaded: true });
     }
+
+    this.unsubscribe = store.subscribe(() => this.toogleCategory());
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  toogleCategory() {
+    this.setState({
+      category: store.getState().filters.category.toLowerCase(),
+    });
   }
 
   setId(id) {
@@ -37,27 +54,33 @@ export class ProductCard extends Component {
         <>
           {products.map((product) => {
             return (
-              <Link
-                key={nanoid()}
-                to={{
-                  pathname: '/pdp/',
-                  search: `${product.id}`,
-                }}
-              >
-                <StyledProductCard
-                  image={product.gallery[0]}
-                  onClick={(e) => this.setId(product.id)}
+              product.category === this.state.category && (
+                <Link
+                  key={nanoid()}
+                  to={{
+                    pathname: '/pdp/',
+                    search: `${product.id}`,
+                  }}
                 >
-                  <div>
-                    <div className="image" alt="img"></div>
-                    <h3>{product.name}</h3>
-                    <p>
-                      {product.prices[0].currency}
-                      {product.prices[0].amount}
-                    </p>
-                  </div>
-                </StyledProductCard>
-              </Link>
+                  {console.log(
+                    product.category ===
+                      store.getState().filters.category.toLowerCase()
+                  )}
+                  <StyledProductCard
+                    image={product.gallery[0]}
+                    onClick={(e) => this.setId(product.id)}
+                  >
+                    <div>
+                      <div className="image" alt="img"></div>
+                      <h3>{product.name}</h3>
+                      <p>
+                        {product.prices[0].currency}
+                        {product.prices[0].amount}
+                      </p>
+                    </div>
+                  </StyledProductCard>
+                </Link>
+              )
             );
           })}
         </>

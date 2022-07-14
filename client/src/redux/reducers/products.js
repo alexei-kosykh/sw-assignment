@@ -1,3 +1,4 @@
+
 const initialState = {
   currentId: 'apple-imac-2021',
   items: [],

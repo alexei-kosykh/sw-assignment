@@ -4,13 +4,16 @@ import styled from 'styled-components';
 import { ProductCard } from '../components';
 import { StyledTitle } from '../GeneralStyles';
 export class Category extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { categoryName: '' };
+  }
   render() {
     return (
       <StyledCategory>
-        <StyledTitle>Category name</StyledTitle>
+        <StyledTitle>{this.state.categoryName}</StyledTitle>
         <div>
-          
-          <ProductCard />
+          <ProductCard categoryName={this.setState} />
         </div>
       </StyledCategory>
     );

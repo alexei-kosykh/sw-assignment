@@ -1,6 +1,5 @@
 import { nanoid } from '@reduxjs/toolkit';
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { InputRadio } from './';
 
 export class InputRadioGroup extends Component {
@@ -30,11 +29,10 @@ export class InputRadioGroup extends Component {
         idTarget: +e.target.value,
       },
     });
-
   };
   render() {
     return (
-      <StyledInputRadioGroup>
+      <>
         {this.props.attr.items.map((item, key) => (
           <InputRadio
             key={nanoid()}
@@ -44,22 +42,17 @@ export class InputRadioGroup extends Component {
             ref={this.myRef}
             onClick={this.onSelectType}
             value={item.value}
-            variant={this.props.attr.name.toLowerCase()}
             index={this.props.index}
             indexInput={key}
             state={this.state}
+            variant={this.props.attr.name.toLowerCase()}
+            size={`${this.props.attr.name.toLowerCase()}Default`}
+            color={this.props.attr.name.toLowerCase()}
           />
         ))}
-      </StyledInputRadioGroup>
+      </>
     );
   }
 }
 
 export default InputRadioGroup;
-
-const StyledInputRadioGroup = styled.div`
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;

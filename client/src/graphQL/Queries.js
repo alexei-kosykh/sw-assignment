@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 // const idProduct = ;
 
 export const GET_ALL_PRODUCTS = `
@@ -13,6 +12,15 @@ query {
       currency
     }
     gallery
+    category
+  }
+}
+`;
+
+export const GET_CATEGORIES = `
+query {
+  productsAll {
+   category
   }
 }
 `;

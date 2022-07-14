@@ -42,6 +42,8 @@ const StyledPDP = styled.div`
   gap: 10vw;
 
   & {
+    @media (max-width: 1360px) {
+    }
     @media (max-width: 1060px) {
       gap: 7vw;
     }
