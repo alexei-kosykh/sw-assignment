@@ -4,11 +4,32 @@ import { nanoid } from 'nanoid';
 
 import { Button, InputRadioGroup } from './';
 import { StyledTextItem } from '../GeneralStyles';
+import { store } from '../redux/store';
+import { addProductToCart } from '../redux/actions/cart';
+
 export class ProductDescription extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      idArrayAttributes: [],
+      idProduct: '',
+      allCount: 0,
+      addProduct: false,
+      priceAmount: this.props.product.prices?.[0].amount,
+    };
+    this.productToCart = [];
+    this.attributes = [];
+    this.currency = this.props.product.prices?.map((item) => item.currency);
+  }
+
+  componentDidUpdate() {
+    this.state.addProduct && this.addToCart();
+  }
+
   formatCurrency(amount) {
     return new Intl.NumberFormat(undefined, {
       style: 'currency',
-      currency: 'USD',
+      currency: !this.currency ? 'USD' : this.currency[0],
     }).format(amount);
   }
 
@@ -17,6 +38,56 @@ export class ProductDescription extends Component {
       .parseFromString(string, 'text/html')
       .getElementsByTagName('div')[0];
   }
+
+  incrementCount = () => {
+    this.setState((state) => {
+      return { allCount: state.allCount + 1 };
+    });
+  };
+
+  incrementPriceAmount = () => {
+    this.setState((state) => {
+      return { priceAmount: state.priceAmount + 1 };
+    });
+  };
+
+  generateProductInfo() {
+    this.productToCart[this.state.idProduct] = {
+      [this.state.idArrayAttributes]: {
+        name: this.props.product.name,
+        brand: this.props.product.brand,
+        attr: this.attributes,
+        count: this.state.count,
+        priceAmount: this.state.priceAmount,
+      },
+      allCount: this.state.allCount,
+    };
+    return [this.state.idProduct, this.state.idArrayAttributes];
+  }
+
+  addToCart = () => {
+    const [idProduct, idArrayAttributes] = this.generateProductInfo();
+    // console.log(this.productToCart);
+    // console.log(idProduct);
+    store.dispatch(
+      addProductToCart(
+        this.productToCart[idProduct],
+        idProduct,
+        idArrayAttributes
+      )
+    );
+    this.setState({ addProduct: false });
+  };
+
+  permissionToAdd = () => {
+    const idProduct = this.props.product.name?.toLowerCase().replace(/\s/g, '');
+    const idArrayAttributes = this.attributes
+      .map((item) => item.attrIndex)
+      .join('');
+    this.setState({ addProduct: true, idProduct, idArrayAttributes });
+    this.incrementCount();
+    this.incrementPriceAmount();
+  };
 
   render() {
     return (
@@ -31,6 +102,7 @@ export class ProductDescription extends Component {
                 <InputRadioGroup
                   attr={attr}
                   index={key}
+                  attrSelected={this.attributes}
                 />
               </div>
             </div>
@@ -41,6 +113,7 @@ export class ProductDescription extends Component {
             variant="primary"
             size="primaryDefault"
             value="Add to cart"
+            onClick={this.permissionToAdd}
           ></Button>
           <p>{this.props.product.description}</p>
         </StyledTextItem>

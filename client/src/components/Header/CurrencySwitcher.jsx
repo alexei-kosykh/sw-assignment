@@ -1,26 +1,66 @@
 import React, { Component } from 'react';
+import { nanoid } from 'nanoid';
 
+import { store } from '../../redux/store';
+import { GET_CURRENCY, makeGraphQLQuery } from '../../graphQL/Queries';
+import { setCurrency } from '../../redux/actions/currency';
 import styled from 'styled-components';
 
 export class CurrencySwitcher extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      idCurrency: 0,
+      allCurrency: [],
+      allSymbolCurrency: [],
+    };
+  }
+
+  async componentDidMount() {
+    const result = await makeGraphQLQuery(GET_CURRENCY);
+
+    const allCurrency = result.data.productsAll[0].prices.map(
+      (item) => item.currency
+    );
+    console.log(this.toCurrency(allCurrency));
+    this.setState({
+      idCurrency: 0,
+      allCurrency,
+      allSymbolCurrency: this.toCurrency(allCurrency),
+    });
+  }
+
+  changeCurrency = (index) => {
+    store.dispatch(setCurrency(index, this.state.allSymbolCurrency[index]));
+    this.setState({
+      idCurrency: index,
+    });
+  };
+
+  toCurrency = (curr, LanguageFormat = undefined) =>
+    curr.map((item) =>
+      item === 'RUB'
+        ? '₽'
+        : new Intl.NumberFormat(LanguageFormat, {
+            style: 'currency',
+            currency: `${item}`,
+          })
+            .format()
+            .split('NaN')[0]
+    );
+
   render() {
     return (
       <StyledCurrency>
-        <div>
-          <p>
-            <strong>Э EUR</strong>
-          </p>
-        </div>
-        <div>
-          <p>
-            <strong>$ USD</strong>
-          </p>
-        </div>
-        <div>
-          <p>
-            <strong>Y JPY</strong>
-          </p>
-        </div>
+        {this.state.allCurrency?.map((item, i) => (
+          <div key={nanoid()} onClick={() => this.changeCurrency(i)}>
+            <p>
+              <strong>
+                {this.state.allSymbolCurrency[i]} {item}
+              </strong>
+            </p>
+          </div>
+        ))}
       </StyledCurrency>
     );
   }

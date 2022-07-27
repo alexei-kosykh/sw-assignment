@@ -1,5 +1,7 @@
-export const addProductToCart = (product) => ({
+export const addProductToCart = (product, id, idAttr) => ({
   type: 'ADD_PRODUCT_CART',
+  id: id,
+  idAttr: idAttr,
   payload: product,
 });
 

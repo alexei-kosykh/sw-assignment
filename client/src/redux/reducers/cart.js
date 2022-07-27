@@ -1,5 +1,5 @@
 const initialState = {
-  items: [],
+  items: {},
   totalPrice: 0,
   totalCount: 0,
 };
@@ -14,13 +14,26 @@ const initialState = {
 //   return state.totalCount;
 // };
 
+const getStateItems = (state) => {
+  return state.items;
+};
+
 export const cart = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_PRODUCT_CART': {
       // const totalCount = getAllSumByCount(state.items);
+      // console.log(state);
+
+      const newItems = {
+        ...state.items,
+        [action.id]: {
+          ...state.items[action.id],
+          ...action.payload,
+        },
+      };
       return {
         ...state,
-        // totalCount,
+        items: newItems,
       };
     }
 

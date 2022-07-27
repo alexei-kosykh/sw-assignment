@@ -16,10 +16,12 @@ export class InputRadioGroup extends Component {
         idTarget: 0,
       },
     });
-  }
 
-  componentWillUnmount() {
-    this.setState = {};
+    this.props.attrSelected[dataInput.index] = {
+      nameAttr: this.props.attr.name,
+      attrValue: this.props.attr.items[0].value,
+      attrIndex: 0,
+    };
   }
 
   onSelectType = (e) => {
@@ -29,6 +31,12 @@ export class InputRadioGroup extends Component {
         idTarget: +e.target.value,
       },
     });
+
+    this.props.attrSelected[dataInput.index] = {
+      nameAttr: this.props.attr.name,
+      attrValue: this.props.attr.items[+e.target.value].value,
+      attrIndex: +e.target.value,
+    };
   };
   render() {
     return (

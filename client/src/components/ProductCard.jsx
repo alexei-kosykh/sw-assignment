@@ -34,8 +34,9 @@ export class ProductCard extends Component {
   }
 
   toogleCategory() {
+    const category = store.getState().filters.category.toLowerCase();
     this.setState({
-      category: store.getState().filters.category.toLowerCase(),
+      category,
     });
   }
 
@@ -133,5 +134,9 @@ const StyledProductCard = styled.div`
 
   p {
     font-weight: 500;
+  }
+
+  @media (max-width: 850px) {
+    margin-bottom: 50px;
   }
 `;

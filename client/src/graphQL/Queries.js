@@ -17,6 +17,16 @@ query {
 }
 `;
 
+export const GET_CURRENCY = `
+query {
+  productsAll{
+  prices {
+    currency
+  }
+}
+}
+`;
+
 export const GET_CATEGORIES = `
 query {
   productsAll {

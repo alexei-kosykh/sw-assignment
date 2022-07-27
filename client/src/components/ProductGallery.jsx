@@ -5,15 +5,29 @@ import { nanoid } from 'nanoid';
 import defaultImage from '../assets/default.png';
 
 export class ProductGallery extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      idImage: 0,
+    };
+  }
+
+  changeImage = (index) => {
+    this.setState({
+      idImage: index,
+    });
+  };
+
   render() {
     return (
       <StyledProductGallery>
         <StyledSideGallery>
-          {this.props.images?.map((item) =>
-            item !== this.props.images?.[0] ? (
+          {this.props.images?.map((item, index) =>
+            item !== this.props.images?.[this.state.idImage] ? (
               <img
                 key={nanoid()}
                 src={item}
+                onClick={() => this.changeImage(index)}
                 alt=""
                 onError={({ currentTarget }) => {
                   currentTarget.onerror = null;
@@ -26,7 +40,7 @@ export class ProductGallery extends Component {
           )}
         </StyledSideGallery>
         <div>
-          <img src={this.props.images?.[0]} alt="" />
+          <img src={this.props.images?.[this.state.idImage]} alt="" />
         </div>
       </StyledProductGallery>
     );
@@ -111,7 +125,7 @@ const StyledSideGallery = styled.div`
       width: 90vw;
       & + div {
         img {
-          width:90vw;
+          width: 90vw;
           max-height: 50vh;
           margin-bottom: 20px;
         }

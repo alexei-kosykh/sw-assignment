@@ -3,6 +3,10 @@ import styled, { css } from 'styled-components';
 export const StyledTitle = styled.h1`
   font-size: 42px;
   margin-bottom: 100px;
+
+  @media (max-width: 850px) {
+    margin-bottom: 50px;
+  }
 `;
 export const StyledTextItem = styled.div`
   h4 {

@@ -13,7 +13,7 @@ export class PDP extends Component {
       product: [],
     };
   }
-
+  
   async componentDidMount() {
     try {
       let result = await makeGraphQLQuery(

@@ -5,7 +5,7 @@ const initialState = {
 export const currency = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_CURRENCY':
-      return { ...state, currency: action.payload };
+      return { ...state, index: action.index, currency: action.payload };
 
     default:
       return state;
