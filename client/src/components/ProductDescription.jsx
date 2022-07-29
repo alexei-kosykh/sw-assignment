@@ -67,8 +67,7 @@ export class ProductDescription extends Component {
 
   addToCart = () => {
     const [idProduct, idArrayAttributes] = this.generateProductInfo();
-    // console.log(this.productToCart);
-    // console.log(idProduct);
+
     store.dispatch(
       addProductToCart(
         this.productToCart[idProduct],

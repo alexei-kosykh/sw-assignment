@@ -22,7 +22,6 @@ export const cart = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_PRODUCT_CART': {
       // const totalCount = getAllSumByCount(state.items);
-      // console.log(state);
 
       const newItems = {
         ...state.items,

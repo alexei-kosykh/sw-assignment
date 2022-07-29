@@ -38,6 +38,7 @@ export class ProductCard extends Component {
     this.setState({
       category,
     });
+    this.props.toogleTitle();
   }
 
   setId(id) {
@@ -63,10 +64,7 @@ export class ProductCard extends Component {
                     search: `${product.id}`,
                   }}
                 >
-                  {console.log(
-                    product.category ===
-                      store.getState().filters.category.toLowerCase()
-                  )}
+          
                   <StyledProductCard
                     image={product.gallery[0]}
                     onClick={(e) => this.setId(product.id)}

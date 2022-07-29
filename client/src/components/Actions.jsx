@@ -4,13 +4,26 @@ import { store } from '../redux/store';
 
 import { CartOverlay, CurrencySwitcher } from './';
 export class Actions extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      carrencyType: store.getState().currency.currency,
+    };
+  }
+
+  switchCurrency = () => {
+    this.setState({
+      carrencyType: store.getState().currency.currency,
+    });
+  };
+  
   render() {
     const totalCount = store.getState().cart.totalCount;
     return (
       <StyledActions ref={this.props.setWrapperRef}>
         <StyledCurrency>
           <div onClick={this.props.toogleCurrency}>
-            <b>$</b>
+            <b>{this.state.carrencyType}</b>
             <svg
               className={`${this.props.currencySwitcher && 'rotated'}`}
               width="8"
@@ -28,7 +41,9 @@ export class Actions extends Component {
             </svg>
           </div>
 
-          {this.props.currencySwitcher && <CurrencySwitcher />}
+          {this.props.currencySwitcher && (
+            <CurrencySwitcher switchCurrency={this.switchCurrency} toogleCurrency={this.props.toogleCurrency} />
+          )}
         </StyledCurrency>
 
         <StyledCart>

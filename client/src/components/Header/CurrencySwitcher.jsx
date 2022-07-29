@@ -22,7 +22,6 @@ export class CurrencySwitcher extends Component {
     const allCurrency = result.data.productsAll[0].prices.map(
       (item) => item.currency
     );
-    console.log(this.toCurrency(allCurrency));
     this.setState({
       idCurrency: 0,
       allCurrency,
@@ -35,6 +34,8 @@ export class CurrencySwitcher extends Component {
     this.setState({
       idCurrency: index,
     });
+    this.props.toogleCurrency();
+    this.props.switchCurrency();
   };
 
   toCurrency = (curr, LanguageFormat = undefined) =>

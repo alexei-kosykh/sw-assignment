@@ -15,8 +15,6 @@ export class Navigation extends Component {
     let result = await makeGraphQLQuery(GET_CATEGORIES);
     let set = new Set();
     result.data.productsAll.map((item) => set.add(item.category));
-    // console.log(store.getState().filters.category);
-    // console.log(set);
     this.setState({
       categories: set,
       activeCategory: store.getState().filters.category.toLowerCase(),
