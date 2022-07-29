@@ -13,6 +13,7 @@ export class ProductDescription extends Component {
     this.state = {
       idArrayAttributes: [],
       idProduct: '',
+      countById: 0,
       allCount: 0,
       addProduct: false,
       priceAmount: this.props.product.prices?.[0].amount,
@@ -41,7 +42,7 @@ export class ProductDescription extends Component {
 
   incrementCount = () => {
     this.setState((state) => {
-      return { allCount: state.allCount + 1 };
+      return { allCount: state.allCount + 1, countById: state.countById + 1 };
     });
   };
 
@@ -57,7 +58,10 @@ export class ProductDescription extends Component {
         name: this.props.product.name,
         brand: this.props.product.brand,
         attr: this.attributes,
-        count: this.state.count,
+        count: this.state.countById,
+//исправить счетчик по id. Вынести общий счетчик вне idProduct. Посчитать общую сумму по деньгам. Сумма пересчитывается если меняешь
+// currency. Это можно сделать, если добавить все цены по товару в store. Затем выбирать по idCurrency этот параметр.
+// Сумма по товарам находится как количество * на цену.
         priceAmount: this.state.priceAmount,
       },
       allCount: this.state.allCount,

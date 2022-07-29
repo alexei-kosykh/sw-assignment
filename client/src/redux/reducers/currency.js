@@ -1,5 +1,6 @@
 const initialState = {
   currency: '$',
+  index: 0,
 };
 
 export const currency = (state = initialState, action) => {
@@ -11,3 +12,5 @@ export const currency = (state = initialState, action) => {
       return state;
   }
 };
+
+

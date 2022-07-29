@@ -33,19 +33,20 @@ export class ProductCard extends Component {
     this.unsubscribe();
   }
 
-  toogleCategory() {
+  toogleCategory = () => {
     const category = store.getState().filters.category.toLowerCase();
     this.setState({
       category,
     });
     this.props.toogleTitle();
-  }
+  };
 
   setId(id) {
     store.dispatch(setIdProduct(id));
   }
 
   render() {
+    console.log(this.props);
     const { error, isLoaded, products } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -64,7 +65,6 @@ export class ProductCard extends Component {
                     search: `${product.id}`,
                   }}
                 >
-          
                   <StyledProductCard
                     image={product.gallery[0]}
                     onClick={(e) => this.setId(product.id)}
@@ -73,8 +73,8 @@ export class ProductCard extends Component {
                       <div className="image" alt="img"></div>
                       <h3>{product.name}</h3>
                       <p>
-                        {product.prices[0].currency}
-                        {product.prices[0].amount}
+                        {this.props.currencyType}
+                        {product.prices[this.props.index].amount}
                       </p>
                     </div>
                   </StyledProductCard>

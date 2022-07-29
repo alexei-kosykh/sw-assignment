@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { ProductCard } from '../components';
+import { ProductCardContainer } from '../components';
 import { StyledTitle } from '../GeneralStyles';
 import { store } from '../redux/store';
 
@@ -27,7 +27,7 @@ export class Category extends Component {
           {this.state.category.slice(1).toLowerCase()}
         </StyledTitle>
         <div>
-          <ProductCard toogleTitle={this.toogleTitle} />
+          <ProductCardContainer toogleTitle={this.toogleTitle} />
         </div>
       </StyledCategory>
     );
