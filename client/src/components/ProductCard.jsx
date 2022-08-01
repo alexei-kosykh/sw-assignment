@@ -46,7 +46,6 @@ export class ProductCard extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { error, isLoaded, products } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;

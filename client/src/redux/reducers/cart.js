@@ -6,23 +6,22 @@ const initialState = {
 
 // const getTotalCount = (arrItems) => arrItems.length;
 
-// const getAllSumByCount = (arr) => {
-//   return Object.keys(arr).reduce((sum, key) => arr[key].items.length + sum, 0);
-// };
+const getTotalCountById = (obj, id) => {
+  let totalCount = 0;
+  for (id in obj) {
+    totalCount = Object.values(obj[id]).map((item) => item.count);
+  }
+  return totalCount.reduce((a, b) => a + b);
+};
 
-// const getStateTotalCount = (state) => {
-//   return state.totalCount;
-// };
-
-const getStateItems = (state) => {
-  return state.items;
+const getStateTotalCount = (state) => {
+  return state.totalCount;
 };
 
 export const cart = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_PRODUCT_CART': {
       // const totalCount = getAllSumByCount(state.items);
-
       const newItems = {
         ...state.items,
         [action.id]: {
@@ -30,9 +29,11 @@ export const cart = (state = initialState, action) => {
           ...action.payload,
         },
       };
+      console.log(getTotalCountById(newItems, action.id));
       return {
         ...state,
         items: newItems,
+        totalCount: getStateTotalCount(state) + 1,
       };
     }
 

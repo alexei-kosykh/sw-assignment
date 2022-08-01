@@ -11,20 +11,15 @@ export class ProductDescription extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      idArrayAttributes: [],
-      idProduct: '',
+      idArrayAttributes: 0,
       countById: 0,
-      allCount: 0,
+      totalPrice: 0,
       addProduct: false,
-      priceAmount: this.props.product.prices?.[0].amount,
+      priceById: this.props.product.prices?.[0].amount,
     };
     this.productToCart = [];
     this.attributes = [];
     this.currency = this.props.product.prices?.map((item) => item.currency);
-  }
-
-  componentDidUpdate() {
-    this.state.addProduct && this.addToCart();
   }
 
   formatCurrency(amount) {
@@ -40,11 +35,14 @@ export class ProductDescription extends Component {
       .getElementsByTagName('div')[0];
   }
 
-  incrementCount = () => {
-    this.setState((state) => {
-      return { allCount: state.allCount + 1, countById: state.countById + 1 };
-    });
-  };
+  // incrementCount = () => {
+
+  //   this.setState((state) => {
+  //     return {
+  //       countById: state.countById + 1,
+  //     };
+  //   });
+  // };
 
   incrementPriceAmount = () => {
     this.setState((state) => {
@@ -52,44 +50,35 @@ export class ProductDescription extends Component {
     });
   };
 
-  generateProductInfo() {
-    this.productToCart[this.state.idProduct] = {
-      [this.state.idArrayAttributes]: {
+  generateProductInfo(id, idAttr) {
+    this.productToCart[id] = {
+      [idAttr]: {
         name: this.props.product.name,
         brand: this.props.product.brand,
         attr: this.attributes,
         count: this.state.countById,
-//исправить счетчик по id. Вынести общий счетчик вне idProduct. Посчитать общую сумму по деньгам. Сумма пересчитывается если меняешь
-// currency. Это можно сделать, если добавить все цены по товару в store. Затем выбирать по idCurrency этот параметр.
-// Сумма по товарам находится как количество * на цену.
         priceAmount: this.state.priceAmount,
       },
-      allCount: this.state.allCount,
     };
-    return [this.state.idProduct, this.state.idArrayAttributes];
   }
 
   addToCart = () => {
-    const [idProduct, idArrayAttributes] = this.generateProductInfo();
-
-    store.dispatch(
-      addProductToCart(
-        this.productToCart[idProduct],
-        idProduct,
-        idArrayAttributes
-      )
-    );
-    this.setState({ addProduct: false });
-  };
-
-  permissionToAdd = () => {
-    const idProduct = this.props.product.name?.toLowerCase().replace(/\s/g, '');
-    const idArrayAttributes = this.attributes
+    const idCurrentProduct = this.props.product.name
+      ?.toLowerCase()
+      .replace(/\s/g, '');
+    const idCurrentAttributes = this.attributes
       .map((item) => item.attrIndex)
       .join('');
-    this.setState({ addProduct: true, idProduct, idArrayAttributes });
-    this.incrementCount();
+
+    // this.incrementCount(idCurrentAttributes);
     this.incrementPriceAmount();
+
+    this.generateProductInfo(idCurrentProduct, idCurrentAttributes);
+
+    store.dispatch(
+      addProductToCart(this.productToCart[idCurrentProduct], idCurrentProduct)
+    );
+    this.setState({ addProduct: false });
   };
 
   render() {
@@ -116,7 +105,7 @@ export class ProductDescription extends Component {
             variant="primary"
             size="primaryDefault"
             value="Add to cart"
-            onClick={this.permissionToAdd}
+            onClick={this.addToCart}
           ></Button>
           <p>{this.props.product.description}</p>
         </StyledTextItem>
