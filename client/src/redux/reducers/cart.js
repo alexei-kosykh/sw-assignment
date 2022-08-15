@@ -9,14 +9,14 @@ const getStateTotalCount = (state) => {
 };
 
 const getTotalPrice = (totalPrice, prices) => {
-  return prices.map((item, index) =>
-    totalPrice
+  return prices.map((item, index) => {
+    return totalPrice
       ? {
           amount: totalPrice[index].amount + item.amount,
           currency: item.currency,
         }
-      : item
-  );
+      : item;
+  });
 };
 
 const countProductById = (count) => {
@@ -24,10 +24,10 @@ const countProductById = (count) => {
 };
 
 const getCurrentPrice = (prices, productCount) => {
-  prices.map((item, index) => {
+  return prices.map((item) => {
     return {
       amount: (item.amount * productCount).toFixed(2),
-      currency: prices[index].currency,
+      currency: item.currency,
     };
   });
 };
@@ -58,9 +58,6 @@ export const cart = (state = initialState, action) => {
           },
         },
       };
-      console.log(
-        getCurrentPrice(action.payload[action.idAttr].prices, countById)
-      );
 
       return {
         ...state,

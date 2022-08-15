@@ -1,19 +1,53 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { store } from '../../redux/store';
 import { nanoid } from 'nanoid';
 
 import { ProductInCart, Button } from '..';
 
 export class CartOverlay extends Component {
+  constructor(props) {
+    super(props);
+
+    this.items = this.getInfoForOverlay();
+  }
+
+  getInfoForOverlay = () => {
+    const items = [];
+    let key = 0;
+    Object.values(this.props.items).map((item) =>
+      Object.values(item).map((item) => {
+        items[key] = item;
+        key++;
+      })
+    );
+    return items;
+  };
+
   render() {
     return (
       <StyledCartOverlay>
         <p>
-          <strong>My Bag</strong>, 3 items
+          <strong>My Bag</strong>, {this.props.totalCount} items
         </p>
-        <ProductInCart elemSize="Small" />
+        {this.items.map((item) => (
+          <ProductInCart
+            key={nanoid()}
+            elemSize="Small"
+            name={item.name}
+            brand={item.brand}
+            attr={item.attr}
+            count={item.count}
+            price={item.prices[this.props.currencyObj.index].amount}
+            currencyType={this.props.currencyObj.currency}
+          />
+        ))}
         <div>
-          <strong>Total</strong> <strong>$200</strong>
+          <strong>Total</strong>{' '}
+          <strong>
+            {this.props.currencyObj.currency}
+            {this.props.totalPrice[this.props.currencyObj.index].amount}
+          </strong>
         </div>
         <div>
           <Button key={nanoid()} size={`primaryMiddle`} value={'View bag'} />

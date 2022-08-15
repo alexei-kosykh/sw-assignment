@@ -7,23 +7,31 @@ export class Actions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      carrencyType: store.getState().currency.currency,
+      currencyObj: store.getState().currency,
     };
+  }
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => this.switchCurrency());
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   switchCurrency = () => {
     this.setState({
-      carrencyType: store.getState().currency.currency,
+      currencyObj: store.getState().currency
     });
   };
-  
+
   render() {
-    const totalCount = store.getState().cart.totalCount;
+    const { items, totalCount, totalPrice } = store.getState().cart;
     return (
       <StyledActions ref={this.props.setWrapperRef}>
         <StyledCurrency>
           <div onClick={this.props.toogleCurrency}>
-            <b>{this.state.carrencyType}</b>
+            <b>{this.state.currencyObj.currency}</b>
             <svg
               className={`${this.props.currencySwitcher && 'rotated'}`}
               width="8"
@@ -42,7 +50,10 @@ export class Actions extends Component {
           </div>
 
           {this.props.currencySwitcher && (
-            <CurrencySwitcher switchCurrency={this.switchCurrency} toogleCurrency={this.props.toogleCurrency} />
+            <CurrencySwitcher
+              switchCurrency={this.switchCurrency}
+              toogleCurrency={this.props.toogleCurrency}
+            />
           )}
         </StyledCurrency>
 
@@ -69,7 +80,14 @@ export class Actions extends Component {
             />
           </svg>
           {!!totalCount && <div className="counter">{totalCount}</div>}
-          {this.props.cartOverlay && <CartOverlay />}
+          {this.props.cartOverlay && (
+            <CartOverlay
+              items={items}
+              totalCount={totalCount}
+              totalPrice={totalPrice}
+              currencyObj={this.state.currencyObj}
+            />
+          )}
         </StyledCart>
       </StyledActions>
     );

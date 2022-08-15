@@ -12,30 +12,41 @@ export class ProductInCart extends Component {
         <StyledProductInCart>
           <StyledTextItem elemSize={this.props.elemSize}>
             <div>
-              <h2>Appolo</h2>
-              <h3>Client</h3>
-              <p>$500</p>
-              <h4>Color:</h4>
-              <div>
-                <Button
-                  key={nanoid()}
-                  variant={'color'}
-                  size={`color${this.props.elemSize}`}
-                  value={'#655423'}
-                ></Button>
-                <Button
-                  key={nanoid()}
-                  variant={'color'}
-                  size={`color${this.props.elemSize}`}
-                  value={'#fffff'}
-                ></Button>
-                <Button
-                  key={nanoid()}
-                  variant={'color'}
-                  size={`color${this.props.elemSize}`}
-                  value={'#cc5e23'}
-                ></Button>
-              </div>
+              <h2>{this.props.name}</h2>
+              <h3>{this.props.brand}</h3>
+              <p>
+                {this.props.currencyType}
+                {this.props.price}
+              </p>
+
+              {this.props.attr.map((item) => {
+                return (
+                  <>
+                    {console.log(item)}
+                    <h4 key={nanoid()}>{item.nameAttr}:</h4>
+                    <div key={nanoid()}>
+                      <Button
+                        key={nanoid()}
+                        variant={'color'}
+                        size={`color${this.props.elemSize}`}
+                        value={'#655423'}
+                      ></Button>
+                      <Button
+                        key={nanoid()}
+                        variant={'color'}
+                        size={`color${this.props.elemSize}`}
+                        value={'#fffff'}
+                      ></Button>
+                      <Button
+                        key={nanoid()}
+                        variant={'color'}
+                        size={`color${this.props.elemSize}`}
+                        value={'#cc5e23'}
+                      ></Button>
+                    </div>
+                  </>
+                );
+              })}
             </div>
           </StyledTextItem>
           <StyledImageCart elemSize={this.props.elemSize}>
@@ -46,7 +57,7 @@ export class ProductInCart extends Component {
                 size={`counter${this.props.elemSize}`}
                 value={'+'}
               ></Button>
-              <p>12</p>
+              <p>{this.props.count}</p>
               <Button
                 key={nanoid()}
                 variant={'counter'}
