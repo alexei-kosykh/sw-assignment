@@ -2,20 +2,18 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { nanoid } from 'nanoid';
 
-import { Button, InputRadioGroup } from './';
-import { StyledTextItem } from '../GeneralStyles';
-import { store } from '../redux/store';
-import { addProductToCart } from '../redux/actions/cart';
+import { Button, InputRadioGroup } from '..';
+import { StyledTextItem } from '../../GeneralStyles';
+import { store } from '../../redux/store';
+import { addProductToCart } from '../../redux/actions/cart';
 
 export class ProductDescription extends Component {
   constructor(props) {
     super(props);
     this.state = {
       idArrayAttributes: 0,
-      countById: 0,
       totalPrice: 0,
       addProduct: false,
-      priceById: this.props.product.prices?.[0].amount,
     };
     this.productToCart = [];
     this.attributes = [];
@@ -35,29 +33,13 @@ export class ProductDescription extends Component {
       .getElementsByTagName('div')[0];
   }
 
-  // incrementCount = () => {
-
-  //   this.setState((state) => {
-  //     return {
-  //       countById: state.countById + 1,
-  //     };
-  //   });
-  // };
-
-  incrementPriceAmount = () => {
-    this.setState((state) => {
-      return { priceAmount: state.priceAmount + 1 };
-    });
-  };
-
   generateProductInfo(id, idAttr) {
     this.productToCart[id] = {
       [idAttr]: {
         name: this.props.product.name,
         brand: this.props.product.brand,
         attr: this.attributes,
-        count: this.state.countById,
-        priceAmount: this.state.priceAmount,
+        prices: this.props.product.prices,
       },
     };
   }
@@ -70,13 +52,14 @@ export class ProductDescription extends Component {
       .map((item) => item.attrIndex)
       .join('');
 
-    // this.incrementCount(idCurrentAttributes);
-    this.incrementPriceAmount();
-
     this.generateProductInfo(idCurrentProduct, idCurrentAttributes);
 
     store.dispatch(
-      addProductToCart(this.productToCart[idCurrentProduct], idCurrentProduct)
+      addProductToCart(
+        this.productToCart[idCurrentProduct],
+        idCurrentProduct,
+        idCurrentAttributes
+      )
     );
     this.setState({ addProduct: false });
   };
@@ -100,7 +83,11 @@ export class ProductDescription extends Component {
             </div>
           ))}
           <h4>PRICE:</h4>
-          <p>{this.formatCurrency(this.props.product.prices?.[0].amount)}</p>
+          <p>
+            {`${this.props.currencyType} ${
+              this.props.product.prices?.[this.props.index].amount
+            }`}
+          </p>
           <Button
             variant="primary"
             size="primaryDefault"

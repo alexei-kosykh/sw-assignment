@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { nanoid } from 'nanoid';
 import { Link } from 'react-router-dom';
 
-import { GET_ALL_PRODUCTS, makeGraphQLQuery } from '../graphQL/Queries';
-import { store } from '../redux/store';
-import { setIdProduct } from '../redux/actions/products';
+import { GET_ALL_PRODUCTS, makeGraphQLQuery } from '../../graphQL/Queries';
+import { store } from '../../redux/store';
+import { setIdProduct } from '../../redux/actions/products';
 
 export class ProductCard extends Component {
   constructor(props) {

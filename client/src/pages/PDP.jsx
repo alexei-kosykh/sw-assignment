@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { ProductGallery, ProductDescription } from '../components';
+import { ProductGallery, ProductDescriptionContainer } from '../components';
 import styled from 'styled-components';
 import { store } from '../redux/store';
+
 
 import { GET_PRODUCT_BY_ID, makeGraphQLQuery } from '../graphQL/Queries';
 export class PDP extends Component {
@@ -13,7 +14,7 @@ export class PDP extends Component {
       product: [],
     };
   }
-  
+
   async componentDidMount() {
     try {
       let result = await makeGraphQLQuery(
@@ -29,7 +30,7 @@ export class PDP extends Component {
     return (
       <StyledPDP>
         <ProductGallery images={this.state.product.gallery} />
-        <ProductDescription product={this.state.product} elemSize="Default" />
+        <ProductDescriptionContainer product={this.state.product} elemSize="Default" />
       </StyledPDP>
     );
   }
