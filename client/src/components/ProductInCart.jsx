@@ -6,6 +6,24 @@ import { Button } from './';
 import { StyledTextItem } from '../GeneralStyles';
 
 export class ProductInCart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      image: this.props.images[0],
+    };
+  }
+
+  slideAheadImage = (index) => {
+    this.setState = {
+      image: this.props.images[index + 1],
+    };
+  };
+  slideBackImage = (index) => {
+    this.setState = {
+      image: this.props.images[index - 1],
+    };
+  };
+
   render() {
     return (
       <>
@@ -22,27 +40,22 @@ export class ProductInCart extends Component {
               {this.props.attr.map((item) => {
                 return (
                   <>
-                    {console.log(item)}
                     <h4 key={nanoid()}>{item.nameAttr}:</h4>
                     <div key={nanoid()}>
-                      <Button
-                        key={nanoid()}
-                        variant={'color'}
-                        size={`color${this.props.elemSize}`}
-                        value={'#655423'}
-                      ></Button>
-                      <Button
-                        key={nanoid()}
-                        variant={'color'}
-                        size={`color${this.props.elemSize}`}
-                        value={'#fffff'}
-                      ></Button>
-                      <Button
-                        key={nanoid()}
-                        variant={'color'}
-                        size={`color${this.props.elemSize}`}
-                        value={'#cc5e23'}
-                      ></Button>
+                      {item.attrValue.map((attr, index) => {
+                        return (
+                          <Button
+                            key={nanoid()}
+                            variant={`${item.nameAttr.toLowerCase()}`}
+                            size={`${item.nameAttr.toLowerCase()}${
+                              this.props.elemSize
+                            }`}
+                            value={`${attr.value}`}
+                            active={index === item.attrIndex ? 'active' : false}
+                            disabled
+                          ></Button>
+                        );
+                      })}
                     </div>
                   </>
                 );
@@ -65,7 +78,10 @@ export class ProductInCart extends Component {
                 value={'-'}
               ></Button>
             </div>
-            <div className="image-cart">
+            <div
+              className="image-cart"
+              style={{ backgroundImage: `url(${this.state.image})` }}
+            >
               <div className="flipping-block">
                 <svg
                   width="24"
@@ -138,6 +154,11 @@ const StyledProductInCart = styled.div`
     padding-top: 10px;
   }
 
+  h4 + div {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   ${(props) => {
     switch (props.elemSize) {
       case 'Small':
@@ -189,9 +210,8 @@ const StyledImageCart = styled.div`
   }
 
   .image-cart {
-    background-image: url('https://images.canadagoose.com/image/upload/w_480,c_scale,f_auto,q_auto:best/v1576016108/product-image/2409L_61_b.jpg');
     background-position: 50% 50%;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
   }
 

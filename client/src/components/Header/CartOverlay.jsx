@@ -39,6 +39,7 @@ export class CartOverlay extends Component {
             attr={item.attr}
             count={item.count}
             price={item.prices[this.props.currencyObj.index].amount}
+            images={item.images}
             currencyType={this.props.currencyObj.currency}
           />
         ))}
@@ -46,7 +47,7 @@ export class CartOverlay extends Component {
           <strong>Total</strong>{' '}
           <strong>
             {this.props.currencyObj.currency}
-            {this.props.totalPrice[this.props.currencyObj.index].amount}
+            {this.props.totalPrice[this.props.currencyObj.index]?.amount}
           </strong>
         </div>
         <div>
@@ -91,6 +92,10 @@ const StyledCartOverlay = styled.div`
   p {
     margin-bottom: 30px;
   }
+
+  p:nth-child(3) {
+    margin-bottom: 10px;
+  } // for price in cartOverlay
 
   strong {
     font-weight: 700;

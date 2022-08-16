@@ -40,6 +40,7 @@ export class ProductDescription extends Component {
         brand: this.props.product.brand,
         attr: this.attributes,
         prices: this.props.product.prices,
+        images: this.props.product.gallery
       },
     };
   }

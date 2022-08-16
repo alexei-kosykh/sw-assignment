@@ -21,7 +21,7 @@ export class Actions extends Component {
 
   switchCurrency = () => {
     this.setState({
-      currencyObj: store.getState().currency
+      currencyObj: store.getState().currency,
     });
   };
 

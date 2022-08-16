@@ -9,6 +9,8 @@ export class Button extends Component {
         size={this.props.size}
         color={this.props.value}
         onClick={this.props.onClick}
+        disabled={this.props.disabled}
+        className={this.props.active}
       >
         {this.props.variant === 'color' || this.props.value}
       </StyledButton>
@@ -23,6 +25,16 @@ const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:disabled {
+    pointer-events: none;
+  }
+
+  &:disabled {
+    outline: 1px solid #5ece7b;
+    outline-offset: 1px;
+    transition: all 0.2s ease-in-out;
+  }
 
   ${({ size }) => {
     switch (size) {
@@ -58,18 +70,21 @@ const StyledButton = styled.button`
             width: 29px;
           }
           &:active,
-          &:focus {
+          &:focus,
+          &:disabled + .active {
             width: 34px;
             height: 34px;
           }
         `;
       case 'colorSmall':
         return css`
+          margin-bottom: 5px;
           width: 20px;
           height: 20px;
 
           &:active,
-          &:focus {
+          &:focus,
+          &:disabled + .active {
             width: 22px;
             height: 22px;
           }
@@ -81,14 +96,17 @@ const StyledButton = styled.button`
         `;
       case 'counterSmall':
         return css`
+          margin-bottom: 5px;
           width: 24px;
           height: 24px;
         `;
       case 'sizeSmall':
       case 'capacitySmall':
         return css`
-          width: 24px;
-          height: 24px;
+          margin-bottom: 5px;
+          font-size: 14px;
+          width: 35px;
+          height: 35px;
         `;
       case 'sizeDefault':
       case 'capacityDefault':
@@ -126,7 +144,8 @@ const StyledButton = styled.button`
             transition: all 0.2s ease-in-out;
           }
           &:active,
-          &:focus {
+          &:focus,
+          &:disabled + .active {
             outline: 1px solid #5ece7b;
             outline-offset: 1px;
             transition: all 0.2s ease-in-out;
@@ -142,7 +161,8 @@ const StyledButton = styled.button`
           border: 1px solid #1d1f22;
           &:hover,
           &:active,
-          &:focus {
+          &:focus,
+          &:disabled + .active {
             filter: invert(1);
           }
         `;
