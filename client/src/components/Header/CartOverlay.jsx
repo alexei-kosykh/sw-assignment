@@ -6,12 +6,6 @@ import { nanoid } from 'nanoid';
 import { ProductInCart, Button } from '..';
 
 export class CartOverlay extends Component {
-  constructor(props) {
-    super(props);
-
-    this.items = this.getInfoForOverlay();
-  }
-
   getInfoForOverlay = () => {
     const items = [];
     let key = 0;
@@ -30,7 +24,7 @@ export class CartOverlay extends Component {
         <p>
           <strong>My Bag</strong>, {this.props.totalCount} items
         </p>
-        {this.items.map((item) => (
+        {this.getInfoForOverlay().map((item) => (
           <ProductInCart
             key={nanoid()}
             elemSize="Small"

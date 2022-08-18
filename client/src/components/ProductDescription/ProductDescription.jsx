@@ -17,6 +17,7 @@ export class ProductDescription extends Component {
     };
     this.productToCart = [];
     this.attributes = [];
+
     this.currency = this.props.product.prices?.map((item) => item.currency);
   }
 
@@ -38,9 +39,9 @@ export class ProductDescription extends Component {
       [idAttr]: {
         name: this.props.product.name,
         brand: this.props.product.brand,
-        attr: this.attributes,
+        attr: this.attributes.map((item) => item),
         prices: this.props.product.prices,
-        images: this.props.product.gallery
+        images: this.props.product.gallery,
       },
     };
   }
@@ -52,7 +53,7 @@ export class ProductDescription extends Component {
     const idCurrentAttributes = this.attributes
       .map((item) => item.attrIndex)
       .join('');
-
+    // console.log(this.attributes);
     this.generateProductInfo(idCurrentProduct, idCurrentAttributes);
 
     store.dispatch(

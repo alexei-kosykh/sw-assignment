@@ -39,7 +39,7 @@ export class ProductInCart extends Component {
 
               {this.props.attr.map((item) => {
                 return (
-                  <>
+                  <div key={nanoid()}>
                     <h4 key={nanoid()}>{item.nameAttr}:</h4>
                     <div key={nanoid()}>
                       {item.attrValue.map((attr, index) => {
@@ -57,7 +57,7 @@ export class ProductInCart extends Component {
                         );
                       })}
                     </div>
-                  </>
+                  </div>
                 );
               })}
             </div>
@@ -65,14 +65,12 @@ export class ProductInCart extends Component {
           <StyledImageCart elemSize={this.props.elemSize}>
             <div>
               <Button
-                key={nanoid()}
                 variant={'counter'}
                 size={`counter${this.props.elemSize}`}
                 value={'+'}
               ></Button>
               <p>{this.props.count}</p>
               <Button
-                key={nanoid()}
                 variant={'counter'}
                 size={`counter${this.props.elemSize}`}
                 value={'-'}
@@ -141,6 +139,8 @@ const StyledProductInCart = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 30px;
+
 
   & > div:first-of-type {
     display: flex;

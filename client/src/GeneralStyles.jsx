@@ -18,12 +18,11 @@ export const StyledTextItem = styled.div`
 
   h4 + div {
     display: flex;
-    margin-bottom: 10px;
     & button:not(:last-child) {
       margin-right: 7px;
     }
     &:last-child {
-      margin-bottom: 30px;
+      margin-bottom: 7px;
     }
   }
 

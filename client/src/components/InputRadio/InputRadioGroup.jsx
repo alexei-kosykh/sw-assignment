@@ -20,8 +20,9 @@ export class InputRadioGroup extends Component {
     this.props.attrSelected[dataInput.index] = {
       nameAttr: this.props.attr.name,
       attrValue: this.props.attr.items,
-      attrIndex: this.props.index,
+      attrIndex: 0,
     };
+    // console.log(this.props.index);
   }
 
   onSelectType = (e) => {
@@ -37,6 +38,7 @@ export class InputRadioGroup extends Component {
       attrValue: this.props.attr.items,
       attrIndex: +e.target.value,
     };
+    // console.log(+e.target.value);
   };
   render() {
     return (

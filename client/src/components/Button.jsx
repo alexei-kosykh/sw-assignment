@@ -30,12 +30,6 @@ const StyledButton = styled.button`
     pointer-events: none;
   }
 
-  &:disabled {
-    outline: 1px solid #5ece7b;
-    outline-offset: 1px;
-    transition: all 0.2s ease-in-out;
-  }
-
   ${({ size }) => {
     switch (size) {
       case 'primaryDefault':
@@ -71,7 +65,7 @@ const StyledButton = styled.button`
           }
           &:active,
           &:focus,
-          &:disabled + .active {
+          &.active {
             width: 34px;
             height: 34px;
           }
@@ -84,7 +78,7 @@ const StyledButton = styled.button`
 
           &:active,
           &:focus,
-          &:disabled + .active {
+          &.active {
             width: 22px;
             height: 22px;
           }
@@ -145,7 +139,7 @@ const StyledButton = styled.button`
           }
           &:active,
           &:focus,
-          &:disabled + .active {
+          &.active {
             outline: 1px solid #5ece7b;
             outline-offset: 1px;
             transition: all 0.2s ease-in-out;
@@ -162,7 +156,7 @@ const StyledButton = styled.button`
           &:hover,
           &:active,
           &:focus,
-          &:disabled + .active {
+          &.active {
             filter: invert(1);
           }
         `;
