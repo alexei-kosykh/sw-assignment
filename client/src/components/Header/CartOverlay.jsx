@@ -15,6 +15,7 @@ export class CartOverlay extends Component {
         key++;
       })
     );
+    console.log(this.props.items);
     return items;
   };
 
@@ -37,8 +38,8 @@ export class CartOverlay extends Component {
             currencyType={this.props.currencyObj.currency}
           />
         ))}
-        <div>
-          <strong>Total</strong>{' '}
+        <div className={'total-price'}>
+          <strong>Total</strong>
           <strong>
             {this.props.currencyObj.currency}
             {this.props.totalPrice[this.props.currencyObj.index]?.amount}
@@ -105,5 +106,11 @@ const StyledCartOverlay = styled.div`
     button:first-of-type {
       margin-right: 15px;
     }
+  }
+
+  .total-price {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
   }
 `;

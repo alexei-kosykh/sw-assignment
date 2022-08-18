@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
+import { store } from '../redux/store';
+
 import { nanoid } from 'nanoid';
 
 import { Button } from './';
@@ -18,13 +20,25 @@ export class ProductInCart extends Component {
       image: this.props.images[index + 1],
     };
   };
+
   slideBackImage = (index) => {
     this.setState = {
       image: this.props.images[index - 1],
     };
   };
 
+  incrementCount = (e) => {
+    console.log(e.target);
+    // store.dispatch(
+    //   plusCartItem(
+
+    //   )
+    // );
+  };
+  decrementCount = () => {};
+
   render() {
+    console.log(this.props);
     return (
       <>
         <StyledProductInCart>
@@ -68,12 +82,14 @@ export class ProductInCart extends Component {
                 variant={'counter'}
                 size={`counter${this.props.elemSize}`}
                 value={'+'}
+                onClick={(e) => this.incrementCount()}
               ></Button>
               <p>{this.props.count}</p>
               <Button
                 variant={'counter'}
                 size={`counter${this.props.elemSize}`}
                 value={'-'}
+                onClick={this.decrementCount}
               ></Button>
             </div>
             <div
@@ -140,7 +156,6 @@ const StyledProductInCart = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
-
 
   & > div:first-of-type {
     display: flex;
