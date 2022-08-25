@@ -42,6 +42,8 @@ export class ProductDescription extends Component {
         attr: this.attributes.map((item) => item),
         prices: this.props.product.prices,
         images: this.props.product.gallery,
+        idAttr: idAttr,
+        id: id,
       },
     };
   }

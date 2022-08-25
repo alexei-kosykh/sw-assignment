@@ -14,12 +14,14 @@ export const removeCartItem = (id) => ({
   payload: id,
 });
 
-export const plusCartItem = (id) => ({
+export const plusCartItem = (id, idAttr) => ({
   type: 'PLUS_CART_ITEM',
-  payload: id,
+  id,
+  idAttr,
 });
 
-export const minusCartItem = (id) => ({
+export const minusCartItem = (id, idAttr) => ({
   type: 'MINUS_CART_ITEM',
-  payload: id,
+  id,
+  idAttr,
 });

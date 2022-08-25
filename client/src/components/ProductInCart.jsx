@@ -3,9 +3,9 @@ import styled, { css } from 'styled-components';
 import { store } from '../redux/store';
 
 import { nanoid } from 'nanoid';
-
 import { Button } from './';
 import { StyledTextItem } from '../GeneralStyles';
+import { plusCartItem, minusCartItem } from '../redux/actions/cart';
 
 export class ProductInCart extends Component {
   constructor(props) {
@@ -27,18 +27,15 @@ export class ProductInCart extends Component {
     };
   };
 
-  incrementCount = (e) => {
-    console.log(e.target);
-    // store.dispatch(
-    //   plusCartItem(
-
-    //   )
-    // );
+  incrementCount = () => {
+    store.dispatch(plusCartItem(this.props.id, this.props.idAttr));
   };
-  decrementCount = () => {};
+  decrementCount = () => {
+    store.dispatch(minusCartItem(this.props.id, this.props.idAttr));
+  };
 
   render() {
-    console.log(this.props);
+    // this.decrementCount();
     return (
       <>
         <StyledProductInCart>
@@ -82,7 +79,7 @@ export class ProductInCart extends Component {
                 variant={'counter'}
                 size={`counter${this.props.elemSize}`}
                 value={'+'}
-                onClick={(e) => this.incrementCount()}
+                onClick={this.incrementCount}
               ></Button>
               <p>{this.props.count}</p>
               <Button
