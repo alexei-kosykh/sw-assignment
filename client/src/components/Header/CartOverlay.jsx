@@ -18,34 +18,26 @@ export class CartOverlay extends Component {
     return items;
   };
 
-  getCurrentItem = () => {
-    // console.log(Object.keys(this.props.items));
-  };
-
   render() {
-    this.getCurrentItem();
     return (
       <StyledCartOverlay>
         <p>
           <strong>My Bag</strong>, {this.props.totalCount} items
         </p>
         {this.getInfoForOverlay().map((item, key) => (
-          <>
-            {console.log(item)}
-            <ProductInCart
-              key={nanoid()}
-              id={item.id}
-              idAttr={item.idAttr}
-              elemSize="Small"
-              name={item.name}
-              brand={item.brand}
-              attr={item.attr}
-              count={item.count}
-              price={item.prices[this.props.currencyObj.index].amount}
-              images={item.images}
-              currencyType={this.props.currencyObj.currency}
-            />
-          </>
+          <ProductInCart
+            key={nanoid()}
+            id={item.id}
+            idAttr={item.idAttr}
+            elemSize="Small"
+            name={item.name}
+            brand={item.brand}
+            attr={item.attr}
+            count={item.count}
+            price={item.prices[this.props.currencyObj.index].amount}
+            images={item.images}
+            currencyType={this.props.currencyObj.currency}
+          />
         ))}
         <div className={'total-price'}>
           <strong>Total</strong>

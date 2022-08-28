@@ -12,7 +12,7 @@ const getTotalPrice = (totalPrice, prices) => {
   return prices.map((item, index) => {
     return totalPrice
       ? {
-          amount: totalPrice[index].amount + item.amount,
+          amount: +(totalPrice[index].amount + +item.amount).toFixed(2),
           currency: item.currency,
         }
       : item;
@@ -24,7 +24,7 @@ const countProductById = (count) => {
 };
 
 const countDecreaseById = (count) => {
-  return --count;
+  return count > 1 ? --count : 0;
 };
 
 // const deleteById = (items, id, idAttr) => {
@@ -78,7 +78,6 @@ export const cart = (state = initialState, action) => {
           state.totalPrice,
           action.payload[action.idAttr].prices
         ),
-        // totalPrice
       };
     }
 
@@ -97,13 +96,23 @@ export const cart = (state = initialState, action) => {
           [action.idAttr]: {
             ...state.items[action.id][action.idAttr],
             count: countById,
+            prices: getCurrentPrice(
+              state.items[action.id][action.idAttr].prices / (countById - 1), // здесь default нужен
+              countById
+            ),
           },
         },
       };
+      console.log(state.items[action.id]);
 
       return {
         ...state,
         items: newItems,
+        totalCount: getStateTotalCount(state) + 1,
+        totalPrice: getTotalPrice(
+          state.totalPrice,
+          state.items[action.id][action.idAttr].prices
+        ),
       };
     }
 
@@ -125,14 +134,29 @@ export const cart = (state = initialState, action) => {
           [action.idAttr]: {
             ...state.items[action.id][action.idAttr],
             count: countById,
+            prices: getCurrentPrice(
+              state.items[action.id][action.idAttr].prices / (countById + 1),
+              countById
+            ),
           },
         },
       };
 
-      return {
+      const resultObjectItems = {
         ...state,
         items: newItems,
+        totalCount: getStateTotalCount(state) + 1,
+        totalPrice: getTotalPrice(
+          state.totalPrice,
+          state.items[action.id][action.idAttr].prices
+        ),
       };
+      if (countById) {
+        return resultObjectItems;
+      } else {
+        delete newItems[action.id][action.idAttr];
+        return resultObjectItems;
+      }
     }
 
     case 'REMOVE_CART_ITEM': {

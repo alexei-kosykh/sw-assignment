@@ -28,10 +28,14 @@ export class ProductInCart extends Component {
   };
 
   incrementCount = () => {
-    store.dispatch(plusCartItem(this.props.id, this.props.idAttr));
+    store.dispatch(
+      plusCartItem(this.props.id, this.props.idAttr)
+    );
   };
   decrementCount = () => {
-    store.dispatch(minusCartItem(this.props.id, this.props.idAttr));
+    store.dispatch(
+      minusCartItem(this.props.id, this.props.idAttr)
+    );
   };
 
   render() {
