@@ -19,7 +19,16 @@ const getTotalPrice = (totalPrice, prices) => {
   });
 };
 
-const countProductById = (count) => {
+const getDecreaseTotalPrice = (totalPrice, prices) => {
+  return prices.map((item, index) => {
+    return {
+      amount: +(totalPrice[index].amount - +item.amount).toFixed(2),
+      currency: item.currency,
+    };
+  });
+};
+
+const countIncreaseById = (count) => {
   return count ? ++count : (count = 1);
 };
 
@@ -43,15 +52,15 @@ const getCurrentPrice = (prices, productCount) => {
 };
 
 export const cart = (state = initialState, action) => {
+  const countById = countIncreaseById(
+    state.items[action.id]?.[action.idAttr]?.count
+  );
   switch (action.type) {
     case 'ADD_PRODUCT_CART': {
       // const totalCount = getAllSumByCount(state.items);
       // action.payload[action.idAttr].prices.map((item) =>
       //   console.log(item.amount)
       // );
-      const countById = countProductById(
-        state.items[action.id]?.[action.idAttr]?.count
-      );
 
       const newItems = {
         ...state.items,
@@ -86,9 +95,6 @@ export const cart = (state = initialState, action) => {
     }
 
     case 'PLUS_CART_ITEM': {
-      const countById = countProductById(
-        state.items[action.id]?.[action.idAttr]?.count
-      );
       const newItems = {
         ...state.items,
         [action.id]: {
@@ -97,13 +103,12 @@ export const cart = (state = initialState, action) => {
             ...state.items[action.id][action.idAttr],
             count: countById,
             prices: getCurrentPrice(
-              state.items[action.id][action.idAttr].prices / (countById - 1), // здесь default нужен
+              state.items[action.id][action.idAttr].pricesDefault,
               countById
             ),
           },
         },
       };
-      console.log(state.items[action.id]);
 
       return {
         ...state,
@@ -111,21 +116,15 @@ export const cart = (state = initialState, action) => {
         totalCount: getStateTotalCount(state) + 1,
         totalPrice: getTotalPrice(
           state.totalPrice,
-          state.items[action.id][action.idAttr].prices
+          state.items[action.id][action.idAttr].pricesDefault
         ),
       };
     }
 
     case 'MINUS_CART_ITEM': {
-      const countById = countDecreaseById(
+      const countMinusById = countDecreaseById(
         state.items[action.id]?.[action.idAttr]?.count
       );
-
-      // const deleteItemByAttr = deleteById(
-      //   state.items,
-      //   action.id,
-      //   action.idAttr
-      // );
 
       const newItems = {
         ...state.items,
@@ -133,10 +132,10 @@ export const cart = (state = initialState, action) => {
           ...state.items[action.id],
           [action.idAttr]: {
             ...state.items[action.id][action.idAttr],
-            count: countById,
+            count: countMinusById,
             prices: getCurrentPrice(
-              state.items[action.id][action.idAttr].prices / (countById + 1),
-              countById
+              state.items[action.id][action.idAttr].pricesDefault,
+              countMinusById
             ),
           },
         },
@@ -145,13 +144,13 @@ export const cart = (state = initialState, action) => {
       const resultObjectItems = {
         ...state,
         items: newItems,
-        totalCount: getStateTotalCount(state) + 1,
-        totalPrice: getTotalPrice(
+        totalCount: getStateTotalCount(state) - 1,
+        totalPrice: getDecreaseTotalPrice(
           state.totalPrice,
-          state.items[action.id][action.idAttr].prices
+          state.items[action.id][action.idAttr].pricesDefault
         ),
       };
-      if (countById) {
+      if (countMinusById) {
         return resultObjectItems;
       } else {
         delete newItems[action.id][action.idAttr];

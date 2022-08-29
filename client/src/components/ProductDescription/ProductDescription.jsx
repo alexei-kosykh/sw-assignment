@@ -41,6 +41,7 @@ export class ProductDescription extends Component {
         brand: this.props.product.brand,
         attr: this.attributes.map((item) => item),
         prices: this.props.product.prices,
+        pricesDefault: this.props.product.prices,
         images: this.props.product.gallery,
         idAttr: idAttr,
         id: id,
@@ -55,9 +56,7 @@ export class ProductDescription extends Component {
     const idCurrentAttributes = this.attributes
       .map((item) => item.attrIndex)
       .join('');
-    // console.log(this.attributes);
     this.generateProductInfo(idCurrentProduct, idCurrentAttributes);
-
     store.dispatch(
       addProductToCart(
         this.productToCart[idCurrentProduct],

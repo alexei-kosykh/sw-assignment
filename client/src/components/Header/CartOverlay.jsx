@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { store } from '../../redux/store';
 import { nanoid } from 'nanoid';
 
 import { ProductInCart, Button } from '..';
@@ -34,7 +33,7 @@ export class CartOverlay extends Component {
             brand={item.brand}
             attr={item.attr}
             count={item.count}
-            price={item.prices[this.props.currencyObj.index].amount}
+            price={item.prices?.[this.props.currencyObj.index].amount}
             images={item.images}
             currencyType={this.props.currencyObj.currency}
           />
