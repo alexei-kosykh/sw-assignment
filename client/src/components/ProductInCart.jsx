@@ -28,18 +28,13 @@ export class ProductInCart extends Component {
   };
 
   incrementCount = () => {
-    store.dispatch(
-      plusCartItem(this.props.id, this.props.idAttr)
-    );
+    store.dispatch(plusCartItem(this.props.id, this.props.idAttr));
   };
   decrementCount = () => {
-    store.dispatch(
-      minusCartItem(this.props.id, this.props.idAttr)
-    );
+    store.dispatch(minusCartItem(this.props.id, this.props.idAttr));
   };
 
   render() {
-    // this.decrementCount();
     return (
       <>
         <StyledProductInCart>
@@ -175,9 +170,10 @@ const StyledProductInCart = styled.div`
     flex-wrap: wrap;
   }
 
-  ${(props) => {
-    switch (props.elemSize) {
-      case 'Small':
+  ${({ elemSize }) => {
+    console.log(elemSize);
+    switch (elemSize) {
+      case 'small':
         return css`
           p {
             font-size: 16px;
@@ -189,7 +185,7 @@ const StyledProductInCart = styled.div`
           }
         `;
 
-      case 'Default':
+      case 'default':
         return css`
           border-bottom: 1px solid #e5e5e5;
           padding: 20px 0;
@@ -244,7 +240,7 @@ const StyledImageCart = styled.div`
 
   ${(props) => {
     switch (props.elemSize) {
-      case 'Small':
+      case 'small':
         return css`
           margin-bottom: 40px;
           & {
@@ -262,15 +258,15 @@ const StyledImageCart = styled.div`
           }
         `;
 
-      case 'Default':
+      case 'default':
         return css`
           .image-cart {
             position: relative;
             width: 200px;
             height: 290px;
 
-            bottom: 15px;
-            right: 25px;
+            top: 0;
+            left: 10px;
           }
           .flipping-block {
             position: absolute;

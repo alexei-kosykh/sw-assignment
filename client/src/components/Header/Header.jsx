@@ -9,7 +9,7 @@ import logo from '../../assets/a-logo.png';
 export class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { cartOverlay: true, currencySwitcher: false };
+    this.state = { cartOverlay: false, currencySwitcher: false };
     this.toogleModalCart = this.toogleModalCart.bind(this);
     this.toogleCurrency = this.toogleCurrency.bind(this);
     this.setWrapperRef = this.setWrapperRef.bind(this);

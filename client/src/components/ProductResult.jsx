@@ -9,7 +9,7 @@ export class ProductResult extends Component {
     return (
       <StyledProductResult>
         <p>
-          Tax 21%: <strong>$42.00</strong>
+          Tax 21%: <strong>{this.props.currencyType}42.00</strong>
         </p>
         <p>
           Quantity: <strong>3</strong>

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { nanoid } from 'nanoid';
 
 import { ProductInCart, Button } from '..';
+import { Link } from 'react-router-dom';
 
 export class CartOverlay extends Component {
   getInfoForOverlay = () => {
@@ -28,7 +29,7 @@ export class CartOverlay extends Component {
             key={nanoid()}
             id={item.id}
             idAttr={item.idAttr}
-            elemSize="Small"
+            elemSize="small"
             name={item.name}
             brand={item.brand}
             attr={item.attr}
@@ -46,13 +47,23 @@ export class CartOverlay extends Component {
           </strong>
         </div>
         <div>
-          <Button key={nanoid()} size={`primaryMiddle`} value={'View bag'} />
-          <Button
-            key={nanoid()}
-            variant={'primary'}
-            size={`primaryMiddle`}
-            value={'Check out'}
-          />
+          <Link to={'/cart'}>
+            <Button
+              key={nanoid()}
+              size={`primaryMiddle`}
+              value={'View bag'}
+              onClick={this.props.toogleModalCart}
+            />
+          </Link>
+          <Link to={'/'}>
+            <Button
+              key={nanoid()}
+              variant={'primary'}
+              size={`primaryMiddle`}
+              value={'Check out'}
+              onClick={this.props.toogleModalCart}
+            />
+          </Link>
         </div>
       </StyledCartOverlay>
     );
@@ -102,10 +113,7 @@ const StyledCartOverlay = styled.div`
 
   & > div:last-of-type {
     display: flex;
-
-    button:first-of-type {
-      margin-right: 15px;
-    }
+    justify-content: space-between;
   }
 
   .total-price {

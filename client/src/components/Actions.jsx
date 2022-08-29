@@ -86,6 +86,7 @@ export class Actions extends Component {
               totalCount={totalCount}
               totalPrice={totalPrice}
               currencyObj={this.state.currencyObj}
+              toogleModalCart={this.props.toogleModalCart}
             />
           )}
         </StyledCart>

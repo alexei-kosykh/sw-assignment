@@ -46,7 +46,7 @@ const StyledButton = styled.button`
         `;
       case 'primaryMiddle':
         return css`
-          padding: 0 11%;
+          padding: 0 30px;
           height: 50px;
         `;
       case 'primarySmall':

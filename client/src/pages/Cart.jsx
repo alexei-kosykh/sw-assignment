@@ -1,15 +1,65 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { nanoid } from '@reduxjs/toolkit';
 import { ProductInCart, ProductResult } from '../components';
+import { store } from '../redux/store';
 
 import { StyledTitle } from '../GeneralStyles';
 export class Cart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currencyObj: store.getState().currency,
+    };
+  }
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => this.switchCurrency());
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  switchCurrency = () => {
+    this.setState({
+      currencyObj: store.getState().currency,
+    });
+  };
+
+  getInfoForCart = (items) => {
+    const newItems = [];
+    let key = 0;
+    Object.values(store.getState().cart.items).map((item) =>
+      Object.values(item).map((item) => {
+        newItems[key] = item;
+        key++;
+      })
+    );
+    return newItems;
+  };
   render() {
+    const { items, totalCount, totalPrice } = store.getState().cart;
+    // styles problem located in styleDefault
     return (
       <StyledCart>
         <StyledTitle>Cart</StyledTitle>
-        <ProductInCart elemSize="Default" />
-        <ProductResult />
+        {this.getInfoForCart(items).map((item, key) => (
+          <ProductInCart
+            key={nanoid()}
+            id={item.id}
+            idAttr={item.idAttr}
+            elemSize="default"
+            name={item.name}
+            brand={item.brand}
+            attr={item.attr}
+            count={item.count}
+            price={item.prices[this.state.currencyObj.index].amount}
+            images={item.images}
+            currencyType={this.state.currencyObj.currency}
+          />
+        ))}
+        <ProductResult currencyType={this.state.currencyObj?.currency} />
       </StyledCart>
     );
   }
@@ -19,7 +69,7 @@ export default Cart;
 
 const StyledCart = styled.div`
   h1 {
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     font-weight: 700;
   }
 `;
