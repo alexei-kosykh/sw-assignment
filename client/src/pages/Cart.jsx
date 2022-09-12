@@ -49,7 +49,7 @@ export class Cart extends Component {
             key={nanoid()}
             id={item.id}
             idAttr={item.idAttr}
-            elemSize="default"
+            elemSize="Default"
             name={item.name}
             brand={item.brand}
             attr={item.attr}
@@ -71,5 +71,18 @@ const StyledCart = styled.div`
   h1 {
     margin-bottom: 40px;
     font-weight: 700;
+  }
+  & > div:not(:last-of-type) {
+    border-bottom: 1px solid #e5e5e5;
+    padding: 20px 0;
+
+    p {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    &:first-of-type {
+      border-top: 1px solid #e5e5e5;
+    }
   }
 `;

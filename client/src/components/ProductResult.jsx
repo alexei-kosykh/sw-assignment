@@ -42,4 +42,9 @@ const StyledProductResult = styled.div`
     width: 280px;
     height: 43px;
   }
+
+  p,
+  p > strong {
+    font-size: 24px;
+  }
 `;

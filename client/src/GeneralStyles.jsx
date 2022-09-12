@@ -28,7 +28,7 @@ export const StyledTextItem = styled.div`
 
   ${(props) => {
     switch (props.elemSize) {
-      case 'small':
+      case 'Small':
         return css`
           h2 {
             margin-bottom: 5px;
@@ -38,7 +38,7 @@ export const StyledTextItem = styled.div`
           }
         `;
 
-      case 'default':
+      case 'Default':
         return css`
           h2,
           h3 {
@@ -51,12 +51,17 @@ export const StyledTextItem = styled.div`
             font-weight: 600;
           }
 
+          div {
+            margin-bottom: 10px;
+          }
+
           h4,
           h4 + p {
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 10px;
           }
+
           h4 + p {
             font-size: 24px;
           }

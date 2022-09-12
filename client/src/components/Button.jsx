@@ -98,7 +98,7 @@ const StyledButton = styled.button`
       case 'capacitySmall':
         return css`
           margin-bottom: 5px;
-          font-size: 14px;
+          font-size: 13px;
           width: 35px;
           height: 35px;
         `;

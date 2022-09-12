@@ -6,25 +6,44 @@ import { nanoid } from 'nanoid';
 import { Button } from './';
 import { StyledTextItem } from '../GeneralStyles';
 import { plusCartItem, minusCartItem } from '../redux/actions/cart';
+import { default as defaultImage } from '../assets/default.png';
 
 export class ProductInCart extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      imageIndex: 0,
       image: this.props.images[0],
     };
   }
 
-  slideAheadImage = (index) => {
-    this.setState = {
-      image: this.props.images[index + 1],
-    };
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.image !== this.state.image;
+  }
+
+  slideAheadImage = (index, images) => {
+    if (index === images.length - 1) {
+      this.setState({ imageIndex: 0, image: images[0] });
+    } else {
+      this.setState((prevState) => ({
+        imageIndex: prevState.imageIndex + 1,
+        image: images[prevState.imageIndex + 1],
+      }));
+    }
   };
 
-  slideBackImage = (index) => {
-    this.setState = {
-      image: this.props.images[index - 1],
-    };
+  slideBackImage = (index, images) => {
+    if (index === 0) {
+      this.setState({
+        imageIndex: images.length - 1,
+        image: images[images.length - 1],
+      });
+    } else {
+      this.setState((prevState) => ({
+        imageIndex: prevState.imageIndex - 1,
+        image: images[prevState.imageIndex - 1],
+      }));
+    }
   };
 
   incrementCount = () => {
@@ -88,12 +107,25 @@ export class ProductInCart extends Component {
                 onClick={this.decrementCount}
               ></Button>
             </div>
-            <div
-              className="image-cart"
-              style={{ backgroundImage: `url(${this.state.image})` }}
-            >
+            <div className="image-cart">
+              <img
+                className="image-cart"
+                key={nanoid()}
+                src={this.state.image}
+                alt=""
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null;
+                  currentTarget.src = `${defaultImage}`;
+                }}
+              />
               <div className="flipping-block">
                 <svg
+                  onClick={() =>
+                    this.slideBackImage(
+                      this.state.imageIndex,
+                      this.props.images
+                    )
+                  }
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -115,6 +147,12 @@ export class ProductInCart extends Component {
                   />
                 </svg>
                 <svg
+                  onClick={() =>
+                    this.slideAheadImage(
+                      this.state.imageIndex,
+                      this.props.images
+                    )
+                  }
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -169,40 +207,6 @@ const StyledProductInCart = styled.div`
     display: flex;
     flex-wrap: wrap;
   }
-
-  ${({ elemSize }) => {
-    console.log(elemSize);
-    switch (elemSize) {
-      case 'small':
-        return css`
-          p {
-            font-size: 16px;
-            font-weight: 700;
-          }
-
-          & > div:first-child div h1 {
-            font-size: 10px;
-          }
-        `;
-
-      case 'default':
-        return css`
-          border-bottom: 1px solid #e5e5e5;
-          padding: 20px 0;
-
-          &:first-of-type {
-            border-top: 1px solid #e5e5e5;
-          }
-
-          p {
-            font-size: 24px;
-            font-weight: 700;
-          }
-        `;
-      default:
-        return css``;
-    }
-  }}
 `;
 
 const StyledImageCart = styled.div`
@@ -240,7 +244,7 @@ const StyledImageCart = styled.div`
 
   ${(props) => {
     switch (props.elemSize) {
-      case 'small':
+      case 'Small':
         return css`
           margin-bottom: 40px;
           & {
@@ -258,7 +262,7 @@ const StyledImageCart = styled.div`
           }
         `;
 
-      case 'default':
+      case 'Default':
         return css`
           .image-cart {
             position: relative;
@@ -273,7 +277,7 @@ const StyledImageCart = styled.div`
             display: flex;
 
             bottom: 15px;
-            right: 25px;
+            right: 10px;
           }
         `;
       default:

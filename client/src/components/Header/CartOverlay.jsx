@@ -29,7 +29,7 @@ export class CartOverlay extends Component {
             key={nanoid()}
             id={item.id}
             idAttr={item.idAttr}
-            elemSize="small"
+            elemSize="Small"
             name={item.name}
             brand={item.brand}
             attr={item.attr}
