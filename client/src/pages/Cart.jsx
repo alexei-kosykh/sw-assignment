@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { nanoid } from '@reduxjs/toolkit';
 import { ProductInCart, ProductResult } from '../components';
-import { store } from '../redux/store';
 
 import { StyledTitle } from '../GeneralStyles';
+import Button from '../components/Button';
+
+import { store } from '../redux/store';
+import { getInfoForOrder } from '../redux/actions/cart';
 export class Cart extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +30,7 @@ export class Cart extends Component {
     });
   };
 
-  getInfoForCart = (items) => {
+  getInfoForCart = () => {
     const newItems = [];
     let key = 0;
     Object.values(store.getState().cart.items).map((item) =>
@@ -38,13 +41,30 @@ export class Cart extends Component {
     );
     return newItems;
   };
+
+  countTax = (totalPrice) =>
+    +(totalPrice[this.state.currencyObj?.index]?.amount * 0.21).toFixed(2);
+
+  createOrder = (totalCount, totalPrice, items) => {
+    store.dispatch(
+      getInfoForOrder(
+        totalCount,
+        totalPrice,
+        items,
+        this.state.currencyObj?.index,
+        this.getInfoForCart,
+        this.countTax
+      )
+    );
+  };
+
   render() {
     const { items, totalCount, totalPrice } = store.getState().cart;
-    // styles problem located in styleDefault
+
     return (
       <StyledCart>
         <StyledTitle>Cart</StyledTitle>
-        {this.getInfoForCart(items).map((item, key) => (
+        {this.getInfoForCart().map((item, key) => (
           <ProductInCart
             key={nanoid()}
             id={item.id}
@@ -59,7 +79,19 @@ export class Cart extends Component {
             currencyType={this.state.currencyObj.currency}
           />
         ))}
-        <ProductResult currencyType={this.state.currencyObj?.currency} />
+        <ProductResult
+          currencyType={this.state.currencyObj}
+          totalPrice={totalPrice[this.state.currencyObj?.index]?.amount}
+          totalCount={totalCount}
+          countTax={() => this.countTax(totalPrice)}
+        />
+        <Button
+          key={nanoid()}
+          onClick={() => this.createOrder(totalCount, totalPrice, items)}
+          variant={'primary'}
+          size={`primaryDefault`}
+          value={'ORDER'}
+        ></Button>
       </StyledCart>
     );
   }
@@ -84,5 +116,11 @@ const StyledCart = styled.div`
     &:first-of-type {
       border-top: 1px solid #e5e5e5;
     }
+  }
+
+  & > button {
+    margin: 15px 0;
+    width: 280px;
+    height: 43px;
   }
 `;

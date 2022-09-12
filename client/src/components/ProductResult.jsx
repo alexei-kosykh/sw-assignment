@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { nanoid } from 'nanoid';
-
-import Button from './Button';
 
 export class ProductResult extends Component {
   render() {
     return (
       <StyledProductResult>
         <p>
-          Tax 21%: <strong>{this.props.currencyType}42.00</strong>
+          Tax 21%:{' '}
+          <strong>
+            {this.props.currencyType.currency}
+            {this.props.countTax(this.props.totalPrice)}
+          </strong>
         </p>
         <p>
-          Quantity: <strong>3</strong>
+          Quantity: <strong>{this.props.totalCount}</strong>
         </p>
         <p>
-          Total: <strong>$200.00</strong>
+          Total:{' '}
+          <strong>
+            {this.props.currencyType.currency}
+            {this.props.totalPrice}
+          </strong>
         </p>
-        <Button
-          key={nanoid()}
-          variant={'primary'}
-          size={`primaryDefault`}
-          value={'ORDER'}
-        ></Button>
       </StyledProductResult>
     );
   }
@@ -35,12 +34,6 @@ const StyledProductResult = styled.div`
 
   strong {
     font-weight: 700;
-  }
-
-  button {
-    margin: 15px 0;
-    width: 280px;
-    height: 43px;
   }
 
   p,

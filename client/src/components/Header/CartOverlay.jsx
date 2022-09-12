@@ -5,7 +5,14 @@ import { nanoid } from 'nanoid';
 import { ProductInCart, Button } from '..';
 import { Link } from 'react-router-dom';
 
+import { store } from '../../redux/store';
+import { getInfoForOrder } from '../../redux/actions/cart';
+
 export class CartOverlay extends Component {
+  constructor(props) {
+    super(props);
+    this.currencyObj = store.getState().currency;
+  }
   getInfoForOverlay = () => {
     const items = [];
     let key = 0;
@@ -16,6 +23,22 @@ export class CartOverlay extends Component {
       })
     );
     return items;
+  };
+
+  countTax = (totalPrice) =>
+    +(totalPrice[this.currencyObj?.index]?.amount * 0.21).toFixed(2);
+
+  createOrder = (totalCount, totalPrice, items) => {
+    store.dispatch(
+      getInfoForOrder(
+        totalCount,
+        totalPrice,
+        items,
+        this.currencyObj?.index,
+        this.getInfoForOverlay,
+        this.countTax
+      )
+    );
   };
 
   render() {
@@ -61,7 +84,9 @@ export class CartOverlay extends Component {
               variant={'primary'}
               size={`primaryMiddle`}
               value={'Check out'}
-              onClick={this.props.toogleModalCart}
+              onClick={() =>
+                this.createOrder(this.props.totalCount, this.props.totalPrice)
+              }
             />
           </Link>
         </div>

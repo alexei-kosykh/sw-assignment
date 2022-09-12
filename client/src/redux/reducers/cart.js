@@ -2,6 +2,7 @@ const initialState = {
   items: {},
   totalPrice: 0,
   totalCount: 0,
+  orders: [],
 };
 
 const getStateTotalCount = (state) => {
@@ -68,7 +69,6 @@ export const cart = (state = initialState, action) => {
           ...state.items[action.id],
           ...action.payload,
           [action.idAttr]: {
-            // ...state.items[action.id]?.[action.idAttr],
             ...action.payload[action.idAttr],
             count: countById,
             prices: getCurrentPrice(
@@ -90,8 +90,13 @@ export const cart = (state = initialState, action) => {
       };
     }
 
+    case 'CREATE_NEW_ORDER': {
+      const newOrder = [...state.orders, action.payload];
+      return { ...state, orders: newOrder };
+    }
+
     case 'CLEAR_ALL_CART': {
-      return { items: {}, totalCount: 0, totalPrice: 0 };
+      return { ...state, items: {}, totalPrice: 0, totalCount: 0 };
     }
 
     case 'PLUS_CART_ITEM': {
