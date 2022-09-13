@@ -75,6 +75,9 @@ const StyledProductGallery = styled.div`
         margin-right: 12px;
       }
     }
+    @media (max-width: 840px) {
+      justify-content: center;
+    }
   }
 `;
 

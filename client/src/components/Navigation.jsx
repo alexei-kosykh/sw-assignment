@@ -52,7 +52,7 @@ const StyledNavigation = styled.div`
   font-weight: 600;
 
   div:not(:last-child) {
-    margin-right: 3vw;
+    margin-right: 6%;
   }
 
   div:hover,

@@ -3,7 +3,6 @@ import { ProductGallery, ProductDescriptionContainer } from '../components';
 import styled from 'styled-components';
 import { store } from '../redux/store';
 
-
 import { GET_PRODUCT_BY_ID, makeGraphQLQuery } from '../graphQL/Queries';
 export class PDP extends Component {
   constructor(props) {
@@ -30,7 +29,10 @@ export class PDP extends Component {
     return (
       <StyledPDP>
         <ProductGallery images={this.state.product.gallery} />
-        <ProductDescriptionContainer product={this.state.product} elemSize="Default" />
+        <ProductDescriptionContainer
+          product={this.state.product}
+          elemSize="Default"
+        />
       </StyledPDP>
     );
   }
@@ -63,6 +65,7 @@ const StyledPDP = styled.div`
       & > div {
         display: flex;
         justify-content: center;
+        border: 1px solid red;
       }
     }
   }

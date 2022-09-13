@@ -99,6 +99,7 @@ export default Actions;
 
 const StyledActions = styled.div`
   display: flex;
+  justify-content: end;
   cursor: pointer;
 `;
 

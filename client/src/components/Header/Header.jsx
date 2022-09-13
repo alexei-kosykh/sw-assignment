@@ -124,4 +124,8 @@ const HeaderWrapper = styled.div`
   & > img {
     cursor: pointer;
   }
+
+  & > div {
+    width: 40%;
+  }
 `;
