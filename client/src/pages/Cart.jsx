@@ -5,6 +5,7 @@ import { ProductInCart, ProductResult } from '../components';
 
 import { StyledTitle } from '../GeneralStyles';
 import Button from '../components/Button';
+import emptyCart from '../assets/empty-cart.png';
 
 import { store } from '../redux/store';
 import { getInfoForOrder } from '../redux/actions/cart';
@@ -64,34 +65,43 @@ export class Cart extends Component {
     return (
       <StyledCart>
         <StyledTitle>Cart</StyledTitle>
-        {this.getInfoForCart().map((item, key) => (
-          <ProductInCart
-            key={nanoid()}
-            id={item.id}
-            idAttr={item.idAttr}
-            elemSize="Default"
-            name={item.name}
-            brand={item.brand}
-            attr={item.attr}
-            count={item.count}
-            price={item.prices[this.state.currencyObj.index].amount}
-            images={item.images}
-            currencyType={this.state.currencyObj.currency}
-          />
-        ))}
-        <ProductResult
-          currencyType={this.state.currencyObj}
-          totalPrice={totalPrice[this.state.currencyObj?.index]?.amount}
-          totalCount={totalCount}
-          countTax={() => this.countTax(totalPrice)}
-        />
-        <Button
-          key={nanoid()}
-          onClick={() => this.createOrder(totalCount, totalPrice, items)}
-          variant={'primary'}
-          size={`primaryDefault`}
-          value={'ORDER'}
-        ></Button>
+        {totalCount ? (
+          <>
+            {this.getInfoForCart().map((item, key) => (
+              <ProductInCart
+                key={nanoid()}
+                id={item.id}
+                idAttr={item.idAttr}
+                elemSize="Default"
+                name={item.name}
+                brand={item.brand}
+                attr={item.attr}
+                count={item.count}
+                price={item.prices[this.state.currencyObj.index].amount}
+                images={item.images}
+                currencyType={this.state.currencyObj.currency}
+              />
+            ))}
+            <ProductResult
+              currencyType={this.state.currencyObj}
+              totalPrice={totalPrice[this.state.currencyObj?.index]?.amount}
+              totalCount={totalCount}
+              countTax={() => this.countTax(totalPrice)}
+            />
+            <Button
+              key={nanoid()}
+              onClick={() => this.createOrder(totalCount, totalPrice, items)}
+              variant={'primary'}
+              size={`primaryDefault`}
+              value={'ORDER'}
+            ></Button>
+          </>
+        ) : (
+          <p>
+            <img src={emptyCart} alt="Empty cart" />
+            <p>Cart is empty</p>
+          </p>
+        )}
       </StyledCart>
     );
   }
@@ -122,5 +132,17 @@ const StyledCart = styled.div`
     margin: 15px 0;
     width: 280px;
     height: 43px;
+  }
+
+  p > img {
+    width: 60vw;
+  }
+
+  & > p {
+    text-align: center;
+  }
+
+  & > p > p {
+    font-size: 25px;
   }
 `;

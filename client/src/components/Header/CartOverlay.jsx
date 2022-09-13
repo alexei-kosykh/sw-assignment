@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 
 import { ProductInCart, Button } from '..';
 import { Link } from 'react-router-dom';
+import emptyCart from '../../assets/empty-cart.png';
 
 import { store } from '../../redux/store';
 import { getInfoForOrder } from '../../redux/actions/cart';
@@ -44,52 +45,64 @@ export class CartOverlay extends Component {
   render() {
     return (
       <StyledCartOverlay>
-        <p>
-          <strong>My Bag</strong>, {this.props.totalCount} items
-        </p>
-        {this.getInfoForOverlay().map((item, key) => (
-          <ProductInCart
-            key={nanoid()}
-            id={item.id}
-            idAttr={item.idAttr}
-            elemSize="Small"
-            name={item.name}
-            brand={item.brand}
-            attr={item.attr}
-            count={item.count}
-            price={item.prices?.[this.props.currencyObj.index].amount}
-            images={item.images}
-            currencyType={this.props.currencyObj.currency}
-          />
-        ))}
-        <div className={'total-price'}>
-          <strong>Total</strong>
-          <strong>
-            {this.props.currencyObj.currency}
-            {this.props.totalPrice[this.props.currencyObj.index]?.amount}
-          </strong>
-        </div>
-        <div>
-          <Link to={'/cart'}>
-            <Button
-              key={nanoid()}
-              size={`primaryMiddle`}
-              value={'View bag'}
-              onClick={this.props.toogleModalCart}
-            />
-          </Link>
-          <Link to={'/'}>
-            <Button
-              key={nanoid()}
-              variant={'primary'}
-              size={`primaryMiddle`}
-              value={'Check out'}
-              onClick={() =>
-                this.createOrder(this.props.totalCount, this.props.totalPrice)
-              }
-            />
-          </Link>
-        </div>
+        {this.props.totalCount ? (
+          <>
+            <p>
+              <strong>My Bag</strong>, {this.props.totalCount} items
+            </p>
+            {this.getInfoForOverlay().map((item, key) => (
+              <ProductInCart
+                key={nanoid()}
+                id={item.id}
+                idAttr={item.idAttr}
+                elemSize="Small"
+                name={item.name}
+                brand={item.brand}
+                attr={item.attr}
+                count={item.count}
+                price={item.prices?.[this.props.currencyObj.index].amount}
+                images={item.images}
+                currencyType={this.props.currencyObj.currency}
+              />
+            ))}
+            <div className={'total-price'}>
+              <strong>Total</strong>
+              <strong>
+                {this.props.currencyObj.currency}
+                {this.props.totalPrice[this.props.currencyObj.index]?.amount}
+              </strong>
+            </div>
+            <div>
+              <Link to={'/cart'}>
+                <Button
+                  key={nanoid()}
+                  size={`primaryMiddle`}
+                  value={'View bag'}
+                  onClick={this.props.toogleModalCart}
+                />
+              </Link>
+              <Link to={'/'}>
+                <Button
+                  key={nanoid()}
+                  variant={'primary'}
+                  size={`primaryMiddle`}
+                  value={'Check out'}
+                  onClick={() =>
+                    this.createOrder(
+                      this.props.totalCount,
+                      this.props.totalPrice
+                    )
+                  }
+                />
+              </Link>
+            </div>
+          </>
+        ) : (
+          <span>
+            <img src={emptyCart} alt="Empty cart" />
+            <p>Cart is empty</p>
+          </span>
+        )}
       </StyledCartOverlay>
     );
   }
@@ -145,5 +158,17 @@ const StyledCartOverlay = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
+  }
+
+  span > img {
+    width: 100%;
+  }
+
+  & > span {
+    text-align: center;
+  }
+
+  & > span > p {
+    font-size: 20px;
   }
 `;
