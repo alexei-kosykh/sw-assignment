@@ -129,4 +129,15 @@ const StyledProductDescription = styled.div`
   p:last-child {
     margin-bottom: 30px;
   }
+
+  @media (max-width: 840px) {
+    & {
+      display: flex;
+      justify-content: center;
+    }
+
+    p:last-child {
+      max-width: 350px;
+    }
+  }
 `;

@@ -4,7 +4,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 import { Provider } from 'react-redux';
-import { store } from './redux/store';
+import { store, persistor } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './App';
 import Global from './GlobalStyles';
@@ -14,15 +15,16 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <ApolloProvider client={client}>
-        <Global />
-        <App />
-      </ApolloProvider>
-    </Router>
+    <PersistGate loading={<p>Loading...</p>} persistor={persistor}>
+      <Router>
+        <ApolloProvider client={client}>
+          <Global />
+          <App />
+        </ApolloProvider>
+      </Router>
+    </PersistGate>
   </Provider>,
   document.getElementById('root')
 );

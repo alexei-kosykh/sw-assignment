@@ -62,11 +62,7 @@ const StyledPDP = styled.div`
         object-fit: contain;
         object-position: 50%;
       }
-      & > div {
-        display: flex;
-        justify-content: center;
-        border: 1px solid red;
-      }
+
     }
   }
 `;
