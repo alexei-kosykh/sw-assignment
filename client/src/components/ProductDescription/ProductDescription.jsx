@@ -97,7 +97,9 @@ export class ProductDescription extends Component {
             value="Add to cart"
             onClick={this.addToCart}
           ></Button>
-          <p>{this.props.product.description}</p>
+          <div
+            dangerouslySetInnerHTML={{ __html: this.props.product.description }}
+          ></div>
         </StyledTextItem>
       </StyledProductDescription>
     );
@@ -112,32 +114,45 @@ const StyledProductDescription = styled.div`
     text-transform: uppercase;
   }
 
-  & p:last-child {
+  & > div > div:last-child {
     padding-right: 20px;
     max-height: 17vh;
     overflow-y: scroll;
+    margin-bottom: 30px;
+
+    div > ul {
+      padding-left: 20px;
+    }
+
+    h3 + p:not(:last-of-type) {
+      margin-bottom: 30px;
+    }
+    h3 {
+      margin-bottom: 30px;
+    }
 
     &::-webkit-scrollbar {
       width: 7px;
-      background-color: #f0f0f0;
     }
     &::-webkit-scrollbar-thumb {
       background-color: #5ece7b;
     }
-  }
 
-  p:last-child {
-    margin-bottom: 30px;
+    &::-webkit-scrollbar-track {
+      background-color: #f0f0f0;
+    }
+
+    @media (max-width: 840px) {
+      max-height: 27vh;
+    }
   }
 
   @media (max-width: 840px) {
-    & {
-      display: flex;
-      justify-content: center;
-    }
+    display: flex;
+    justify-content: center;
 
-    p:last-child {
-      max-width: 350px;
+    div:last-child {
+      max-width: 370px;
     }
   }
 `;
