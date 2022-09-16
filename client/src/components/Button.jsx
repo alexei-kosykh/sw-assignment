@@ -35,13 +35,12 @@ const StyledButton = styled.button`
       case 'primaryDefault':
         return css`
           padding: 13px 90px;
-          & {
-            @media (max-width: 1360px) {
-              padding: 13px 60px;
-            }
-            @media (max-width: 840px) {
-              padding: 13px 90px;
-            }
+
+          @media (max-width: 1360px) {
+            padding: 13px 60px;
+          }
+          @media (max-width: 840px) {
+            padding: 13px 90px;
           }
         `;
       case 'primaryMiddle':

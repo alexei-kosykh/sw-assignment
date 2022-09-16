@@ -18,7 +18,7 @@ export const StyledTextItem = styled.div`
 
   h4 + div {
     display: flex;
-    & button:not(:last-child) {
+    button:not(:last-child) {
       margin-right: 7px;
     }
     &:last-child {

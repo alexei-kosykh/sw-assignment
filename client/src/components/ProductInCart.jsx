@@ -247,9 +247,8 @@ const StyledImageCart = styled.div`
       case 'Small':
         return css`
           margin-bottom: 40px;
-          & {
-            height: 190px;
-          }
+          height: 190px;
+
           .image-cart {
             width: 120px;
             height: 190px;

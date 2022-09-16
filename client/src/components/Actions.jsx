@@ -163,9 +163,6 @@ const StyledCurrency = styled.div`
 
   svg:last-of-type {
     margin-left: 5px;
-  }
-
-  & svg:last-of-type {
     transform: rotate(0deg);
     transition: transform 0.7s;
     &.rotated {

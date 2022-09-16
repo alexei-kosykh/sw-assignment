@@ -61,11 +61,10 @@ const StyledProductGallery = styled.div`
     font-weight: 600;
   }
 
-  & {
-    @media (max-width: 1000px) {
-      flex-direction: column;
-    }
+  @media (max-width: 1000px) {
+    flex-direction: column;
   }
+
   & > div {
     @media (max-width: 1000px) {
       display: flex;
@@ -111,27 +110,25 @@ const StyledSideGallery = styled.div`
     }
   }
 
-  & {
-    @media (max-width: 1280px) {
-      width: 100px;
-      img:not(:last-child) {
-        margin-bottom: 15px;
-      }
-      & + div {
-        img {
-          width: 450px;
-          max-height: 50vh;
-        }
+  @media (max-width: 1280px) {
+    width: 100px;
+    img:not(:last-child) {
+      margin-bottom: 15px;
+    }
+    & + div {
+      img {
+        width: 450px;
+        max-height: 50vh;
       }
     }
-    @media (max-width: 840px) {
-      width: 90vw;
-      & + div {
-        img {
-          width: 90vw;
-          max-height: 50vh;
-          margin-bottom: 20px;
-        }
+  }
+  @media (max-width: 840px) {
+    width: 90vw;
+    & + div {
+      img {
+        width: 90vw;
+        max-height: 50vh;
+        margin-bottom: 20px;
       }
     }
   }

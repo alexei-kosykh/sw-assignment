@@ -44,25 +44,22 @@ const StyledPDP = styled.div`
   display: flex;
   gap: 10vw;
 
-  & {
-    @media (max-width: 1360px) {
-    }
-    @media (max-width: 1060px) {
-      gap: 7vw;
-    }
+  @media (max-width: 1360px) {
+  }
+  @media (max-width: 1060px) {
+    gap: 7vw;
+  }
 
-    @media (max-width: 880px) {
-      gap: 3vw;
-    }
+  @media (max-width: 880px) {
+    gap: 3vw;
+  }
 
-    @media (max-width: 840px) {
-      display: block;
+  @media (max-width: 840px) {
+    display: block;
 
-      div img {
-        object-fit: contain;
-        object-position: 50%;
-      }
-
+    div img {
+      object-fit: contain;
+      object-position: 50%;
     }
   }
 `;
