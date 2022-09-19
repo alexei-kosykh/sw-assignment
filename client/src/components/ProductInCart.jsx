@@ -18,6 +18,7 @@ export class ProductInCart extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    console.log(this.props, nextProps);
     return nextState.image !== this.state.image;
   }
 

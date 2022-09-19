@@ -139,7 +139,7 @@ const StyledCart = styled.div`
 
     @media (min-width: 1280px) {
       width: 40vw;
-  }
+    }
   }
 
   & > p {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { nanoid } from 'nanoid';
 
@@ -7,7 +7,7 @@ import { StyledTextItem } from '../../GeneralStyles';
 import { store } from '../../redux/store';
 import { addProductToCart } from '../../redux/actions/cart';
 
-export class ProductDescription extends Component {
+export class ProductDescription extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
