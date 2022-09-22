@@ -1,5 +1,5 @@
 export { Navigation } from './Navigation';
-export { Actions } from './Actions';
+export { Actions } from './Header/Actions';
 export { CurrencySwitcher, CartOverlay, Header } from './Header';
 export { ProductCardContainer } from './ProductCard/Container';
 export { ProductDescriptionContainer } from './ProductDescription/Container';
