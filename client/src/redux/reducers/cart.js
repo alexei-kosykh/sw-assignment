@@ -1,9 +1,7 @@
 const initialState = {
   items: {},
-  totalPrice:
-    0,
-  totalCount:
-     0,
+  totalPrice: 0,
+  totalCount: 0,
   orders: [],
 };
 
@@ -80,7 +78,6 @@ export const cart = (state = initialState, action) => {
           },
         },
       };
-
 
       return {
         ...state,

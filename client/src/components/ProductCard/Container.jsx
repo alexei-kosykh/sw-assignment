@@ -1,4 +1,4 @@
-import ProductCard from './ProductCard';
+import ProductCard from '.';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {

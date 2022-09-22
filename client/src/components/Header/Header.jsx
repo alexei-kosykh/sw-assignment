@@ -10,10 +10,6 @@ export class Header extends Component {
   constructor(props) {
     super(props);
     this.state = { cartOverlay: false, currencySwitcher: false };
-    this.toogleModalCart = this.toogleModalCart.bind(this);
-    this.toogleCurrency = this.toogleCurrency.bind(this);
-    this.setWrapperRef = this.setWrapperRef.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   componentDidMount() {
@@ -24,11 +20,11 @@ export class Header extends Component {
     document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
-  setWrapperRef(node) {
+  setWrapperRef = (node) => {
     this.wrapperRef = node;
-  }
+  };
 
-  handleClickOutside(event) {
+  handleClickOutside = (event) => {
     if (
       this.wrapperRef &&
       !this.wrapperRef.contains(event.target) &&
@@ -39,9 +35,9 @@ export class Header extends Component {
         currencySwitcher: false,
       });
     }
-  }
+  };
 
-  toogleModalCart() {
+  toogleModalCart = () => {
     if (this.state.currencySwitcher === true) {
       this.setState({
         cartOverlay: !this.state.cartOverlay,
@@ -52,9 +48,9 @@ export class Header extends Component {
         cartOverlay: !this.state.cartOverlay,
       });
     }
-  }
+  };
 
-  toogleCurrency() {
+  toogleCurrency = () => {
     if (this.state.cartOverlay === true) {
       this.setState({
         cartOverlay: !this.state.cartOverlay,
@@ -65,7 +61,7 @@ export class Header extends Component {
         currencySwitcher: !this.state.currencySwitcher,
       });
     }
-  }
+  };
 
   // toggleModal = (currentModal, otherModal) => {
   //   if (this.props.state?.[currentModal] === true) {

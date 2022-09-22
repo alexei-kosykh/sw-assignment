@@ -1,4 +1,4 @@
-import ProductDescription from './ProductDescription';
+import ProductDescription from '.';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {

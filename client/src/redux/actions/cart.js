@@ -51,6 +51,7 @@ export const getInfoForOrder =
       createOrder({
         totalCount: totalCount,
         totalPrice: totalPrice[currencyIndex]?.amount,
+        currency: itemsResult[0].prices.currency,
         tax21: countTax(totalPrice),
         items: itemsResult,
       })

@@ -18,7 +18,7 @@ export class Cart extends Component {
   }
 
   componentDidMount() {
-    this.unsubscribe = store.subscribe(() => this.switchCurrency());
+    this.unsubscribe = store.subscribe(this.switchCurrency);
   }
 
   componentWillUnmount() {
