@@ -2,9 +2,10 @@ import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import { nanoid } from 'nanoid';
 
-import { store } from '../redux/store';
-import { GET_CATEGORIES, makeGraphQLQuery } from '../graphQL/Queries';
-import { setCategory } from '../redux/actions/filters';
+import { store } from '../../redux/store';
+import { GET_CATEGORIES, makeGraphQLQuery } from '../../graphQL/Queries';
+import { setCategory } from '../../redux/actions/filters';
+
 export class Navigation extends PureComponent {
   constructor(props) {
     super(props);

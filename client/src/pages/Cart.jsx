@@ -92,7 +92,7 @@ export class Cart extends Component {
               key={nanoid()}
               onClick={() => this.createOrder(totalCount, totalPrice, items)}
               variant={'primary'}
-              size={`primaryDefault`}
+              size={`Default`}
               value={'ORDER'}
             ></Button>
           </>

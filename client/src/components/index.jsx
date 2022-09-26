@@ -1,6 +1,10 @@
-export { Navigation } from './Navigation';
-export { Actions } from './Header/Actions';
-export { CurrencySwitcher, CartOverlay, Header } from './Header';
+export {
+  CurrencySwitcher,
+  CartOverlay,
+  Header,
+  Actions,
+  Navigation,
+} from './Header';
 export { ProductCardContainer } from './ProductCard/Container';
 export { ProductDescriptionContainer } from './ProductDescription/Container';
 export { ProductGallery } from './ProductGallery';

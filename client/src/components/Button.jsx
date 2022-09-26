@@ -95,7 +95,7 @@ const StyledButton = styled.button`
         `;
       case 'sizeSmall':
       case 'capacitySmall':
-      case `${size}`:
+      case `Small`:
         return css`
           margin-bottom: 5px;
           font-size: 13px;
