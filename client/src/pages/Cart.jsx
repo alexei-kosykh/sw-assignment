@@ -61,7 +61,6 @@ export class Cart extends Component {
 
   render() {
     const { items, totalCount, totalPrice } = store.getState().cart;
-
     return (
       <StyledCart>
         <StyledTitle>Cart</StyledTitle>

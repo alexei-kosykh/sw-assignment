@@ -1,3 +1,3 @@
 export { Cart } from './Cart';
-export { Category } from './Category';
+export { CategoryContainer } from './Category';
 export { PDP } from './PDP';

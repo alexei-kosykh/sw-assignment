@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { nanoid } from 'nanoid';
+import { connect } from 'react-redux';
 
 import { ProductInCart, Button } from '..';
 import { Link } from 'react-router-dom';
@@ -15,6 +16,7 @@ export class CartOverlay extends Component {
     super(props);
     this.currencyObj = store.getState().currency;
   }
+
   getInfoForOverlay = (allItems) => {
     const items = [];
     let key = 0;
@@ -65,16 +67,16 @@ export class CartOverlay extends Component {
                     brand={item.brand}
                     attr={item.attr}
                     count={item.count}
-                    price={item.prices?.[this.props.currencyObj.index].amount}
+                    price={item.prices?.[this.currencyObj?.index].amount}
                     images={item.images}
-                    currencyType={this.props.currencyObj.currency}
+                    currencyType={this.currencyObj.currency}
                   />
                 ))}
                 <div className={'total-price'}>
                   <strong>Total</strong>
                   <strong>
-                    {this.props.currencyObj.currency}
-                    {totalPrice[this.props.currencyObj.index]?.amount}
+                    {this.currencyObj.currency}
+                    {totalPrice[this.currencyObj.index]?.amount}
                   </strong>
                 </div>
                 <div>
@@ -110,7 +112,13 @@ export class CartOverlay extends Component {
   }
 }
 
-export default CartOverlay;
+const mapStateToProps = (state) => {
+  return {
+    totalCount: state.cart.totalCount,
+  };
+};
+
+export const CartOverlayContainer = connect(mapStateToProps)(CartOverlay);
 
 const StyledCartOverlay = styled.div`
   cursor: auto;

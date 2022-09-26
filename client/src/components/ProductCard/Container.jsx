@@ -5,6 +5,7 @@ const mapStateToProps = (state) => {
   return {
     index: state.currency.index,
     currencyType: state.currency.currency,
+    category: state.filters.category.toLowerCase(),
   };
 };
 

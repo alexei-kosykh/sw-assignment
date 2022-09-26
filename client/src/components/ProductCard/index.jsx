@@ -14,7 +14,6 @@ export class ProductCard extends Component {
       error: null,
       isLoaded: false,
       products: [],
-      category: store.getState().filters.category.toLowerCase(),
     };
     this.setId = this.setId.bind(this);
   }
@@ -25,21 +24,7 @@ export class ProductCard extends Component {
     } catch (e) {
       this.setState({ error: e, isLoaded: true });
     }
-
-    this.unsubscribe = store.subscribe(() => this.toogleCategory());
   }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  toogleCategory = () => {
-    const category = store.getState().filters.category.toLowerCase();
-    this.setState({
-      category,
-    });
-    this.props.toogleTitle();
-  };
 
   setId(id) {
     store.dispatch(setIdProduct(id));
@@ -56,7 +41,7 @@ export class ProductCard extends Component {
         <>
           {products.map((product) => {
             return (
-              product.category === this.state.category && (
+              product.category === this.props.category && (
                 <Link
                   key={nanoid()}
                   to={{
@@ -66,7 +51,7 @@ export class ProductCard extends Component {
                 >
                   <StyledProductCard
                     image={product.gallery[0]}
-                    onClick={(e) => this.setId(product.id)}
+                    onClick={() => this.setId(product.id)}
                   >
                     <div>
                       <div className="image" alt="img"></div>

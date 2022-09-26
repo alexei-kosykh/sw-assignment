@@ -93,17 +93,14 @@ const StyledButton = styled.button`
           width: 24px;
           height: 24px;
         `;
-      case 'sizeSmall':
-      case 'capacitySmall':
-      case `Small`:
+      case 'Small':
         return css`
           margin-bottom: 5px;
           font-size: 13px;
           width: 35px;
           height: 35px;
         `;
-      case 'sizeDefault':
-      case 'capacityDefault':
+      case 'Default':
       default:
         return css`
           width: 63px;

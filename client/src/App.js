@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
 
 import { Header } from './components';
-import { Category, Cart, PDP } from './pages';
+import { CategoryContainer, Cart, PDP } from './pages';
 
 class App extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class App extends React.Component {
       <AppWrapper>
         <Header />
         <Routes>
-          <Route path="/" element={<Category />} exact />
+          <Route path="/" element={<CategoryContainer />} exact />
           <Route path="/cart" element={<Cart />} exact />
           <Route path="/pdp" element={<PDP />} exact />
         </Routes>

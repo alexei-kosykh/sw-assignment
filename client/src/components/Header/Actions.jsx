@@ -2,33 +2,23 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { store } from '../../redux/store';
 
-import { CartOverlay, CurrencySwitcher } from '..';
+import { CartOverlayContainer, CurrencySwitcher } from '..';
 export class Actions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currencyObj: store.getState().currency,
       cartOverlay: false,
       currencySwitcher: false,
     };
   }
 
   componentDidMount() {
-    this.unsubscribe = store.subscribe(() => this.switchCurrency());
     document.addEventListener('mousedown', this.handleClickOutside);
   }
 
   componentWillUnmount() {
-    this.unsubscribe();
-
     document.removeEventListener('mousedown', this.handleClickOutside);
   }
-
-  switchCurrency = () => {
-    this.setState({
-      currencyObj: store.getState().currency,
-    });
-  };
 
   setWrapperRef = (node) => {
     this.wrapperRef = node;
@@ -79,7 +69,7 @@ export class Actions extends Component {
         <StyledActions ref={this.setWrapperRef}>
           <StyledCurrency>
             <div onClick={this.toogleCurrency}>
-              <b>{this.state.currencyObj.currency}</b>
+              <b>{store.getState().currency.currency}</b>
               <svg
                 className={`${this.state.currencySwitcher && 'rotated'}`}
                 width="8"
@@ -98,10 +88,7 @@ export class Actions extends Component {
             </div>
 
             {this.state.currencySwitcher && (
-              <CurrencySwitcher
-                switchCurrency={this.switchCurrency}
-                toogleCurrency={this.toogleCurrency}
-              />
+              <CurrencySwitcher toogleCurrency={this.toogleCurrency} />
             )}
           </StyledCurrency>
 
@@ -127,8 +114,7 @@ export class Actions extends Component {
                 fill="#43464E"
               />
             </svg>
-            <CartOverlay
-              currencyObj={this.state.currencyObj}
+            <CartOverlayContainer
               cartOverlay={this.state.cartOverlay}
               toogleModalCart={this.toogleModalCart}
             />

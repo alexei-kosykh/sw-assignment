@@ -10,6 +10,7 @@ import CounterInCart from './CounterInCart';
 
 export class ProductInCart extends Component {
   render() {
+    console.log(this.props);
     return (
       <>
         <StyledProductInCart>
@@ -32,9 +33,11 @@ export class ProductInCart extends Component {
                           <Button
                             key={nanoid()}
                             variant={`${item.nameAttr.toLowerCase()}`}
-                            size={`${item.nameAttr.toLowerCase()}${
-                              this.props.elemSize
-                            }`}
+                            size={`${
+                              item.nameAttr.toLowerCase() === 'color'
+                                ? item.nameAttr.toLowerCase()
+                                : ''
+                            }${this.props.elemSize}`}
                             value={`${attr.value}`}
                             active={index === item.attrIndex ? 'active' : false}
                             disabled

@@ -1,38 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { ProductCardContainer } from '../components';
 import { StyledTitle } from '../GeneralStyles';
-import { store } from '../redux/store';
 
 export class Category extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      category: store.getState().filters.category.toUpperCase(),
-    };
-  }
-
-  toogleTitle = () => {
-    this.setState({
-      category: store.getState().filters.category.toUpperCase(),
-    });
-  };
-
   render() {
     return (
       <StyledCategory>
         <StyledTitle>
-          {this.state.category[0]}
-          {this.state.category.slice(1).toLowerCase()}
+          {this.props.category[0]}
+          {this.props.category.slice(1).toLowerCase()}
         </StyledTitle>
         <div>
-          <ProductCardContainer toogleTitle={this.toogleTitle} />
+          <ProductCardContainer />
         </div>
       </StyledCategory>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    category: state.filters.category.toUpperCase(),
+  };
+};
+
+export const CategoryContainer = connect(mapStateToProps)(Category);
 
 const StyledCategory = styled.div`
   & > div {

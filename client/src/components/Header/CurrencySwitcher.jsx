@@ -35,7 +35,6 @@ export class CurrencySwitcher extends Component {
       idCurrency: index,
     });
     this.props.toogleCurrency();
-    this.props.switchCurrency();
   };
 
   toCurrency = (curr, LanguageFormat = undefined) =>

@@ -1,6 +1,6 @@
 export {
   CurrencySwitcher,
-  CartOverlay,
+  CartOverlayContainer,
   Header,
   Actions,
   Navigation,
