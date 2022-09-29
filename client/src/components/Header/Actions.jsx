@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { store } from '../../redux/store';
 
-import { CartOverlayContainer, CurrencySwitcher } from '..';
+import { CartOverlayContainer, CurrencySwitcher } from '.';
 export class Actions extends Component {
   constructor(props) {
     super(props);

@@ -9,11 +9,11 @@ import { ProductCartTextContainer } from './ProductCartText';
 export class ProductInCart extends Component {
   constructor(props) {
     super(props);
-    this.elemSize = 'Default';
+    this.elemSize = this.props.elemSize;
   }
 
   render() {
-    console.log(this.props);
+    console.log('ProductInCart')
     return (
       <>
         {this.props.controlDeleteItem && (

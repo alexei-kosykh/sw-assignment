@@ -7,33 +7,20 @@ import { connect } from 'react-redux';
 import { StyledTitle } from '../GeneralStyles';
 import emptyCart from '../assets/empty-cart.png';
 
-import { store } from '../redux/store';
+import { getInfoForOverlay } from '../redux/actions/cart';
 
 export class Cart extends Component {
-  getInfoForCart = () => {
-    const newItems = [];
-    let key = 0;
-    Object.values(store.getState().cart.items).map((item) =>
-      Object.values(item).map((item) => {
-        newItems[key] = item;
-        key++;
-      })
-    );
-    return newItems;
-  };
-
   render() {
     return (
       <StyledCart>
         <StyledTitle>Cart</StyledTitle>
         {!this.props.emptyCart ? (
           <>
-            {this.getInfoForCart().map((item) => (
+            {getInfoForOverlay().map((item) => (
               <ProductInCartContainer
+                elemSize="Default"
                 key={nanoid()}
                 item={item}
-
-                // currencyType={this.currencyObj.currency}
               />
             ))}
             <ProductResultContainer />

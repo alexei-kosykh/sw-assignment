@@ -1,3 +1,5 @@
+import { store } from '../store';
+
 export const addProductToCart = (product, id, idAttr) => ({
   type: 'ADD_PRODUCT_CART',
   payload: product,
@@ -26,10 +28,23 @@ export const minusCartItem = (id, idAttr) => ({
   idAttr,
 });
 
+export const getInfoForOverlay = () => {
+  const items = [];
+  let key = 0;
+  Object.values(store.getState().cart.items).map((item) =>
+    Object.values(item).map((item) => {
+      items[key] = item;
+      key++;
+    })
+  );
+  console.log(items);
+  return items;
+};
+
 export const getInfoForOrder =
-  (totalCount, totalPrice, items, currencyIndex, getInfoForCart, countTax) =>
-  (dispatch) => {
-    const itemsResult = getInfoForCart(items).map((item) => {
+  (totalCount, totalPrice, items, currencyIndex, countTax) => (dispatch) => {
+    console.log(getInfoForOverlay);
+    const itemsResult = getInfoForOverlay().map((item) => {
       return {
         ...item,
         prices: item.prices[currencyIndex],

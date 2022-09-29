@@ -38,6 +38,7 @@ export class ImageInCart extends Component {
     }
   };
   render() {
+    console.log('ImagineInCart')
     return (
       <StyledImageCart elemSize={this.props.elemSize}>
         <div>
