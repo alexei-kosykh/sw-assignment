@@ -1,75 +1,57 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-
-import { nanoid } from 'nanoid';
-import { Button } from '../';
-import { StyledTextItem } from '../../GeneralStyles';
+import { connect } from 'react-redux';
 
 import ImageInCart from './ImageInCart';
-import CounterInCart from './CounterInCart';
+import { CounterInCartContainer } from './CounterInCart';
+import { ProductCartTextContainer } from './ProductCartText';
 
 export class ProductInCart extends Component {
+  constructor(props) {
+    super(props);
+    this.elemSize = 'Default';
+  }
+
   render() {
     console.log(this.props);
     return (
       <>
-        <StyledProductInCart>
-          <StyledTextItem elemSize={this.props.elemSize}>
+        {this.props.controlDeleteItem && (
+          <StyledProductInCart>
+            <ProductCartTextContainer
+              elemSize={this.elemSize}
+              item={this.props.item}
+              index={this.props.index}
+              currencyType={this.props.currencyType}
+            />
             <div>
-              <h2>{this.props.name}</h2>
-              <h3>{this.props.brand}</h3>
-              <p>
-                {this.props.currencyType}
-                {this.props.price}
-              </p>
-
-              {this.props.attr.map((item) => {
-                return (
-                  <div key={nanoid()}>
-                    <h4 key={nanoid()}>{item.nameAttr}:</h4>
-                    <div key={nanoid()}>
-                      {item.attrValue.map((attr, index) => {
-                        return (
-                          <Button
-                            key={nanoid()}
-                            variant={`${item.nameAttr.toLowerCase()}`}
-                            size={`${
-                              item.nameAttr.toLowerCase() === 'color'
-                                ? item.nameAttr.toLowerCase()
-                                : ''
-                            }${this.props.elemSize}`}
-                            value={`${attr.value}`}
-                            active={index === item.attrIndex ? 'active' : false}
-                            disabled
-                          ></Button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
+              <CounterInCartContainer
+                item={this.props.item}
+                elemSize={this.elemSize}
+              />
+              <ImageInCart
+                elemSize={this.elemSize}
+                images={this.props.item.images}
+              />
             </div>
-          </StyledTextItem>
-          <div>
-            <CounterInCart
-              id={this.props.id}
-              idAttr={this.props.idAttr}
-              elemSize={this.props.elemSize}
-              count={this.props.count}
-            />
-            <ImageInCart
-              elemSize={this.props.elemSize}
-              images={this.props.images}
-              count={this.props.count}
-            />
-          </div>
-        </StyledProductInCart>
+          </StyledProductInCart>
+        )}
       </>
     );
   }
 }
 
-export default ProductInCart;
+const mapStateToProps = (state, props) => {
+  return {
+    index: state.currency.index,
+    currencyType: state.currency.currency,
+    controlDeleteItem: state.cart.items?.[props.item.id].hasOwnProperty([
+      props.item.idAttr,
+    ]),
+  };
+};
+
+export const ProductInCartContainer = connect(mapStateToProps)(ProductInCart);
 
 const StyledProductInCart = styled.div`
   display: flex;

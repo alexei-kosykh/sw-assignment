@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
 
 import { Header } from './components';
-import { CategoryContainer, Cart, PDP } from './pages';
+import { CategoryContainer, CartContainer, PDP } from './pages';
 
 class App extends React.Component {
   render() {
@@ -12,7 +12,7 @@ class App extends React.Component {
         <Header />
         <Routes>
           <Route path="/" element={<CategoryContainer />} exact />
-          <Route path="/cart" element={<Cart />} exact />
+          <Route path="/cart" element={<CartContainer />} exact />
           <Route path="/pdp" element={<PDP />} exact />
         </Routes>
       </AppWrapper>

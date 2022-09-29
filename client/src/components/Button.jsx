@@ -152,7 +152,6 @@ const StyledButton = styled.button`
           border: 1px solid #1d1f22;
           &:hover,
           &:active,
-          &:focus,
           &.active {
             filter: invert(1);
           }

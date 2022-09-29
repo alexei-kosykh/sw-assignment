@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import { Button } from '../';
 import { store } from '../../redux/store';
 import styled, { css } from 'styled-components';
+import { connect } from 'react-redux';
+
 import { plusCartItem, minusCartItem } from '../../redux/actions/cart';
 
-export class CounterInCart extends Component {
+class CounterInCart extends Component {
   incrementCount = () => {
-    store.dispatch(plusCartItem(this.props.id, this.props.idAttr));
+    store.dispatch(plusCartItem(this.props.item.id, this.props.item.idAttr));
   };
   decrementCount = () => {
-    store.dispatch(minusCartItem(this.props.id, this.props.idAttr));
+    store.dispatch(minusCartItem(this.props.item.id, this.props.item.idAttr));
   };
   render() {
     return (
@@ -32,7 +34,13 @@ export class CounterInCart extends Component {
   }
 }
 
-export default CounterInCart;
+const mapStateToProps = (state, props) => {
+  return {
+    count: state.cart.items[props.item.id][props.item.idAttr].count,
+  };
+};
+
+export const CounterInCartContainer = connect(mapStateToProps)(CounterInCart);
 
 const StyledImageCart = styled.div`
   display: flex;

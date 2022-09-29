@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { nanoid } from 'nanoid';
 import { connect } from 'react-redux';
 
-import { ProductInCart, Button } from '..';
+import { ProductInCartContainer, Button } from '..';
 import { Link } from 'react-router-dom';
 import emptyCart from '../../assets/empty-cart.png';
 
@@ -29,22 +29,6 @@ export class CartOverlay extends Component {
     return items;
   };
 
-  countTax = (totalPrice) =>
-    +(totalPrice[this.currencyObj?.index]?.amount * 0.21).toFixed(2);
-
-  createOrder = (totalCount, totalPrice, items) => {
-    store.dispatch(
-      getInfoForOrder(
-        totalCount,
-        totalPrice,
-        items,
-        this.currencyObj?.index,
-        this.getInfoForOverlay,
-        this.countTax
-      )
-    );
-  };
-
   render() {
     const { items, totalCount, totalPrice } = store.getState().cart;
     return (
@@ -58,7 +42,7 @@ export class CartOverlay extends Component {
                   <strong>My Bag</strong>, {totalCount} items
                 </p>
                 {this.getInfoForOverlay(items).map((item, key) => (
-                  <ProductInCart
+                  <ProductInCartContainer
                     key={nanoid()}
                     id={item.id}
                     idAttr={item.idAttr}

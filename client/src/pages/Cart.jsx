@@ -1,36 +1,15 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { nanoid } from '@reduxjs/toolkit';
-import { ProductInCart, ProductResult } from '../components';
+import { ProductInCartContainer, ProductResultContainer } from '../components';
+import { connect } from 'react-redux';
 
 import { StyledTitle } from '../GeneralStyles';
-import Button from '../components/Button';
 import emptyCart from '../assets/empty-cart.png';
 
 import { store } from '../redux/store';
-import { getInfoForOrder } from '../redux/actions/cart';
+
 export class Cart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currencyObj: store.getState().currency,
-    };
-  }
-
-  componentDidMount() {
-    this.unsubscribe = store.subscribe(this.switchCurrency);
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  switchCurrency = () => {
-    this.setState({
-      currencyObj: store.getState().currency,
-    });
-  };
-
   getInfoForCart = () => {
     const newItems = [];
     let key = 0;
@@ -43,70 +22,40 @@ export class Cart extends Component {
     return newItems;
   };
 
-  countTax = (totalPrice) =>
-    +(totalPrice[this.state.currencyObj?.index]?.amount * 0.21).toFixed(2);
-
-  createOrder = (totalCount, totalPrice, items) => {
-    store.dispatch(
-      getInfoForOrder(
-        totalCount,
-        totalPrice,
-        items,
-        this.state.currencyObj?.index,
-        this.getInfoForCart,
-        this.countTax
-      )
-    );
-  };
-
   render() {
-    const { items, totalCount, totalPrice } = store.getState().cart;
     return (
       <StyledCart>
         <StyledTitle>Cart</StyledTitle>
-        {totalCount ? (
+        {!this.props.emptyCart ? (
           <>
-            {this.getInfoForCart().map((item, key) => (
-              <ProductInCart
+            {this.getInfoForCart().map((item) => (
+              <ProductInCartContainer
                 key={nanoid()}
-                id={item.id}
-                idAttr={item.idAttr}
-                elemSize="Default"
-                name={item.name}
-                brand={item.brand}
-                attr={item.attr}
-                count={item.count}
-                price={item.prices[this.state.currencyObj.index].amount}
-                images={item.images}
-                currencyType={this.state.currencyObj.currency}
+                item={item}
+
+                // currencyType={this.currencyObj.currency}
               />
             ))}
-            <ProductResult
-              currencyType={this.state.currencyObj}
-              totalPrice={totalPrice[this.state.currencyObj?.index]?.amount}
-              totalCount={totalCount}
-              countTax={() => this.countTax(totalPrice)}
-            />
-            <Button
-              key={nanoid()}
-              onClick={() => this.createOrder(totalCount, totalPrice, items)}
-              variant={'primary'}
-              size={`Default`}
-              value={'ORDER'}
-            ></Button>
+            <ProductResultContainer />
           </>
         ) : (
-          <p>
+          <div>
             <img src={emptyCart} alt="Empty cart" />
             <p>Cart is empty</p>
-          </p>
+          </div>
         )}
       </StyledCart>
     );
   }
 }
 
-export default Cart;
+const mapStateToProps = (state) => {
+  return {
+    emptyCart: state.cart.totalCount === 0 ? true : false,
+  };
+};
+
+export const CartContainer = connect(mapStateToProps)(Cart);
 
 const StyledCart = styled.div`
   h1 {
@@ -133,19 +82,20 @@ const StyledCart = styled.div`
     height: 43px;
   }
 
-  p > img {
+  div > img {
     width: 60vw;
+    margin: 0 auto;
 
     @media (min-width: 1280px) {
       width: 40vw;
     }
   }
 
-  & > p {
+  & > div:last-child {
     text-align: center;
   }
 
-  & > p > p {
+  & > div > p {
     font-size: 25px;
   }
 `;
