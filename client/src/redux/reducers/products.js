@@ -1,6 +1,5 @@
-
 const initialState = {
-  currentId: 'ps-5',
+  currentId: '',
   isLoaded: false,
   error: null,
 };

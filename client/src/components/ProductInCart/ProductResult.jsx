@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { nanoid } from '@reduxjs/toolkit';
-import { store } from '../../redux/store';
+import { Component } from 'react';
 import { connect } from 'react-redux';
+import { nanoid } from 'nanoid';
+import styled from 'styled-components';
 
+import { store } from '../../redux/store';
 import { getInfoForOrder } from '../../redux/actions/cart';
+
 import Button from '../Button';
 
 export class ProductResult extends Component {

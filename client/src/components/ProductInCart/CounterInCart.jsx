@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import { Button } from '../';
-import { store } from '../../redux/store';
-import styled, { css } from 'styled-components';
+import { Component } from 'react';
 import { connect } from 'react-redux';
+import styled, { css } from 'styled-components';
 
+import { store } from '../../redux/store';
 import { plusCartItem, minusCartItem } from '../../redux/actions/cart';
+
+import { Button } from '../';
 
 class CounterInCart extends Component {
   incrementCount = () => {
@@ -14,7 +15,7 @@ class CounterInCart extends Component {
     store.dispatch(minusCartItem(this.props.item.id, this.props.item.idAttr));
   };
   render() {
-    console.log('counterInCart')
+    console.log('counterInCart');
     return (
       <StyledImageCart elemSize={this.props.elemSize}>
         <Button
@@ -59,14 +60,14 @@ const StyledImageCart = styled.div`
     switch (elemSize) {
       case 'Small':
         return css`
-          margin-right: 8px;
-          height: 194px;
+          margin: 0 7px;
+          height: auto;
         `;
 
       case 'Default':
         return css`
           margin-right: 15px;
-          height: 290px;
+          height: auto;
         `;
       default:
         return css`

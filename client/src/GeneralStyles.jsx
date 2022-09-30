@@ -8,6 +8,48 @@ export const StyledTitle = styled.h1`
     margin-bottom: 50px;
   }
 `;
+
+export const StyledCounterCart = styled.div`
+  .counter {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9;
+
+    cursor: pointer;
+    background-color: #1d1f22;
+    border-radius: 50%;
+
+    font-size: 14px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 200;
+    color: white;
+
+    ${(props) => {
+      switch (props.type) {
+        case 'cart':
+          return css`
+            top: 21px;
+            right: -13px;
+            width: 20px;
+            height: 20px;
+          `;
+
+        case 'card':
+          return css`
+            top: -7px;
+            right: -7px;
+            width: 25px;
+            height: 25px;
+          `;
+        default:
+          return css``;
+      }
+    }}
+  }
+`;
+
 export const StyledTextItem = styled.div`
   h4 {
     font-family: 'Roboto Condensed', sans-serif;

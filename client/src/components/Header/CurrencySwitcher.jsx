@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { nanoid } from 'nanoid';
+import styled from 'styled-components';
 
 import { store } from '../../redux/store';
-import { GET_CURRENCY, makeGraphQLQuery } from '../../graphQL/Queries';
 import { setCurrency } from '../../redux/actions/currency';
-import styled from 'styled-components';
+import { GET_CURRENCY, makeGraphQLQuery } from '../../graphQL/Queries';
 
 export class CurrencySwitcher extends Component {
   constructor(props) {

@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export const GET_ALL_PRODUCTS = `
 query {
   productsAll {

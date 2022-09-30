@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import { ProductCardContainer } from '../components';
+
 import { StyledTitle } from '../GeneralStyles';
 
 export class Category extends Component {

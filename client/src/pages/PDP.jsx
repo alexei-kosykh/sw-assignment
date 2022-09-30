@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { ProductGallery, ProductDescriptionContainer } from '../components';
+import { Component } from 'react';
 import styled from 'styled-components';
-import { store } from '../redux/store';
 
+import { store } from '../redux/store';
 import { GET_PRODUCT_BY_ID, makeGraphQLQuery } from '../graphQL/Queries';
+
+import { ProductGallery, ProductDescriptionContainer } from '../components';
 export class PDP extends Component {
   constructor(props) {
     super(props);

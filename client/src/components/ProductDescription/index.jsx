@@ -1,12 +1,13 @@
-import React, { PureComponent } from 'react';
-import styled from 'styled-components';
+import { PureComponent } from 'react';
 import { nanoid } from 'nanoid';
+import styled from 'styled-components';
 
-import { Button, InputRadioGroup } from '..';
-import { StyledTextItem } from '../../GeneralStyles';
 import { store } from '../../redux/store';
 import { addProductToCart } from '../../redux/actions/cart';
 
+import { Button, InputRadioGroup } from '..';
+
+import { StyledTextItem } from '../../GeneralStyles';
 export class ProductDescription extends PureComponent {
   constructor(props) {
     super(props);

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 
 export class CartOverlayTitle extends Component {
@@ -17,5 +17,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export const COTitleContainer =
-  connect(mapStateToProps)(CartOverlayTitle);
+export const COTitleContainer = connect(mapStateToProps)(CartOverlayTitle);

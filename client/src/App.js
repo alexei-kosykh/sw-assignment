@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
+import { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { Header } from './components';
 import { CategoryContainer, CartContainer, PDP } from './pages';
 
-class App extends React.Component {
+class App extends Component {
   render() {
     return (
       <AppWrapper>

@@ -1,12 +1,12 @@
-import { nanoid } from '@reduxjs/toolkit';
-import React, { Component } from 'react';
-import { InputRadio } from './';
+import { Component, createRef } from 'react';
+import { nanoid } from 'nanoid';
 
+import { InputRadio } from './';
 export class InputRadioGroup extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.myRef = React.createRef();
+    this.myRef = createRef();
   }
 
   componentDidMount() {

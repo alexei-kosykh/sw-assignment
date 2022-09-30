@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import styled, { css } from 'styled-components';
 
 export class Button extends Component {
@@ -48,6 +48,7 @@ const StyledButton = styled.button`
           padding: 0 30px;
           height: 50px;
         `;
+
       case 'primarySmall':
         return css`
           width: 63px;
@@ -67,6 +68,10 @@ const StyledButton = styled.button`
           &.active {
             width: 34px;
             height: 34px;
+          }
+
+          &:first-child {
+            margin-left: 2px;
           }
         `;
       case 'colorSmall':
@@ -99,6 +104,13 @@ const StyledButton = styled.button`
           font-size: 13px;
           width: 35px;
           height: 35px;
+        `;
+      case 'cartCircle':
+        return css`
+          width: 52px;
+          height: 52px;
+          padding-right: 2px;
+          border-radius: 50%;
         `;
       case 'Default':
       default:
@@ -139,6 +151,15 @@ const StyledButton = styled.button`
           &.active {
             outline: 1px solid #5ece7b;
             outline-offset: 1px;
+            transition: all 0.2s ease-in-out;
+          }
+        `;
+      case 'circle':
+        return css`
+          background-color: #5ece7b;
+          &:active,
+          &:hover {
+            background-color: #4cc46c;
             transition: all 0.2s ease-in-out;
           }
         `;

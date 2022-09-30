@@ -1,11 +1,11 @@
-import { nanoid } from 'nanoid';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
-import { getInfoForOrder } from '../../../redux/actions/cart';
-import { store } from '../../../redux/store';
-
+import { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { nanoid } from 'nanoid';
+
+import { store } from '../../../redux/store';
+import { getInfoForOrder } from '../../../redux/actions/cart';
+
 import { Button } from '../..';
 
 export class CartOverlayButton extends Component {

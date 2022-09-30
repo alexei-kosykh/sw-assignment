@@ -1,9 +1,15 @@
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
+import { StyledCounterCart } from '../../../GeneralStyles';
+
 export class CartOverlayCounter extends PureComponent {
   render() {
-    return <div className="counter">{this.props.totalCount}</div>;
+    return (
+      <StyledCounterCart type={this.props.type}>
+        <div className="counter">{this.props.totalCount}</div>
+      </StyledCounterCart>
+    );
   }
 }
 

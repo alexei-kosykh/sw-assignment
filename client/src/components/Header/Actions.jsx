@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import styled from 'styled-components';
+
 import { store } from '../../redux/store';
 
 import { CartOverlayContainer, CurrencySwitcher } from '.';
@@ -137,26 +138,6 @@ const StyledCart = styled.div`
   display: flex;
   margin-left: 15px;
   align-self: center;
-
-  .counter {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 21px;
-    right: -13px;
-    width: 20px;
-    height: 20px;
-    z-index: 9;
-
-    background-color: #1d1f22;
-    border-radius: 50%;
-
-    font-size: 14px;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 200;
-    color: white;
-  }
 
   &:active svg path,
   &:hover svg path {

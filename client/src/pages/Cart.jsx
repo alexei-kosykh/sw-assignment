@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { nanoid } from '@reduxjs/toolkit';
-import { ProductInCartContainer, ProductResultContainer } from '../components';
+import { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { StyledTitle } from '../GeneralStyles';
-import emptyCart from '../assets/empty-cart.png';
+import { nanoid } from 'nanoid';
+import styled from 'styled-components';
 
 import { getInfoForOverlay } from '../redux/actions/cart';
+
+import { ProductInCartContainer, ProductResultContainer } from '../components';
+
+import { StyledTitle } from '../GeneralStyles';
+
+import emptyCart from '../assets/empty-cart.png';
 
 export class Cart extends Component {
   render() {

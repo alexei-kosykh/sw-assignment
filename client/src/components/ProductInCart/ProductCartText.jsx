@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
-
 import { nanoid } from 'nanoid';
+
 import { Button } from '../';
+
 import { StyledTextItem } from '../../GeneralStyles';
 
 export class ProductCartText extends Component {

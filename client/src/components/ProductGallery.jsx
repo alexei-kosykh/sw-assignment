@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { nanoid } from 'nanoid';
+import styled from 'styled-components';
 
 import defaultImage from '../assets/default.png';
 
