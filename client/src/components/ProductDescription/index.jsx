@@ -1,72 +1,17 @@
 import { PureComponent } from 'react';
-import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 
-import { store } from '../../redux/store';
-import { addProductToCart } from '../../redux/actions/cart';
+import { addToCart } from '../../redux/actions/cart';
 
-import { Button, InputRadioGroup } from '..';
+import { Button, ProductAttributes } from '..';
 
 import { StyledTextItem } from '../../GeneralStyles';
 export class ProductDescription extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      idArrayAttributes: 0,
-      totalPrice: 0,
-      addProduct: false,
-    };
     this.productToCart = [];
     this.attributes = [];
-
-    this.currency = this.props.product.prices?.map((item) => item.currency);
   }
-
-  formatCurrency(amount) {
-    return new Intl.NumberFormat(undefined, {
-      style: 'currency',
-      currency: !this.currency ? 'USD' : this.currency[0],
-    }).format(amount);
-  }
-
-  formatDescription(string) {
-    return new DOMParser()
-      .parseFromString(string, 'text/html')
-      .getElementsByTagName('div')[0];
-  }
-
-  generateProductInfo(id, idAttr) {
-    this.productToCart[id] = {
-      [idAttr]: {
-        name: this.props.product.name,
-        brand: this.props.product.brand,
-        attr: this.attributes.map((item) => item),
-        prices: this.props.product.prices,
-        pricesDefault: this.props.product.prices,
-        images: this.props.product.gallery,
-        idAttr: idAttr,
-        id: id,
-      },
-    };
-  }
-
-  addToCart = () => {
-    const idCurrentProduct = this.props.product.name
-      ?.toLowerCase()
-      .replace(/\s/g, '');
-    const idCurrentAttributes = this.attributes
-      .map((item) => item.attrIndex)
-      .join('');
-    this.generateProductInfo(idCurrentProduct, idCurrentAttributes);
-    store.dispatch(
-      addProductToCart(
-        this.productToCart[idCurrentProduct],
-        idCurrentProduct,
-        idCurrentAttributes
-      )
-    );
-    this.setState({ addProduct: false });
-  };
 
   render() {
     return (
@@ -74,18 +19,11 @@ export class ProductDescription extends PureComponent {
         <StyledTextItem elemSize={this.props.elemSize}>
           <h2>{this.props.product.name}</h2>
           <h3>{this.props.product.brand}</h3>
-          {this.props.product.attributes?.map((attr, key) => (
-            <div key={nanoid()}>
-              <h4 key={nanoid()}>{attr.name}:</h4>
-              <div key={nanoid()}>
-                <InputRadioGroup
-                  attr={attr}
-                  index={key}
-                  attrSelected={this.attributes}
-                />
-              </div>
-            </div>
-          ))}
+          <ProductAttributes
+            productId={this.props.product.id}
+            productAttr={this.props.product.attributes}
+            attributes={this.attributes}
+          />
           <h4>PRICE:</h4>
           <p>
             {`${this.props.currencyType} ${
@@ -96,7 +34,9 @@ export class ProductDescription extends PureComponent {
             variant="primary"
             size="primaryDefault"
             value="Add to cart"
-            onClick={this.addToCart}
+            onClick={() =>
+              addToCart(this.props.product, this.attributes, this.productToCart)
+            }
           ></Button>
           <div
             dangerouslySetInnerHTML={{ __html: this.props.product.description }}

@@ -12,7 +12,6 @@ export class ProductInCart extends Component {
   }
 
   render() {
-    console.log('ProductInCart');
     return (
       <>
         {this.props.controlDeleteItem && (

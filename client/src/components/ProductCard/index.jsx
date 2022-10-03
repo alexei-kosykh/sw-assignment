@@ -5,10 +5,14 @@ import styled from 'styled-components';
 
 import { store } from '../../redux/store';
 import { setIdProduct } from '../../redux/actions/products';
+import { addToCart } from '../../redux/actions/cart';
 import { GET_ALL_PRODUCTS, makeGraphQLQuery } from '../../graphQL/Queries';
 
+import { ProductAttributes } from '..';
+
 import { Button } from '..';
-import { COCounterContainer } from '../Header/CartOverlay';
+
+import { StyledTextItem } from '../../GeneralStyles';
 
 export class ProductCard extends Component {
   constructor(props) {
@@ -18,12 +22,18 @@ export class ProductCard extends Component {
       isLoaded: false,
       products: [],
     };
+    this.attributes = [];
+    this.productToCart = [];
+
     this.setId = this.setId.bind(this);
   }
   async componentDidMount() {
     try {
       let result = await makeGraphQLQuery(GET_ALL_PRODUCTS);
-      this.setState({ products: result.data.productsAll, isLoaded: true });
+      this.setState({
+        products: result.data.productsAll,
+        isLoaded: true,
+      });
     } catch (e) {
       this.setState({ error: e, isLoaded: true });
     }
@@ -68,13 +78,22 @@ export class ProductCard extends Component {
                     </StyledProductCard>
                   </Link>
                   <span>
-                    {this.props.hasItems && <COCounterContainer type="card" />}
+                    <div>
+                      <StyledTextItem elemSize="SmallInCard">
+                        {/* {console.log(product.id)}
+                        {console.log(product.attributes)} */}
+                        <ProductAttributes
+                          productId={product.id}
+                          productAttr={product.attributes}
+                          attributes={this.attributes}
+                        />
+                      </StyledTextItem>
+                    </div>
                     <Button
                       variant="circle"
                       size="cartCircle"
                       value={
                         <svg
-                          onClick={this.toogleModalCart}
                           width="20"
                           height="20"
                           viewBox="0 0 20 20"
@@ -95,7 +114,9 @@ export class ProductCard extends Component {
                           />
                         </svg>
                       }
-                      onClick={this.addToCart}
+                      onClick={() =>
+                        addToCart(product, this.attributes, this.productToCart)
+                      }
                     ></Button>
                   </span>
                 </StyledCardItem>
@@ -113,16 +134,21 @@ export default ProductCard;
 const StyledCardItem = styled.div`
   position: relative;
   span {
-    display: none;
+    /* display: none; */
     position: absolute;
     top: 270px;
     right: 30px;
-    z-index: 100;
+    z-index: 1;
 
-    div {
+    & > div {
+      /* &:hover */
       position: absolute;
-      top: 0;
-      right: 0;
+      bottom: 45px;
+      right: -5px;
+
+      padding: 15px;
+
+      /* background-color: #0f0f0f; */
     }
   }
 

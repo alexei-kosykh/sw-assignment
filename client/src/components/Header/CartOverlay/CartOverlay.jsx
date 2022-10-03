@@ -17,8 +17,6 @@ import emptyCart from '../../../assets/empty-cart.png';
 
 export class CartOverlay extends Component {
   render() {
-    console.log('cartOverlay');
-    console.log(this.props);
     return (
       <>
         {this.props.hasItems && <COCounterContainer type="cart" />}

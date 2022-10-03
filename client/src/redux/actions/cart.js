@@ -37,13 +37,11 @@ export const getInfoForOverlay = () => {
       key++;
     })
   );
-  console.log(items);
   return items;
 };
 
 export const getInfoForOrder =
   (totalCount, totalPrice, items, currencyIndex, countTax) => (dispatch) => {
-    console.log(getInfoForOverlay);
     const itemsResult = getInfoForOverlay().map((item) => {
       return {
         ...item,
@@ -78,3 +76,44 @@ export const createOrder = (items) => ({
   type: 'CREATE_NEW_ORDER',
   payload: items,
 });
+
+// Two functions for generate info and add item
+export const generateProductInfo = (
+  id,
+  idAttr,
+  product,
+  attributes,
+  productToCart
+) => {
+  productToCart[id] = {
+    [idAttr]: {
+      name: product.name,
+      brand: product.brand,
+      attr: attributes.map((item) => item),
+      prices: product.prices,
+      pricesDefault: product.prices,
+      images: product.gallery,
+      idAttr: idAttr,
+      id: id,
+    },
+  };
+};
+
+export const addToCart = (product, attributes, productToCart) => {
+  const idCurrentProduct = product.name?.toLowerCase().replace(/\s/g, '');
+  const idCurrentAttributes = attributes.map((item) => item.attrIndex).join('');
+  generateProductInfo(
+    idCurrentProduct,
+    idCurrentAttributes,
+    product,
+    attributes,
+    productToCart
+  );
+  store.dispatch(
+    addProductToCart(
+      productToCart[idCurrentProduct],
+      idCurrentProduct,
+      idCurrentAttributes
+    )
+  );
+};

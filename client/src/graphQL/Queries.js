@@ -11,6 +11,13 @@ query {
     }
     gallery
     category
+
+    attributes {
+      name
+      items {
+        value
+      }
+    }
   }
 }
 `;

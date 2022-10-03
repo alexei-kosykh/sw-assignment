@@ -15,7 +15,6 @@ class CounterInCart extends Component {
     store.dispatch(minusCartItem(this.props.item.id, this.props.item.idAttr));
   };
   render() {
-    console.log('counterInCart');
     return (
       <StyledImageCart elemSize={this.props.elemSize}>
         <Button

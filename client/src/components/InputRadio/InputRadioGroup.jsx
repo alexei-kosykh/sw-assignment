@@ -22,7 +22,8 @@ export class InputRadioGroup extends Component {
       attrValue: this.props.attr.items,
       attrIndex: 0,
     };
-    // console.log(this.props.index);
+    console.log(this.props.productId, this.props.attr.name);
+    console.log(this.props.attrSelected);
   }
 
   onSelectType = (e) => {
@@ -36,9 +37,8 @@ export class InputRadioGroup extends Component {
     this.props.attrSelected[dataInput.index] = {
       nameAttr: this.props.attr.name,
       attrValue: this.props.attr.items,
-      attrIndex: +e.target.value,
+      attrIndex: dataInput.index,
     };
-    // console.log(+e.target.value);
   };
   render() {
     return (
@@ -46,7 +46,9 @@ export class InputRadioGroup extends Component {
         {this.props.attr.items.map((item, key) => (
           <InputRadio
             key={nanoid()}
-            id={`toogle-${this.props.attr.name
+            id={`${this.props.productId
+              .toLowerCase()
+              .replace(/\s/g, '')}-toogle-${this.props.attr.name
               .toLowerCase()
               .replace(/\s/g, '')}-${item.value}`}
             ref={this.myRef}

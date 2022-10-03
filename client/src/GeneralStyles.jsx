@@ -80,6 +80,28 @@ export const StyledTextItem = styled.div`
           }
         `;
 
+      case 'SmallInCard':
+        return css`
+          border-radius: 5px;
+          background-color: #ffffff;
+          border: 1px solid #000000;
+          padding: 10px;
+
+          &::before,
+          &::after {
+            content: '';
+            position: absolute;
+            right: 30px;
+            bottom: -5px;
+            border: 10px solid transparent;
+            border-top: 10px solid #000000;
+          }
+          &::after {
+            border-top: 10px solid white;
+            bottom: -4px;
+          }
+        `;
+
       case 'Default':
         return css`
           h2,

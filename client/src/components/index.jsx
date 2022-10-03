@@ -12,3 +12,4 @@ export { ProductInCartContainer } from './ProductInCart';
 export { ProductResultContainer } from './ProductInCart';
 export { Button } from './Button';
 export { InputRadio, InputRadioGroup } from './InputRadio';
+export { ProductAttributes } from './ProductDescription/ProductAttributes';
