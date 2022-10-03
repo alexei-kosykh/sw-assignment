@@ -44,6 +44,7 @@ export const GET_PRODUCT_BY_ID = (idProduct) =>
   `
 query {
   product(id:"${idProduct}") {
+    id
    name
    prices {
     amount

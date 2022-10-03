@@ -33,14 +33,16 @@ export class InputRadioGroup extends Component {
         idTarget: +e.target.value,
       },
     });
-
+    console.log(this.props.productId, this.props.attr.name);
+    console.log(this.props.attrSelected);
     this.props.attrSelected[dataInput.index] = {
       nameAttr: this.props.attr.name,
       attrValue: this.props.attr.items,
-      attrIndex: dataInput.index,
+      attrIndex: +e.target.value,
     };
   };
   render() {
+    console.log(this.props.productId);
     return (
       <>
         {this.props.attr.items.map((item, key) => (

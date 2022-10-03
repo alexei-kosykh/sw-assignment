@@ -30,6 +30,7 @@ export class PDP extends Component {
     return (
       <StyledPDP>
         <ProductGallery images={this.state.product.gallery} />
+        {console.log('prod', this.state.product)}
         <ProductDescriptionContainer
           product={this.state.product}
           elemSize="Default"

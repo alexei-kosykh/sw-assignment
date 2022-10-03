@@ -89,16 +89,17 @@ export const StyledTextItem = styled.div`
 
           &::before,
           &::after {
+           
             content: '';
             position: absolute;
-            right: 30px;
-            bottom: -5px;
+            right: 50px;
+            bottom: 15px;
             border: 10px solid transparent;
             border-top: 10px solid #000000;
           }
           &::after {
             border-top: 10px solid white;
-            bottom: -4px;
+            bottom: 16px;
           }
         `;
 

@@ -24,6 +24,7 @@ export class ProductDescription extends PureComponent {
             productAttr={this.props.product.attributes}
             attributes={this.attributes}
           />
+          {console.log(this.props.product)}
           <h4>PRICE:</h4>
           <p>
             {`${this.props.currencyType} ${

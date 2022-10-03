@@ -102,8 +102,8 @@ const StyledButton = styled.button`
         return css`
           margin-bottom: 5px;
           font-size: 13px;
-          width: 35px;
-          height: 35px;
+          width: 50px;
+          height: 40px;
         `;
       case 'cartCircle':
         return css`
