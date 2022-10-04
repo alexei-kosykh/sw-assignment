@@ -5,11 +5,11 @@ export {
   Actions,
   Navigation,
 } from './Header';
-export { ProductCardContainer } from './ProductCard/Container';
-export { ProductDescriptionContainer } from './ProductDescription/Container';
+export { ProductCardContainer } from './ProductCard';
+export { ProductDescriptionContainer } from './ProductDescription';
 export { ProductGallery } from './ProductGallery';
 export { ProductInCartContainer } from './ProductInCart';
 export { ProductResultContainer } from './ProductInCart';
 export { Button } from './Button';
 export { InputRadio, InputRadioGroup } from './InputRadio';
-export { ProductAttributes } from './ProductDescription/ProductAttributes';
+export { ProductAttributes } from './ProductAttributes';

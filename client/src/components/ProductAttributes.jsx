@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
 
-import { InputRadioGroup } from '..';
+import { InputRadioGroup } from '.';
 
 export class ProductAttributes extends Component {
   render() {

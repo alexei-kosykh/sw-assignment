@@ -7,18 +7,6 @@ import { Navigation, Actions } from './';
 import logo from '../../assets/a-logo.png';
 
 export class Header extends Component {
-  // toggleModal = (currentModal, otherModal) => {
-  //   if (this.props.state?.[currentModal] === true) {
-  //     this.setState({
-  //       [currentModal]: !this.state?.[currentModal],
-  //     });
-  //   }
-  //   this.setState({
-  //     [otherModal]: !this.state?.[otherModal],
-  //   });
-  //   console.log(otherModal, 1);
-  // };
-
   render() {
     return (
       <StyledHeaderWrapper>

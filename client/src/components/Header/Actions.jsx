@@ -38,7 +38,7 @@ export class Actions extends Component {
     }
   };
 
-  toogleModalCart = () => {
+  toggleModalCart = () => {
     if (this.state.currencySwitcher === true) {
       this.setState({
         cartOverlay: !this.state.cartOverlay,
@@ -51,7 +51,7 @@ export class Actions extends Component {
     }
   };
 
-  toogleCurrency = () => {
+  toggleCurrency = () => {
     if (this.state.cartOverlay === true) {
       this.setState({
         cartOverlay: !this.state.cartOverlay,
@@ -69,7 +69,7 @@ export class Actions extends Component {
       <div className={`${this.state.cartOverlay && 'blackout'}`}>
         <StyledActions ref={this.setWrapperRef}>
           <StyledCurrency>
-            <div onClick={this.toogleCurrency}>
+            <div onClick={this.toggleCurrency}>
               <b>{store.getState().currency.currency}</b>
               <svg
                 className={`${this.state.currencySwitcher && 'rotated'}`}
@@ -89,13 +89,13 @@ export class Actions extends Component {
             </div>
 
             {this.state.currencySwitcher && (
-              <CurrencySwitcher toogleCurrency={this.toogleCurrency} />
+              <CurrencySwitcher toggleCurrency={this.toggleCurrency} />
             )}
           </StyledCurrency>
 
           <StyledCart>
             <svg
-              onClick={this.toogleModalCart}
+              onClick={this.toggleModalCart}
               width="20"
               height="20"
               viewBox="0 0 20 20"
@@ -117,7 +117,7 @@ export class Actions extends Component {
             </svg>
             <CartOverlayContainer
               cartOverlay={this.state.cartOverlay}
-              toogleModalCart={this.toogleModalCart}
+              toggleModalCart={this.toggleModalCart}
             />
           </StyledCart>
         </StyledActions>

@@ -37,12 +37,6 @@ const countDecreaseById = (count) => {
   return count > 1 ? --count : 0;
 };
 
-// const deleteById = (items, id, idAttr) => {
-//   const newObj = { ...items };
-//   delete newObj[id][idAttr];
-//   return newObj;
-// };
-
 const getCurrentPrice = (prices, productCount) => {
   return prices.map((item) => {
     return {
@@ -58,11 +52,6 @@ export const cart = (state = initialState, action) => {
   );
   switch (action.type) {
     case 'ADD_PRODUCT_CART': {
-      // const totalCount = getAllSumByCount(state.items);
-      // action.payload[action.idAttr].prices.map((item) =>
-      //   console.log(item.amount)
-      // );
-
       const newItems = {
         ...state.items,
         [action.id]: {

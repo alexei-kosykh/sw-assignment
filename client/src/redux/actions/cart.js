@@ -32,7 +32,7 @@ export const getInfoForOverlay = () => {
   const items = [];
   let key = 0;
   Object.values(store.getState().cart.items).map((item) =>
-    Object.values(item).map((item) => {
+    Object.values(item).forEach((item) => {
       items[key] = item;
       key++;
     })
@@ -41,7 +41,7 @@ export const getInfoForOverlay = () => {
 };
 
 export const getInfoForOrder =
-  (totalCount, totalPrice, items, currencyIndex, countTax) => (dispatch) => {
+  (totalCount, totalPrice, currencyIndex, countTax) => (dispatch) => {
     const itemsResult = getInfoForOverlay().map((item) => {
       return {
         ...item,
@@ -53,7 +53,7 @@ export const getInfoForOrder =
       };
     });
 
-    itemsResult.map((item) => {
+    itemsResult.forEach((item) => {
       delete item.pricesDefault;
       delete item.images;
       delete item.id;

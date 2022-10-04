@@ -22,7 +22,7 @@ export class Navigation extends PureComponent {
     });
   }
 
-  toogleCategory(item) {
+  toggleCategory(item) {
     store.dispatch(setCategory(item));
     this.setState({ activeCategory: item.toLowerCase() });
   }
@@ -34,7 +34,7 @@ export class Navigation extends PureComponent {
           <div
             active={`${item === this.state.activeCategory}`}
             key={nanoid()}
-            onClick={() => this.toogleCategory(item)}
+            onClick={() => this.toggleCategory(item)}
           >
             {item}
           </div>

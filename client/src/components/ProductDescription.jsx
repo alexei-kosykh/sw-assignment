@@ -1,11 +1,12 @@
 import { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { addToCart } from '../../redux/actions/cart';
+import { addToCart } from '../redux/actions/cart';
 
-import { Button, ProductAttributes } from '..';
+import { Button, ProductAttributes } from '.';
 
-import { StyledTextItem } from '../../GeneralStyles';
+import { StyledTextItem } from '../GeneralStyles';
 export class ProductDescription extends PureComponent {
   constructor(props) {
     super(props);
@@ -24,7 +25,6 @@ export class ProductDescription extends PureComponent {
             productAttr={this.props.product.attributes}
             attributes={this.attributes}
           />
-          {console.log(this.props.product)}
           <h4>PRICE:</h4>
           <p>
             {`${this.props.currencyType} ${
@@ -48,7 +48,15 @@ export class ProductDescription extends PureComponent {
   }
 }
 
-export default ProductDescription;
+const mapStateToProps = (state) => {
+  return {
+    index: state.currency.index,
+    currencyType: state.currency.currency,
+  };
+};
+
+export const ProductDescriptionContainer =
+  connect(mapStateToProps)(ProductDescription);
 
 const StyledProductDescription = styled.div`
   & > div > button {

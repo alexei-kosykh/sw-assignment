@@ -67,6 +67,10 @@ const StyledImageCart = styled.div`
         return css`
           margin-right: 15px;
           height: auto;
+
+          @media (max-width: 500px) {
+            margin: 0 10px;
+          }
         `;
       default:
         return css`

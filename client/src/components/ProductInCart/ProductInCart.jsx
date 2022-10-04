@@ -6,18 +6,13 @@ import ImageInCart from './ImageInCart';
 import { CounterInCartContainer, ProductCartTextContainer } from '.';
 
 export class ProductInCart extends Component {
-  constructor(props) {
-    super(props);
-    this.elemSize = this.props.elemSize;
-  }
-
   render() {
     return (
       <>
         {this.props.controlDeleteItem && (
           <StyledProductInCart>
             <ProductCartTextContainer
-              elemSize={this.elemSize}
+              elemSize={this.props.elemSize}
               item={this.props.item}
               index={this.props.index}
               currencyType={this.props.currencyType}
@@ -25,10 +20,10 @@ export class ProductInCart extends Component {
             <div>
               <CounterInCartContainer
                 item={this.props.item}
-                elemSize={this.elemSize}
+                elemSize={this.props.elemSize}
               />
               <ImageInCart
-                elemSize={this.elemSize}
+                elemSize={this.props.elemSize}
                 images={this.props.item.images}
               />
             </div>

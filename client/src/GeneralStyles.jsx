@@ -89,7 +89,6 @@ export const StyledTextItem = styled.div`
 
           &::before,
           &::after {
-           
             content: '';
             position: absolute;
             right: 50px;
@@ -129,6 +128,19 @@ export const StyledTextItem = styled.div`
 
           h4 + p {
             font-size: 24px;
+          }
+
+          @media (max-width: 500px) {
+            h2,
+            h3 {
+              font-size: 20px;
+            }
+            h3 {
+              margin-bottom: 20px;
+            }
+            h4 + div > button {
+              margin-bottom: 10px;
+            }
           }
         `;
       default:

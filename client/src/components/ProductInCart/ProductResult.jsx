@@ -11,9 +11,9 @@ import Button from '../Button';
 export class ProductResult extends Component {
   countTax = (totalPrice) => +(totalPrice * 0.21).toFixed(2);
 
-  createOrder = (totalCount, totalPrice, items, index) => {
+  createOrder = (totalCount, totalPrice, index) => {
     store.dispatch(
-      getInfoForOrder(totalCount, totalPrice, items, index, this.countTax)
+      getInfoForOrder(totalCount, totalPrice, index, this.countTax)
     );
   };
 
@@ -46,7 +46,6 @@ export class ProductResult extends Component {
             this.createOrder(
               this.props.totalCount,
               this.props.totalPrice,
-              this.props.items,
               this.props.index
             )
           }
@@ -63,7 +62,6 @@ const mapStateToProps = (state) => {
   return {
     index: state.currency.index,
     currencyType: state.currency.currency,
-    items: state.cart.items,
     totalCount: state.cart.totalCount,
     totalPrice: state.cart.totalPrice,
   };

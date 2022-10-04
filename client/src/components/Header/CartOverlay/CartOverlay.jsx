@@ -34,7 +34,7 @@ export class CartOverlay extends Component {
                 ))}
                 <COTotalContainer />
                 <COButtonContainer
-                  toogleModalCart={this.props.toogleModalCart}
+                  toggleModalCart={this.props.toggleModalCart}
                 />
               </>
             ) : (

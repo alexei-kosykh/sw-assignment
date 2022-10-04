@@ -1,31 +1,29 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 
-import { store } from '../../redux/store';
-import { setIdProduct } from '../../redux/actions/products';
-import { addToCart } from '../../redux/actions/cart';
+import { store } from '../redux/store';
+import { setIdProduct } from '../redux/actions/products';
+import { addToCart } from '../redux/actions/cart';
 
-import { ProductAttributes } from '..';
+import { ProductAttributes } from '.';
 
-import { Button } from '..';
+import { Button } from '.';
 
-import { StyledTextItem } from '../../GeneralStyles';
+import { StyledTextItem } from '../GeneralStyles';
 
 export class ProductCard extends Component {
   constructor(props) {
     super(props);
-
     this.attributes = [];
     this.productToCart = [];
-
-    this.setId = this.setId.bind(this);
   }
 
-  setId(id) {
+  setId = (id) => {
     store.dispatch(setIdProduct(id));
-  }
+  };
 
   render() {
     const product = this.props.product;
@@ -54,15 +52,17 @@ export class ProductCard extends Component {
             </StyledProductCard>
           </Link>
           <span>
-            <div>
-              <StyledTextItem elemSize="SmallInCard">
-                <ProductAttributes
-                  productId={product.id}
-                  productAttr={product.attributes}
-                  attributes={this.attributes}
-                />
-              </StyledTextItem>
-            </div>
+            {!!product.attributes.length && (
+              <div>
+                <StyledTextItem elemSize="SmallInCard">
+                  <ProductAttributes
+                    productId={product.id}
+                    productAttr={product.attributes}
+                    attributes={this.attributes}
+                  />
+                </StyledTextItem>
+              </div>
+            )}
             <Button
               variant="circle"
               size="cartCircle"
@@ -99,7 +99,16 @@ export class ProductCard extends Component {
   }
 }
 
-export default ProductCard;
+const mapStateToProps = (state) => {
+  return {
+    index: state.currency.index,
+    currencyType: state.currency.currency,
+    category: state.filters.category.toLowerCase(),
+    hasItems: !!state.cart.totalCount,
+  };
+};
+
+export const ProductCardContainer = connect(mapStateToProps)(ProductCard);
 
 const StyledCardItem = styled.div`
   position: relative;
