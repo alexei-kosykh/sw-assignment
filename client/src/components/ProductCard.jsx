@@ -45,7 +45,7 @@ export class ProductCard extends Component {
                 <div className="image" alt="img"></div>
                 <h3>{product.name}</h3>
                 <p>
-                  {this.props.currencyType}
+                  {this.props.currencyType}{' '}
                   {product.prices[this.props.index].amount}
                 </p>
               </div>

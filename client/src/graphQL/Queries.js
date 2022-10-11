@@ -2,20 +2,25 @@ import axios from 'axios';
 
 export const GET_ALL_PRODUCTS = `
 query {
-  productsAll {
-    id
-    name
-    prices {
-      amount
-      currency
-    }
-    gallery
-    category
-
-    attributes {
+  category(input: {title:"all"}) {
+    products {
+      id
       name
-      items {
-        value
+      prices {
+        amount
+        currency {
+          label
+          symbol
+        }
+      }
+      gallery
+      category
+
+      attributes {
+        name
+        items {
+          value
+        }
       }
     }
   }
@@ -24,18 +29,18 @@ query {
 
 export const GET_CURRENCY = `
 query {
-  productsAll{
-  prices {
-    currency
+  currencies {
+    label
+    symbol
   }
-}
 }
 `;
 
 export const GET_CATEGORIES = `
 query {
-  productsAll {
-   category
+  categories {
+   name
+
   }
 }
 `;
@@ -48,7 +53,10 @@ query {
    name
    prices {
     amount
-    currency
+    currency {
+      label
+      symbol
+    }
   }
    gallery
    description
@@ -65,7 +73,7 @@ query {
 export function makeGraphQLQuery(query) {
   return axios({
     method: 'POST',
-    url: 'http://localhost:4000/graphql',
+    url: 'http://localhost:4000/',
     data: {
       query: query,
     },

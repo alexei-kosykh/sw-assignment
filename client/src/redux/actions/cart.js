@@ -28,6 +28,11 @@ export const minusCartItem = (id, idAttr) => ({
   idAttr,
 });
 
+export const createOrder = (items) => ({
+  type: 'CREATE_NEW_ORDER',
+  payload: items,
+});
+
 export const getInfoForOverlay = () => {
   const items = [];
   let key = 0;
@@ -65,17 +70,12 @@ export const getInfoForOrder =
         totalCount: totalCount,
         totalPrice: totalPrice[currencyIndex]?.amount,
         currency: itemsResult[0].prices.currency,
-        tax21: countTax(totalPrice),
+        tax21: countTax(totalPrice[currencyIndex]?.amount),
         items: itemsResult,
       })
     );
     dispatch(clearAllCart());
   };
-
-export const createOrder = (items) => ({
-  type: 'CREATE_NEW_ORDER',
-  payload: items,
-});
 
 // Two functions for generate info and add item
 export const generateProductInfo = (

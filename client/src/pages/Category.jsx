@@ -22,7 +22,7 @@ export class Category extends Component {
     try {
       let result = await makeGraphQLQuery(GET_ALL_PRODUCTS);
       this.setState({
-        products: result.data.productsAll,
+        products: result.data.category.products,
         isLoaded: true,
       });
     } catch (e) {
@@ -32,6 +32,7 @@ export class Category extends Component {
 
   render() {
     const { error, isLoaded, products } = this.state;
+
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -46,7 +47,8 @@ export class Category extends Component {
           <div>
             {products.map(
               (product) =>
-                product.category === this.props.category.toLowerCase() && (
+                (product.category === this.props.category.toLowerCase() ||
+                  this.props.category.toLowerCase() === 'all') && (
                   <ProductCardContainer
                     key={nanoid()}
                     product={product}

@@ -9,13 +9,13 @@ import { GET_CATEGORIES, makeGraphQLQuery } from '../../graphQL/Queries';
 export class Navigation extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { categories: [] };
+    this.state = { categories: [], activeCategory: '' };
   }
 
   async componentDidMount() {
     let result = await makeGraphQLQuery(GET_CATEGORIES);
     let set = new Set();
-    result.data.productsAll.map((item) => set.add(item.category));
+    result.data.categories.map((item) => set.add(item.name));
     this.setState({
       categories: set,
       activeCategory: store.getState().filters.category.toLowerCase(),

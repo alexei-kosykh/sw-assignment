@@ -12,42 +12,25 @@ export class CurrencySwitcher extends Component {
     this.state = {
       idCurrency: 0,
       allCurrency: [],
-      allSymbolCurrency: [],
     };
   }
 
   async componentDidMount() {
     const result = await makeGraphQLQuery(GET_CURRENCY);
-
-    const allCurrency = result.data.productsAll[0].prices.map(
-      (item) => item.currency
-    );
+    const allCurrency = result.data.currencies;
     this.setState({
       idCurrency: 0,
       allCurrency,
-      allSymbolCurrency: this.toCurrency(allCurrency),
     });
   }
 
   changeCurrency = (index) => {
-    store.dispatch(setCurrency(index, this.state.allSymbolCurrency[index]));
+    store.dispatch(setCurrency(index, this.state.allCurrency[index].symbol));
     this.setState({
       idCurrency: index,
     });
     this.props.toggleCurrency();
   };
-
-  toCurrency = (curr, LanguageFormat = undefined) =>
-    curr.map((item) =>
-      item === 'RUB'
-        ? '₽'
-        : new Intl.NumberFormat(LanguageFormat, {
-            style: 'currency',
-            currency: `${item}`,
-          })
-            .format()
-            .split('NaN')[0]
-    );
 
   render() {
     return (
@@ -56,7 +39,7 @@ export class CurrencySwitcher extends Component {
           <div key={nanoid()} onClick={() => this.changeCurrency(i)}>
             <p>
               <strong>
-                {this.state.allSymbolCurrency[i]} {item}
+                {item.symbol} {item.label}
               </strong>
             </p>
           </div>
