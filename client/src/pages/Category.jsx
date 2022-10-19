@@ -75,14 +75,7 @@ const StyledCategory = styled.div`
   & > div {
     display: grid;
     justify-items: center;
-    grid-template: 1fr / 1fr 1fr 1fr 1fr 1fr;
-
-    @media (max-width: 2150px) {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-    @media (max-width: 1750px) {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
+    grid-template: 1fr / repeat(3, 1fr);
 
     @media (max-width: 1320px) {
       grid-template-columns: 1fr 1fr;

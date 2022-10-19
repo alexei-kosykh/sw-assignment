@@ -29,7 +29,7 @@ export class ProductCard extends Component {
     const product = this.props.product;
     return (
       <>
-        <StyledCardItem key={nanoid()}>
+        <StyledCardItem key={nanoid()} inStock={product.inStock}>
           <Link
             key={nanoid()}
             to={{
@@ -40,9 +40,14 @@ export class ProductCard extends Component {
             <StyledProductCard
               image={product.gallery[0]}
               onClick={() => this.setId(product.id)}
+              inStock={product.inStock}
             >
               <div>
-                <div className="image" alt="img"></div>
+                <div
+                  className={`image ${product.inStock ? '' : 'out-of-stock'}`}
+                  alt="img"
+                ></div>
+
                 <h3>{product.name}</h3>
                 <p>
                   {this.props.currencyType}{' '}
@@ -51,6 +56,7 @@ export class ProductCard extends Component {
               </div>
             </StyledProductCard>
           </Link>
+
           <span>
             {!!product.attributes.length && (
               <div>
@@ -125,6 +131,7 @@ const StyledCardItem = styled.div`
 
     &:hover > div {
       display: block;
+
       cursor: pointer;
       position: absolute;
       bottom: 23px;
@@ -136,7 +143,7 @@ const StyledCardItem = styled.div`
 
   a:hover + span,
   span:hover {
-    display: block;
+    display: ${({ inStock }) => (inStock ? 'block' : 'none')};
   }
 `;
 
@@ -148,6 +155,8 @@ const StyledProductCard = styled.div`
   width: 390px;
   height: 400px;
   font-size: 18px;
+
+  opacity: ${({ inStock }) => (inStock ? 1 : 0.5)};
 
   &:hover {
     cursor: pointer;
@@ -176,7 +185,19 @@ const StyledProductCard = styled.div`
     transition: 1s 0.2s;
   }
 
-  .image:hover {
+  .out-of-stock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+      content: 'OUT OF STOCK';
+
+      font-size: 24px;
+    }
+  }
+
+  .image:not(.out-of-stock):hover {
     transform: scale(1.12);
   }
 

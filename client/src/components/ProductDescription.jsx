@@ -31,14 +31,20 @@ export class ProductDescription extends PureComponent {
               this.props.product.prices?.[this.props.index].amount
             }`}
           </p>
-          <Button
-            variant="primary"
-            size="primaryDefault"
-            value="Add to cart"
-            onClick={() =>
-              addToCart(this.props.product, this.attributes, this.productToCart)
-            }
-          ></Button>
+          {this.props.product.inStock && (
+            <Button
+              variant="primary"
+              size="primaryDefault"
+              value="Add to cart"
+              onClick={() =>
+                addToCart(
+                  this.props.product,
+                  this.attributes,
+                  this.productToCart
+                )
+              }
+            ></Button>
+          )}
           <div
             dangerouslySetInnerHTML={{ __html: this.props.product.description }}
           ></div>

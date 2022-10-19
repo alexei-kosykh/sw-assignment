@@ -6,6 +6,7 @@ query {
     products {
       id
       name
+      inStock
       prices {
         amount
         currency {
@@ -51,6 +52,7 @@ query {
   product(id:"${idProduct}") {
     id
    name
+   inStock
    prices {
     amount
     currency {
