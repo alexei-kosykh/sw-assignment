@@ -13,15 +13,9 @@ export class InputRadioGroup extends Component {
     const dataInput = this.myRef.current.props;
     this.setState({
       [dataInput.index]: {
-        idTarget: 0,
+        idTarget: this.props.attrSelected[dataInput.index]?.attrIndex,
       },
     });
-
-    this.props.attrSelected[dataInput.index] = {
-      nameAttr: this.props.attr.name,
-      attrValue: this.props.attr.items,
-      attrIndex: 0,
-    };
   }
 
   onSelectType = (e) => {

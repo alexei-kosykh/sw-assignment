@@ -1,5 +1,6 @@
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { addToCart } from '../redux/actions/cart';
@@ -10,9 +11,24 @@ import { StyledTextItem } from '../GeneralStyles';
 export class ProductDescription extends PureComponent {
   constructor(props) {
     super(props);
+    this.state = {
+      checkSelectAttributes: false,
+      attributes: [],
+    };
     this.productToCart = [];
-    this.attributes = [];
   }
+
+  checkAllAttributes = (product, attributes, productToCart) => {
+    const filterAttributes = attributes.filter(function (item) {
+      return item !== null && item !== '';
+    });
+    if (filterAttributes.length === this.props.product.attributes.length) {
+      addToCart(product, attributes, productToCart);
+      this.setState({ checkSelectAttributes: false, attributes: [] });
+    } else {
+      this.setState({ checkSelectAttributes: true });
+    }
+  };
 
   render() {
     return (
@@ -20,10 +36,14 @@ export class ProductDescription extends PureComponent {
         <StyledTextItem elemSize={this.props.elemSize}>
           <h2>{this.props.product.name}</h2>
           <h3>{this.props.product.brand}</h3>
+          {this.state.checkSelectAttributes && (
+            <span>You need to select all the parameters!</span>
+          )}
+
           <ProductAttributes
             productId={this.props.product.id}
             productAttr={this.props.product.attributes}
-            attributes={this.attributes}
+            attributes={this.state.attributes}
           />
           <h4>PRICE:</h4>
           <p>
@@ -31,20 +51,26 @@ export class ProductDescription extends PureComponent {
               this.props.product.prices?.[this.props.index].amount
             }`}
           </p>
-          {this.props.product.inStock && (
+
+          {this.props.product.inStock ? (
             <Button
               variant="primary"
               size="primaryDefault"
               value="Add to cart"
               onClick={() =>
-                addToCart(
+                this.checkAllAttributes(
                   this.props.product,
-                  this.attributes,
+                  this.state.attributes,
                   this.productToCart
                 )
               }
             ></Button>
+          ) : (
+            <Link to="/">
+              <Button size="primaryDefault" value="Back to categories"></Button>
+            </Link>
           )}
+
           <div
             dangerouslySetInnerHTML={{ __html: this.props.product.description }}
           ></div>
@@ -65,9 +91,14 @@ export const ProductDescriptionContainer =
   connect(mapStateToProps)(ProductDescription);
 
 const StyledProductDescription = styled.div`
+  a > button,
   & > div > button {
     margin: 30px 0;
     text-transform: uppercase;
+  }
+
+  span {
+    color: red;
   }
 
   & > div > div:last-child {

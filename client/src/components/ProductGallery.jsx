@@ -68,9 +68,10 @@ const StyledProductGallery = styled.div`
   & > div {
     @media (max-width: 1000px) {
       display: flex;
+      flex-wrap: wrap;
       width: 100%;
 
-      img:not(:last-child) {
+      img:not(:nth-child(5)) {
         margin-right: 12px;
       }
     }
@@ -90,7 +91,7 @@ const StyledSideGallery = styled.div`
     object-fit: cover;
     object-position: 0% 0%;
   }
-  img:not(:last-child) {
+  img {
     margin-bottom: 25px;
   }
 

@@ -116,4 +116,5 @@ export const addToCart = (product, attributes, productToCart) => {
       idCurrentAttributes
     )
   );
+  
 };

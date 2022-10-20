@@ -10,7 +10,9 @@ export class Header extends Component {
   render() {
     return (
       <StyledHeaderWrapper>
-        <Navigation />
+        <Link to="/">
+          <Navigation />
+        </Link>
         <Link to="/">
           <img src={logo} alt="logo" />
         </Link>
@@ -52,7 +54,7 @@ const StyledHeaderWrapper = styled.div`
     cursor: pointer;
   }
 
-  & > div {
+  & > a {
     width: 40%;
   }
 `;
