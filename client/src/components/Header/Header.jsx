@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { Navigation, Actions } from './';
 
-import logo from '../../assets/a-logo.png';
+import { mainLogo } from '../../assets/svg-icons';
 
 export class Header extends Component {
   render() {
@@ -13,9 +13,7 @@ export class Header extends Component {
         <Link to="/">
           <Navigation />
         </Link>
-        <Link to="/">
-          <img src={logo} alt="logo" />
-        </Link>
+        <Link to="/">{mainLogo}</Link>
         <Actions />
       </StyledHeaderWrapper>
     );

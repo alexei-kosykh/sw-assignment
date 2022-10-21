@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import defaultImage from '../assets/default.png';
 
+
 export class ProductGallery extends Component {
   constructor(props) {
     super(props);

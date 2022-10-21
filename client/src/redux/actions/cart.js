@@ -116,5 +116,21 @@ export const addToCart = (product, attributes, productToCart) => {
       idCurrentAttributes
     )
   );
-  
+};
+
+export const checkAllAttributes = (
+  product,
+  attributes,
+  productToCart,
+  attrLength
+) => {
+  const filterAttributes = attributes.filter(function (item) {
+    return item !== null && item !== '';
+  });
+  if (filterAttributes.length === attrLength) {
+    addToCart(product, attributes, productToCart);
+    return true;
+  } else {
+    return false;
+  }
 };

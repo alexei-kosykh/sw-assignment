@@ -12,8 +12,8 @@ export class ProductCartText extends Component {
     return (
       <StyledTextItem elemSize={this.props.elemSize}>
         <div>
-          <h2>{name}</h2>
-          <h3>{brand}</h3>
+          <h2>{brand}</h2>
+          <h3>{name}</h3>
           <p>
             {this.props.currencyType}
             {this.props.price}

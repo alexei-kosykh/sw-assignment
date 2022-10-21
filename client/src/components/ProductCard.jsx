@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import { store } from '../redux/store';
 import { setIdProduct } from '../redux/actions/products';
-import { addToCart } from '../redux/actions/cart';
+import { checkAllAttributes } from '../redux/actions/cart';
 
 import { ProductAttributes } from '.';
 
@@ -17,9 +17,18 @@ import { StyledTextItem } from '../GeneralStyles';
 export class ProductCard extends Component {
   constructor(props) {
     super(props);
-    this.attributes = [];
+    this.state = {
+      checkSelectAttributes: false,
+      attributes: [],
+    };
     this.productToCart = [];
   }
+
+  setAttributes = (product, attributes, productToCart, attrLength) => {
+    checkAllAttributes(product, attributes, productToCart, attrLength)
+      ? this.setState({ checkSelectAttributes: false, attributes: [] })
+      : this.setState({ checkSelectAttributes: true });
+  };
 
   setId = (id) => {
     store.dispatch(setIdProduct(id));
@@ -61,10 +70,13 @@ export class ProductCard extends Component {
             {!!product.attributes.length && (
               <div>
                 <StyledTextItem elemSize="SmallInCard">
+                  {this.state.checkSelectAttributes && (
+                    <p>Select all of them!</p>
+                  )}
                   <ProductAttributes
                     productId={product.id}
                     productAttr={product.attributes}
-                    attributes={this.attributes}
+                    attributes={this.state.attributes}
                   />
                 </StyledTextItem>
               </div>
@@ -95,7 +107,12 @@ export class ProductCard extends Component {
                 </svg>
               }
               onClick={() =>
-                addToCart(product, this.attributes, this.productToCart)
+                this.setAttributes(
+                  product,
+                  this.state.attributes,
+                  this.productToCart,
+                  product.attributes.length
+                )
               }
             ></Button>
           </span>
@@ -127,6 +144,10 @@ const StyledCardItem = styled.div`
 
     & > div {
       display: none;
+
+      & div > p {
+        color: red;
+      }
     }
 
     &:hover > div {

@@ -87,6 +87,7 @@ const StyledCartOverlay = styled.div`
 
   p:nth-child(3) {
     margin-bottom: 10px;
+    font-weight: 700;
   } // for price in cartOverlay
 
   strong {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import styled, { css } from 'styled-components';
 
-import { default as defaultImage } from '../../assets/default.png';
+import defaultImage from '../../assets/default.png';
 
 export class ImageInCart extends Component {
   constructor(props) {

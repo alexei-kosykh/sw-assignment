@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export const GET_ALL_PRODUCTS = `
+export const GET_PRODUCTS_BY_CATEGORY = (category) => `
 query {
-  category(input: {title:"all"}) {
+  category(input: {title:"${category}"}) {
     products {
       id
       name

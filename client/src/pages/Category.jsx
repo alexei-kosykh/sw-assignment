@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 
-import { GET_ALL_PRODUCTS, makeGraphQLQuery } from '../graphQL/Queries';
+import { store } from '../redux/store';
+import { GET_PRODUCTS_BY_CATEGORY, makeGraphQLQuery } from '../graphQL/Queries';
 
 import { ProductCardContainer } from '../components';
 
@@ -16,17 +17,38 @@ export class Category extends Component {
       error: null,
       isLoaded: false,
       products: [],
+      category: store.getState().filters.category,
     };
   }
+
   async componentDidMount() {
     try {
-      let result = await makeGraphQLQuery(GET_ALL_PRODUCTS);
+      let result = await makeGraphQLQuery(
+        GET_PRODUCTS_BY_CATEGORY(store.getState().filters.category)
+      );
       this.setState({
         products: result.data.category.products,
+        category: store.getState().filters.category,
         isLoaded: true,
       });
     } catch (e) {
       this.setState({ error: e, isLoaded: true });
+    }
+  }
+
+  async shouldComponentUpdate(nextState) {
+    if (this.state.category === nextState.category.toLowerCase()) {
+      return false;
+    } else {
+      let result = await makeGraphQLQuery(
+        GET_PRODUCTS_BY_CATEGORY(store.getState().filters.category)
+      );
+      this.setState({
+        products: result.data.category.products,
+        category: store.getState().filters.category,
+        isLoaded: true,
+      });
+      return true;
     }
   }
 
@@ -45,17 +67,9 @@ export class Category extends Component {
             {this.props.category.slice(1).toLowerCase()}
           </StyledTitle>
           <div>
-            {products.map(
-              (product) =>
-                (product.category === this.props.category.toLowerCase() ||
-                  this.props.category.toLowerCase() === 'all') && (
-                  <ProductCardContainer
-                    key={nanoid()}
-                    product={product}
-                    b="8"
-                  />
-                )
-            )}
+            {products.map((product) => (
+              <ProductCardContainer key={nanoid()} product={product} />
+            ))}
           </div>
         </StyledCategory>
       );

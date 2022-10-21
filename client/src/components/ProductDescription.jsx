@@ -2,8 +2,9 @@ import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Markup } from 'interweave';
 
-import { addToCart } from '../redux/actions/cart';
+import { checkAllAttributes } from '../redux/actions/cart';
 
 import { Button, ProductAttributes } from '.';
 
@@ -18,24 +19,18 @@ export class ProductDescription extends PureComponent {
     this.productToCart = [];
   }
 
-  checkAllAttributes = (product, attributes, productToCart) => {
-    const filterAttributes = attributes.filter(function (item) {
-      return item !== null && item !== '';
-    });
-    if (filterAttributes.length === this.props.product.attributes.length) {
-      addToCart(product, attributes, productToCart);
-      this.setState({ checkSelectAttributes: false, attributes: [] });
-    } else {
-      this.setState({ checkSelectAttributes: true });
-    }
+  setAttributes = (product, attributes, productToCart, attrLength) => {
+    checkAllAttributes(product, attributes, productToCart, attrLength)
+      ? this.setState({ checkSelectAttributes: false, attributes: [] })
+      : this.setState({ checkSelectAttributes: true });
   };
 
   render() {
     return (
       <StyledProductDescription>
         <StyledTextItem elemSize={this.props.elemSize}>
-          <h2>{this.props.product.name}</h2>
-          <h3>{this.props.product.brand}</h3>
+          <h2>{this.props.product.brand}</h2>
+          <h3>{this.props.product.name}</h3>
           {this.state.checkSelectAttributes && (
             <span>You need to select all the parameters!</span>
           )}
@@ -58,10 +53,11 @@ export class ProductDescription extends PureComponent {
               size="primaryDefault"
               value="Add to cart"
               onClick={() =>
-                this.checkAllAttributes(
+                this.setAttributes(
                   this.props.product,
                   this.state.attributes,
-                  this.productToCart
+                  this.productToCart,
+                  this.props.product.attributes.length
                 )
               }
             ></Button>
@@ -71,9 +67,9 @@ export class ProductDescription extends PureComponent {
             </Link>
           )}
 
-          <div
-            dangerouslySetInnerHTML={{ __html: this.props.product.description }}
-          ></div>
+          <div>
+            <Markup content={this.props.product.description} />
+          </div>
         </StyledTextItem>
       </StyledProductDescription>
     );
@@ -97,14 +93,14 @@ const StyledProductDescription = styled.div`
     text-transform: uppercase;
   }
 
-  span {
+  h3 + span {
     color: red;
   }
 
   & > div > div:last-child {
     padding-right: 20px;
     max-height: 17vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-bottom: 30px;
 
     div > ul {
